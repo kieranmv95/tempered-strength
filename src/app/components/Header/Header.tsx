@@ -6,6 +6,8 @@ import { UserButton, SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 
+import TemperedStrengthSvg from "../../assets/TemperedStrength.svg";
+
 const Header = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -20,7 +22,7 @@ const Header = () => {
             <nav className="flex items-center justify-between flex-wrap bg-zinc-700 p-4">
                 <div className="flex items-center flex-shrink-0 text-white mr-6">
                     <Link href="/">
-                        <Image src="/temperedStrength.svg" alt="Primary Logo" width={400} height={188} className="w-36" priority />
+                        <Image src={TemperedStrengthSvg} alt="Primary Logo" width={400} height={188} className="w-36" priority />
                     </Link>
                 </div>
                 <div className="block lg:hidden">
