@@ -22,24 +22,31 @@ export default async function Exercise({ params }: { params: { exerciseId: strin
         <div className="px-4 py-12 container mx-auto">
             <Link href="/exercises" className="hover:underline mb-5 block text-sm">← Back to exercises</Link>
             <h2 className="text-2xl font-bold lg:text-4xl mb-6">{exercise.name}</h2>
-            <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
-                <div className="bg-zinc-700 rounded-sm py-6">
-                    <p className="text-xl font-bold mb-2">Best</p>
-                    {userExercises.reduce((a, b) => Math.max(a, Number(b.log)), -Infinity)}kg
+            {!userExercises.length && (
+                <div>
+                    No {exercise.name} bests logged, go back to the exercise page to log!<br /><br />Ability to log workouts soon coming to this page
                 </div>
-                <div className="bg-zinc-700 rounded-sm py-6">
-                    <p className="text-xl font-bold mb-2 text-center">Latest</p>
-                    {userExercises.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())[0].log}kg
-                </div>
-            </div>
-            <p className="text-xl font-bold mb-6">Log</p>
-            <div className="grid gap-3">
-                {userExercises
-                    .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-                    .map((userExercise) => (
-                        <div
-                            key={userExercise.id}
-                            className={`
+            )}
+            {!!userExercises.length && (
+                <>
+                    <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
+                        <div className="bg-zinc-700 rounded-sm py-6">
+                            <p className="text-xl font-bold mb-2">Best</p>
+                            {userExercises.reduce((a, b) => Math.max(a, Number(b.log)), -Infinity)}kg
+                        </div>
+                        <div className="bg-zinc-700 rounded-sm py-6">
+                            <p className="text-xl font-bold mb-2 text-center">Latest</p>
+                            {userExercises.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())[0].log}kg
+                        </div>
+                    </div>
+                    <p className="text-xl font-bold mb-6">Log</p>
+                    <div className="grid gap-3">
+                        {userExercises
+                            .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+                            .map((userExercise) => (
+                                <div
+                                    key={userExercise.id}
+                                    className={`
                                 bg-zinc-700
                                 px-3
                                 py-2
@@ -47,12 +54,14 @@ export default async function Exercise({ params }: { params: { exerciseId: strin
                                 flex
                                 justify-between
                             `}
-                        >
-                            <div>{new Date(userExercise.date).toLocaleDateString('en-GB')}</div>
-                            <div>{userExercise.log}kg</div>
-                        </div>
-                    ))}
-            </div>
+                                >
+                                    <div>{new Date(userExercise.date).toLocaleDateString('en-GB')}</div>
+                                    <div>{userExercise.log}kg</div>
+                                </div>
+                            ))}
+                    </div>
+                </>
+            )}
         </div>
     )
 }
