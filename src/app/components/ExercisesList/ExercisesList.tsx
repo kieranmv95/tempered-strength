@@ -4,7 +4,7 @@ import { useState} from "react";
 import { IExercise } from "@/app/api/user/exercises/route";
 import LogExerciseForm from "@/app/components/LogExerciseForm";
 import useUserExercises from "@/app/hooks/useUserExercises";
-import toast from "react-hot-toast";
+import Link from "next/link";
 
 type ExercisesListProps = {
     exercises: IExercise[]
@@ -12,7 +12,7 @@ type ExercisesListProps = {
 
 const ExercisesList = ({ exercises }: ExercisesListProps) => {
     const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(null)
-    const [userExercises] = useUserExercises();
+    const { userExercises } = useUserExercises();
 
 
     const getOneRepMax = (exerciseId: number) => {
@@ -27,7 +27,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
         <>
             <div className="grid gap-3">
                 {exercises.map((exercise) => (
-                    <button
+                    <div
                         key={exercise.id}
                         className={`
                             text-left
@@ -42,14 +42,12 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                         <div className="py-3">{exercise.name}</div>
                         <div className="flex gap-3">
                             {getOneRepMax(exercise.id)}
-                            {/*<div onClick={() => toast("hello")}*/}
-                            {/*     className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm">Toast*/}
-                            {/*</div>*/}
                             <div onClick={() => setSelectedExercise(exercise)}
                                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm">+
                             </div>
+                            <Link href={`/exercises/${exercise.id}`} className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm">→</Link>
                         </div>
-                    </button>
+                    </div>
                 ))}
             </div>
 

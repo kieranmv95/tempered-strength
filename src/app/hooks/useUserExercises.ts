@@ -17,7 +17,11 @@ const useUserExercises = () => {
         })();
     }, [userExercises, dispatch]);
 
-    return [userExercises];
+    const getExercisesById = (id: number) => {
+        return userExercises?.filter((exercise) => exercise.id === id);
+    }
+
+    return { userExercises, getExercisesById };
 }
 
 export default useUserExercises;

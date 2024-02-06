@@ -4,10 +4,10 @@ import useUserExercises from "@/app/hooks/useUserExercises";
 import Link from "next/link";
 
 export default function Dashboard() {
-    const [userExercises] = useUserExercises();
+    const { userExercises } = useUserExercises();
 
     return (
-        <div className="px-4 py-12 container mx-auto lg:py-24">
+        <div className="px-4 py-12 container mx-auto">
             <h2 className="text-2xl font-bold lg:text-4xl mb-6">DASHBOARD</h2>
 
             <h2 className="text-xl font-bold">Exercises</h2>
