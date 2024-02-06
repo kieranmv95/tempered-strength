@@ -14,19 +14,24 @@ const ExerciseSchema = Yup.object().shape({
 });
 
 type LogExerciseFormProps = {
-    setSelectedExercise: () => void,
+    close: () => void,
     exercise: IExercise,
 }
 
-const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps) => {
+const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
     const dispatch = useAppDispatch();
     const { userId } = useAuth();
 
     return (
         <>
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer" onClick={() => console.log('CLOSE')}/>
-            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                <div className="flex min-h-full justify-center p-4 items-center sm:p-0">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer"/>
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto" onClick={() => console.log('CLOSE')}>
+                <div className="flex min-h-full justify-center p-4 items-center sm:p-0" onClick={(e) => e.stopPropagation()}>
+                    <div onClick={close}>
+                        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 14 14">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                    </div>
                     <Formik
                         initialValues={{
                             log: "",
@@ -56,7 +61,7 @@ const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps
                             toast.success("Exercise Logged");
 
                             setSubmitting(false);
-                            setSelectedExercise()
+                            close()
                         }}
                     >
                         {({isSubmitting}) => (
@@ -85,7 +90,8 @@ const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps
                                             render={msg => <div className="text-xs text-red-600 mt-2">{msg}</div>}
                                         />
                                     </div>
-                                    <button type="submit" disabled={isSubmitting} className="w-full block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded">
+                                    <button type="submit" disabled={isSubmitting}
+                                            className="w-full block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded">
                                         Submit
                                     </button>
                                 </div>

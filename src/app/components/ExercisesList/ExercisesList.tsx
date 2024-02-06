@@ -56,7 +56,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             {selectedExercise && (
                 <LogExerciseForm
                     exercise={selectedExercise}
-                    setSelectedExercise={() => setSelectedExercise(null)}
+                    close={() => setSelectedExercise(null)}
                 />
             )}
         </>
