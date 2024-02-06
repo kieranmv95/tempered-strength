@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from 'next/navigation';
-import { UserButton, SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -48,7 +48,7 @@ const Header = () => {
                             <UserButton afterSignOutUrl="/" />
                         </SignedIn>
                         <SignedOut>
-                            <Link className="block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded" href="/sign-in">Sign in</Link>
+                            <Link className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded" href="/sign-in">Sign in</Link>
                             <Link className="block py-2 px-4 rounded hover:underline" href="/sign-up">Sign up</Link>
                         </SignedOut>
                     </div>

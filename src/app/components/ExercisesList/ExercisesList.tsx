@@ -4,6 +4,7 @@ import { useState} from "react";
 import { IExercise } from "@/app/api/user/exercises/route";
 import LogExerciseForm from "@/app/components/LogExerciseForm";
 import useUserExercises from "@/app/hooks/useUserExercises";
+import toast from "react-hot-toast";
 
 type ExercisesListProps = {
     exercises: IExercise[]
@@ -33,16 +34,21 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                             bg-zinc-700
                             px-3
                             rounded-sm
-                            hover:bg-zinc-600
-                            active:bg-zinc-700
                             flex
                             justify-between
                             items-center
                         `}
-                        onClick={() => setSelectedExercise(exercise)}
                     >
                         <div className="py-3">{exercise.name}</div>
-                        {getOneRepMax(exercise.id)}
+                        <div className="flex gap-3">
+                            {getOneRepMax(exercise.id)}
+                            {/*<div onClick={() => toast("hello")}*/}
+                            {/*     className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm">Toast*/}
+                            {/*</div>*/}
+                            <div onClick={() => setSelectedExercise(exercise)}
+                                 className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm">+
+                            </div>
+                        </div>
                     </button>
                 ))}
             </div>

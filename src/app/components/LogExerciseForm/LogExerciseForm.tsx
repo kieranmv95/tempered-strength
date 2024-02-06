@@ -6,6 +6,7 @@ import { IExercise } from "@/app/api/user/exercises/route";
 import {useAppDispatch} from "@/lib/hooks";
 import {addSuccess} from "@/lib/features/userExercises/userExercisesSlice";
 import {auth, useAuth} from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 const ExerciseSchema = Yup.object().shape({
     log: Yup.number().required('Weight Required'),
@@ -23,7 +24,7 @@ const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps
 
     return (
         <>
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer" />
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer" onClick={() => console.log('CLOSE')}/>
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full justify-center p-4 items-center sm:p-0">
                     <Formik
@@ -51,6 +52,8 @@ const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps
                                 log: values.log,
                                 date: values.date,
                             }))
+
+                            toast.success("Exercise Logged");
 
                             setSubmitting(false);
                             setSelectedExercise()
