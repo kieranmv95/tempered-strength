@@ -75,6 +75,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                                         <Field
                                             type="number"
                                             name="log"
+                                            placeHolder="100kg"
                                             className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         />
                                         <ErrorMessage
@@ -87,7 +88,8 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                                         <Field
                                             type="date"
                                             name="date"
-                                            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                                            placeHolder="dd/mm/yyyy"
+                                            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[42px]"
                                         />
                                         <ErrorMessage
                                             name="date"
