@@ -25,13 +25,8 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
     return (
         <>
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer"/>
-            <div className="fixed inset-0 z-10 w-screen overflow-y-auto" onClick={() => console.log('CLOSE')}>
-                <div className="flex min-h-full justify-center p-4 items-center sm:p-0" onClick={(e) => e.stopPropagation()}>
-                    <div onClick={close}>
-                        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 14 14">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                        </svg>
-                    </div>
+            <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div className="flex min-h-full justify-center p-4 items-center sm:p-0">
                     <Formik
                         initialValues={{
                             log: "",
@@ -65,10 +60,18 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                         }}
                     >
                         {({isSubmitting}) => (
-                            <Form className="bg-zinc-800 p-6 rounded">
-                                <h2 className="text-md mb-4">{exercise.name}</h2>
+                            <Form className="bg-zinc-800 p-6 rounded relative w-[300px]">
+                                <div className="absolute top-0 right-0 p-4 cursor-pointer" onClick={close}>
+                                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                         fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+                                              strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    </svg>
+                                </div>
+                                <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
                                 <div className="grid gap-4">
                                     <div>
+                                        <label className="block mb-1" htmlFor="date">Weight (kg)</label>
                                         <Field
                                             type="number"
                                             name="log"
@@ -80,6 +83,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                                         />
                                     </div>
                                     <div>
+                                        <label className="block mb-1" htmlFor="date">Date</label>
                                         <Field
                                             type="date"
                                             name="date"
