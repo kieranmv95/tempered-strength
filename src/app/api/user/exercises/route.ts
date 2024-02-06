@@ -39,3 +39,17 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ err: "Not created invalid data", e}, { status: 422 })
     }
 }
+
+
+export async function GET() {
+    const { userId } = auth();
+
+    const sql = `SELECT * FROM userExercises WHERE userId = '${userId}'`;
+
+    try {
+        const result = await query(sql);
+        return  NextResponse.json(result, { status: 200 })
+    } catch (e) {
+        return NextResponse.json({ err: "User exercises not found", e}, { status: 404 })
+    }
+}

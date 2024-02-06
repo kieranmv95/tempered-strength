@@ -3,6 +3,9 @@
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { IExercise } from "@/app/api/user/exercises/route";
+import {useAppDispatch} from "@/lib/hooks";
+import {addSuccess} from "@/lib/features/userExercises/userExercisesSlice";
+import {auth, useAuth} from "@clerk/nextjs";
 
 const ExerciseSchema = Yup.object().shape({
     log: Yup.number().required('Weight Required'),
@@ -15,6 +18,9 @@ type LogExerciseFormProps = {
 }
 
 const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps) => {
+    const dispatch = useAppDispatch();
+    const { userId } = useAuth();
+
     return (
         <>
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity pointer" />
@@ -33,10 +39,18 @@ const LogExerciseForm = ({ exercise, setSelectedExercise }: LogExerciseFormProps
                                 date: values.date,
                             }
 
-                            const res = await fetch('/api/user/exercises', {
+                            await fetch('/api/user/exercises', {
                                 method: "POST",
                                 body: JSON.stringify(data)
                             });
+
+                            dispatch(addSuccess({
+                                id: Math.random(),
+                                exerciseId: exercise.id,
+                                userId: userId || "",
+                                log: values.log,
+                                date: values.date,
+                            }))
 
                             setSubmitting(false);
                             setSelectedExercise()
