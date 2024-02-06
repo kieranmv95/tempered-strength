@@ -1,10 +1,9 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import { IExercise } from "@/app/api/user/exercises/route";
 import LogExerciseForm from "@/app/components/LogExerciseForm";
-import {useAppDispatch, useAppSelector} from "@/lib/hooks";
-import {addSuccess, fetchSuccess} from "@/lib/features/userExercises/userExercisesSlice";
+import useUserExercises from "@/app/hooks/useUserExercises";
 
 type ExercisesListProps = {
     exercises: IExercise[]
@@ -12,19 +11,8 @@ type ExercisesListProps = {
 
 const ExercisesList = ({ exercises }: ExercisesListProps) => {
     const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(null)
-    const userExercises = useAppSelector((state) => state.exercises.data);
-    const dispatch = useAppDispatch();
+    const [userExercises] = useUserExercises();
 
-    useEffect(() => {
-        (async () => {
-            if(!userExercises) {
-                const res = await fetch('/api/user/exercises');
-                const json = await res.json();
-
-                dispatch(fetchSuccess(json))
-            }
-        })();
-    }, [userExercises, dispatch]);
 
     const getOneRepMax = (exerciseId: number) => {
         const oneRepMax = userExercises
@@ -43,8 +31,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                         className={`
                             text-left
                             bg-zinc-700
-                            px-4
-                            py-2
+                            px-3
                             rounded-sm
                             hover:bg-zinc-600
                             active:bg-zinc-700
@@ -54,7 +41,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                         `}
                         onClick={() => setSelectedExercise(exercise)}
                     >
-                        <div>{exercise.name}</div>
+                        <div className="py-3">{exercise.name}</div>
                         {getOneRepMax(exercise.id)}
                     </button>
                 ))}
