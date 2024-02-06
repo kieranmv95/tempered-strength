@@ -29,13 +29,13 @@ export default async function Exercise({ params }: { params: { exerciseId: strin
                 </div>
                 <div className="bg-zinc-700 rounded-sm py-6">
                     <p className="text-xl font-bold mb-2 text-center">Latest</p>
-                    {userExercises.sort((a, b) => new Date(b.date) - new Date(a.date))[0].log}kg
+                    {userExercises.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())[0].log}kg
                 </div>
             </div>
             <p className="text-xl font-bold mb-6">Log</p>
             <div className="grid gap-3">
                 {userExercises
-                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
                     .map((userExercise) => (
                         <div
                             key={userExercise.id}
