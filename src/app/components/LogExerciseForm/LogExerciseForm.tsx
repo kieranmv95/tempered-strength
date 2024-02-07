@@ -98,7 +98,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                                         />
                                     </div>
                                     <button type="submit" disabled={isSubmitting}
-                                            className="w-full block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded">
+                                            className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded">
                                         Submit
                                     </button>
                                 </div>

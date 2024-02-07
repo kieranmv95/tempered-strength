@@ -1,7 +1,9 @@
 "use client"
 
 import React, { useState } from "react";
-import {IExercise, IUserExercise} from "@/app/api/user/exercises/route";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { IExercise, IUserExercise } from "@/app/api/user/exercises/route";
 
 type ExerciseListItemProps = {
     exercise: IExercise;
@@ -24,14 +26,14 @@ const ExerciseListItem = ({ exercise, userExercise, deleteExercise }: ExerciseLi
                     onClick={() => setShowOptions(!showOptions)}
                     className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm h-11 w-8 flex items-center justify-center"
                 >
-                    ...
+                    <FontAwesomeIcon icon={faEllipsis} />
                 </div>
                 {showOptions && (
                     <div
                         onClick={() => deleteExercise(userExercise.id)}
-                    className="cursor-pointer bg-red-600 hover:bg-red-700-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+                    className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                     >
-                        Bin
+                        <FontAwesomeIcon icon={faTrash} />
                     </div>
                 )}
         </div>

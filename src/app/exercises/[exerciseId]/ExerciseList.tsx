@@ -7,7 +7,9 @@ import LogExerciseForm from "@/app/components/LogExerciseForm";
 import ExerciseListItem from "@/app/exercises/[exerciseId]/ExerciseListItem";
 import { removeSuccess } from "@/lib/features/userExercises/userExercisesSlice";
 import toast from "react-hot-toast";
-import {useAppDispatch} from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
     const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(null)
@@ -48,7 +50,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                                 </div>
                             </div>
                             <p className="text-xl font-bold mb-6">Log</p>
-                            <button className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded mb-4" onClick={() => setSelectedExercise(exercise)}>Log</button>
+                            <button className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mb-4" onClick={() => setSelectedExercise(exercise)}>Log <FontAwesomeIcon icon={faPlus} /></button>
                             <div className="grid gap-3">
                                 {getExerciseById(exercise.id)
                                     .map((userExercise) => {
@@ -58,8 +60,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                         </>
                     ) : (
                         <div>
-                            <button className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded mt-2"  onClick={() => setSelectedExercise(exercise)}>Log your
-                                first {exercise.name}</button>
+                            <button className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"  onClick={() => setSelectedExercise(exercise)}>Log your
+                                first {exercise.name} <FontAwesomeIcon icon={faPlus} /></button>
                         </div>
                     )}
                 </>

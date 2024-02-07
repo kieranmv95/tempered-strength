@@ -5,6 +5,8 @@ import { IExercise } from "@/app/api/user/exercises/route";
 import LogExerciseForm from "@/app/components/LogExerciseForm";
 import useUserExercises from "@/app/hooks/useUserExercises";
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 type ExercisesListProps = {
     exercises: IExercise[]
@@ -34,13 +36,13 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                                     onClick={() => setSelectedExercise(exercise)}
                                     className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                                 >
-                                    +
+                                    <FontAwesomeIcon icon={faPlus} />
                                 </div>
                                 <Link
                                     href={`/exercises/${exercise.id}`}
-                                    className="cursor-pointer bg-blue-600 hover:bg-green-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+                                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                                 >
-                                    →
+                                    <FontAwesomeIcon icon={faArrowRight} />
                                 </Link>
                             </div>
                         </div>
