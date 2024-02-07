@@ -40,13 +40,14 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                                 date: values.date,
                             }
 
-                            await fetch('/api/user/exercises', {
+                            const res = await fetch('/api/user/exercises', {
                                 method: "POST",
                                 body: JSON.stringify(data)
                             });
+                            const json = await res.json();
 
                             dispatch(addSuccess({
-                                id: Math.random(),
+                                id: json.insertId,
                                 exerciseId: exercise.id,
                                 userId: userId || "",
                                 log: values.log,
