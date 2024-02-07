@@ -3,9 +3,9 @@
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { IExercise } from "@/app/api/user/exercises/route";
-import {useAppDispatch} from "@/lib/hooks";
-import {addSuccess} from "@/lib/features/userExercises/userExercisesSlice";
-import {auth, useAuth} from "@clerk/nextjs";
+import { useAppDispatch } from "@/lib/hooks";
+import { addSuccess } from "@/lib/features/userExercises/userExercisesSlice";
+import { useAuth } from "@clerk/nextjs";
 import toast from "react-hot-toast";
 
 const ExerciseSchema = Yup.object().shape({
