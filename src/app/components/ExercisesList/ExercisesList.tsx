@@ -12,7 +12,7 @@ type ExercisesListProps = {
 
 const ExercisesList = ({ exercises }: ExercisesListProps) => {
     const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(null)
-    const { data, loading, err, getOneRepMax } = useUserExercises();
+    const { loading, err, getOneRepMax } = useUserExercises();
 
     if (loading && !err) return <>Loading...</>;
     if (!loading && err) return <>Error</>;
@@ -24,30 +24,21 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                     const oneRepMax = getOneRepMax(exercise.id);
 
                     return (
-                        <div
-                            key={exercise.id}
-                            className={`
-                            text-left
-                            bg-zinc-700
-                            px-3
-                            rounded-sm
-                            flex
-                            justify-between
-                            items-center
-                        `}
-                        >
-                            <div className="py-3">{exercise.name}</div>
-                            <div className="flex gap-3">
-                                {oneRepMax && <div className="bg-amber-400 text-zinc-900 px-2 py-1 rounded-sm">{oneRepMax}kg</div>}
+                        <div key={exercise.id}  className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
+                            <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
+                                <p>{exercise.name}</p>
+                                {oneRepMax && <p className="font-bold">{oneRepMax}kg</p>}
+                            </div>
+                            <div className="flex gap-2">
                                 <div
                                     onClick={() => setSelectedExercise(exercise)}
-                                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm"
+                                    className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                                 >
                                     +
                                 </div>
                                 <Link
                                     href={`/exercises/${exercise.id}`}
-                                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-sm"
+                                    className="cursor-pointer bg-blue-600 hover:bg-green-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                                 >
                                     →
                                 </Link>

@@ -14,6 +14,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Authentication is implemented using Clerk
 
+### State Management
+
+We use redux toolkit for state management and follow the simple pattern of using basic slices with the createAsync builder pattern.
+
+All the slices will follow a data structure of `data, loading, err`
+
+Hooks should be made to accompany the use of redux state, meaning there can be only one way to access the state
+
 ### Database
 
 The tempered-strength database is implemented using the PlantetScale platform

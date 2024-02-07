@@ -1,11 +1,29 @@
 "use client"
 
-import React from "react";
+import React, {useState} from "react";
 import useUserExercises from "@/app/hooks/useUserExercises";
 import { IExercise } from "@/app/api/user/exercises/route";
+import LogExerciseForm from "@/app/components/LogExerciseForm";
+import ExerciseListItem from "@/app/exercises/[exerciseId]/ExerciseListItem";
+import { removeSuccess } from "@/lib/features/userExercises/userExercisesSlice";
+import toast from "react-hot-toast";
+import {useAppDispatch} from "@/lib/hooks";
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
+    const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(null)
     const { data, loading, err, getExerciseById} = useUserExercises();
+    const dispatch = useAppDispatch();
+
+    const deleteExercise = async (id: number) => {
+        await fetch('/api/user/exercises', {
+            method: "DELETE",
+            body: JSON.stringify({ id })
+        });
+
+        dispatch(removeSuccess({ id }))
+
+        toast.success("Exercise Removed");
+    }
 
     return (
         <>
@@ -30,32 +48,27 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                                 </div>
                             </div>
                             <p className="text-xl font-bold mb-6">Log</p>
+                            <button className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded mb-4" onClick={() => setSelectedExercise(exercise)}>Log</button>
                             <div className="grid gap-3">
                                 {getExerciseById(exercise.id)
-                                    .map((userExercise) => (
-                                        <div
-                                            key={userExercise.id}
-                                            className={`
-                                                bg-zinc-700
-                                                px-3
-                                                py-2
-                                                rounded-sm
-                                                flex
-                                                justify-between
-                                            `}
-                                        >
-                                            <div>{new Date(userExercise.date).toLocaleDateString('en-GB')}</div>
-                                            <div>{userExercise.log}kg</div>
-                                        </div>
-                                    ))}
+                                    .map((userExercise) => {
+                                        return <ExerciseListItem key={userExercise.id} exercise={exercise} userExercise={userExercise} deleteExercise={(id) => deleteExercise(id)}/>
+                                    })}
                             </div>
                         </>
                     ) : (
                         <div>
-                            No {exercise.name} bests logged, go back to the exercise page to log!<br /><br />Ability to log workouts soon coming to this page
+                            <button className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded mt-2"  onClick={() => setSelectedExercise(exercise)}>Log your
+                                first {exercise.name}</button>
                         </div>
                     )}
                 </>
+            )}
+            {selectedExercise && (
+                <LogExerciseForm
+                    exercise={selectedExercise}
+                    close={() => setSelectedExercise(null)}
+                />
             )}
         </>
     )

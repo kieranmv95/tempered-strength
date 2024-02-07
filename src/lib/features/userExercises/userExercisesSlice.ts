@@ -31,6 +31,11 @@ export const userExercisesSlice = createSlice({
                 state.data = [action.payload]
             }
         },
+        removeSuccess: (state, action: PayloadAction<{ id: number }>) => {
+            if(state.data) {
+                state.data = state.data.filter((item) => item.id !== action.payload.id);
+            }
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUserExercises.rejected, (state, action) => {
@@ -49,5 +54,5 @@ export const userExercisesSlice = createSlice({
     }
 })
 
-export const { addSuccess } = userExercisesSlice.actions
+export const { addSuccess, removeSuccess } = userExercisesSlice.actions
 export default userExercisesSlice.reducer

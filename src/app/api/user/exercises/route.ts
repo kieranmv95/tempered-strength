@@ -16,15 +16,19 @@ export type IUserExercise = {
     date: string;
 }
 
-type Params = {
+type GetParams = {
     exerciseId: number,
     log: string;
     date: Date;
 }
 
+type DeleteParams = {
+    id: number;
+}
+
 export async function POST(request: NextRequest) {
     const { userId } = auth();
-    const data = await request.json() as Params;
+    const data = await request.json() as GetParams;
     const { exerciseId, log, date} = data;
 
     const sql = `
@@ -51,5 +55,19 @@ export async function GET() {
         return  NextResponse.json(result, { status: 200 })
     } catch (e) {
         return NextResponse.json({ err: "User exercises not found", e}, { status: 404 })
+    }
+}
+
+export async function DELETE(request: NextRequest) {
+    const data = await request.json() as DeleteParams;
+    const { id } = data;
+
+    const sql = `DELETE FROM userExercises WHERE id = ${Number(id)}`;
+
+    try {
+        const result = await query(sql);
+        return  NextResponse.json(result, { status: 200 })
+    } catch (e) {
+        return NextResponse.json({ err: "User exercise not deleted", e}, { status: 404 })
     }
 }
