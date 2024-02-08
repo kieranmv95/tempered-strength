@@ -1,3 +1,3 @@
-import LogExerciseForm from './LogExerciseForm';
+import LogExerciseForm from "./LogExerciseForm";
 
 export default LogExerciseForm;
