@@ -44,7 +44,9 @@ The logging type will be to tell the user how the score is going to be recorded 
   - log varchar(255) NOT NULL,
   - date Date NOT NULL,
 
-
-
+- users
+  - id varchar(255) NOT NULL PRIMARY KEY,
+  - username varchar(255) UNIQUE NOT NULL,
+  - onboarded TINYINT(1) NOT NULL,
 
 
