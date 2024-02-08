@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const sql = `INSERT INTO users (id, username, onboarding)VALUES ('${userId}', '${data.username.toLowerCase()}', 1);`;
 
   try {
-    const result = await query(sql);
+    await query(sql);
     return NextResponse.json(
       { id: userId, username: data.username, onboarding: 1 },
       { status: 200 },

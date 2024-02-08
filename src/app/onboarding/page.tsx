@@ -35,7 +35,7 @@ export default function Page() {
           const usernameCheck = await res.json();
 
           if (!usernameCheck.length) {
-            const res = await fetch("/api/user/create", {
+            await fetch("/api/user/create", {
               method: "POST",
               body: JSON.stringify(data),
             });

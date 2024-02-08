@@ -1,14 +1,5 @@
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { query } from "@/db";
-
-async function getUser(id: string) {
-  return (await query(`SELECT * FROM users WHERE id='${id}'`)) as {
-    id: string;
-    username: string;
-    onboarded: number;
-  }[];
-}
 
 export default authMiddleware({
   publicRoutes: ["/", "/version-history"],
