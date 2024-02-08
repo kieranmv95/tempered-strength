@@ -12,7 +12,7 @@ const getUser = async (id: string) => {
     `)) as { name: string; log: string; logging_type: string }[];
 
   const sanitised = data.reduce((acc, cur) => {
-    let largerNumber: number = 0;
+    let largerNumber;
 
     if (!acc[cur.name]) {
       largerNumber = Number(cur.log);
@@ -37,8 +37,11 @@ export default async function Page({ params }: { params: { userId: string } }) {
     <div className="w-full max-w-[800px] px-4 mx-auto pt-12">
       <p className="mb-4 text-xl font-bold">One Rep maxes</p>
       <div className="grid gap-3">
-        {Object.keys(sanitised).map((keyName, keyIndex) => (
-          <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
+        {Object.keys(sanitised).map((keyName, _) => (
+          <div
+            key={keyName}
+            className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center"
+          >
             <div>{keyName}</div>
             <div className="font-bold">{sanitised[keyName]}kg</div>
           </div>

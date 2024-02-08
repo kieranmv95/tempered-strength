@@ -9,10 +9,9 @@ type UserExercisesState = {
 
 export const fetchUserExercises = createAsyncThunk(
   "userExercises/fetch",
-  async (thunkAPI) => {
+  async () => {
     const res = await fetch("/api/user/exercises");
-    const data = await res.json();
-    return data;
+    return await res.json();
   },
 );
 
@@ -38,12 +37,12 @@ export const userExercisesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserExercises.rejected, (state, action) => {
+    builder.addCase(fetchUserExercises.rejected, (state, _) => {
       state.loading = false;
       state.data = [];
       state.err = "Error loading user exercises";
     });
-    builder.addCase(fetchUserExercises.pending, (state, action) => {
+    builder.addCase(fetchUserExercises.pending, (state, _) => {
       state.loading = true;
     });
     builder.addCase(fetchUserExercises.fulfilled, (state, action) => {
