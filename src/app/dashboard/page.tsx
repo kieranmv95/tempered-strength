@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   return (
     <div className="px-4 py-12 container mx-auto">
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6">DASHBOARD</h2>
+      <h1 className="text-2xl font-bold lg:text-4xl mb-6">DASHBOARD</h1>
 
       <h2 className="text-xl font-bold">Exercises</h2>
 
