@@ -33,18 +33,20 @@ Currently kept extremely simple the schema for an exercise is literally a list o
 The logging type will be to tell the user how the score is going to be recorded e.g. "weight" | "time" | "distance"
 
 - exercises
+
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY
   - name varchar(255) NOT NULL
   - logging_type varchar(255) NOT NULL
 
 - userExercises
+
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   - userId varchar(255) NOT NULL,
   - exerciseId varchar(255) NOT NULL,
   - log varchar(255) NOT NULL,
   - date Date NOT NULL,
 
-
-
-
-
+- users
+  - id varchar(255) NOT NULL PRIMARY KEY,
+  - username varchar(255) UNIQUE NOT NULL,
+  - onboarded TINYINT(1) NOT NULL,
