@@ -6,6 +6,16 @@ export default function Page() {
       <div className="grid gap-4">
         <div className="p-4 bg-zinc-700 rounded-sm">
           <div className="px-3 py-2 bg-blue-600 inline-block rounded">
+            v0.2.0
+          </div>
+
+          <ul className="list-disc pl-4 mt-4 space-y-1">
+            <li>Onboarding screen for first login</li>
+            <li>Add friendly username</li>
+          </ul>
+        </div>
+        <div className="p-4 bg-zinc-700 rounded-sm">
+          <div className="px-3 py-2 bg-blue-600 inline-block rounded">
             v0.1.0
           </div>
 
