@@ -40,10 +40,9 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2">Best</p>
-                  {getExerciseById(exercise.id).reduce(
-                    (a, b) => Math.max(a, Number(b.log)),
-                    -Infinity,
-                  )}
+                  {getExerciseById(exercise.id).reduce((a, b) => {
+                    return Math.max(a, b.log);
+                  }, -Infinity)}
                   kg
                 </div>
                 <div className="bg-zinc-700 rounded-sm py-6">
@@ -56,7 +55,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                 className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mb-4"
                 onClick={() => setSelectedExercise(exercise)}
               >
-                Log <FontAwesomeIcon icon={faPlus} />
+                Log <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
               </button>
               <div className="grid gap-3">
                 {getExerciseById(exercise.id).map((userExercise) => {
@@ -77,7 +76,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                 className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"
                 onClick={() => setSelectedExercise(exercise)}
               >
-                Log your first {exercise.name} <FontAwesomeIcon icon={faPlus} />
+                Log your first {exercise.name}{" "}
+                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
               </button>
             </div>
           )}

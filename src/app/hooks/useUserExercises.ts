@@ -15,10 +15,9 @@ const useUserExercises = () => {
   const getOneRepMax = (exerciseId: number) => {
     const oneRepMax = data
       ?.filter((userExercise) => Number(userExercise.exerciseId) === exerciseId)
-      .reduce(
-        (prev, curr) => (Number(curr.log) > prev ? Number(curr.log) : prev),
-        0,
-      );
+      .reduce((prev, curr) => {
+        return curr.log > prev ? curr.log : prev;
+      }, 0);
 
     return oneRepMax ? oneRepMax : null;
   };

@@ -12,13 +12,13 @@ export type IUserExercise = {
   id: number;
   userId: string;
   exerciseId: number;
-  log: string;
+  log: number;
   date: string;
 };
 
 type GetParams = {
   exerciseId: number;
-  log: string;
+  log: number;
   date: Date;
 };
 
@@ -53,8 +53,14 @@ export async function GET() {
   const sql = `SELECT * FROM userExercises WHERE userId = '${userId}'`;
 
   try {
-    const result = await query(sql);
-    return NextResponse.json(result, { status: 200 });
+    const result = (await query(sql)) as IUserExercise[];
+
+    const mappedResult = result.map((userExercise) => ({
+      ...userExercise,
+      log: Number(userExercise.log),
+    }));
+
+    return NextResponse.json(mappedResult, { status: 200 });
   } catch (e) {
     return NextResponse.json(
       { err: "User exercises not found", e },

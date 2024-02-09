@@ -32,14 +32,14 @@ const ExerciseListItem = ({
           onClick={() => setShowOptions(!showOptions)}
           className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm h-11 w-8 flex items-center justify-center"
         >
-          <FontAwesomeIcon icon={faEllipsis} />
+          <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
         </div>
         {showOptions && (
           <div
             onClick={() => deleteExercise(userExercise.id)}
             className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
           >
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
           </div>
         )}
       </div>

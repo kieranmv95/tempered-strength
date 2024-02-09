@@ -51,7 +51,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                   id: json.insertId,
                   exerciseId: exercise.id,
                   userId: userId || "",
-                  log: values.log,
+                  log: Number(values.log),
                   date: values.date,
                 }),
               );

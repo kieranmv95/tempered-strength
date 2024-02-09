@@ -26,7 +26,8 @@ export default async function Exercise({
   return (
     <div className="px-4 py-12 container mx-auto">
       <Link href="/exercises" className="hover:underline mb-5 block text-sm">
-        <FontAwesomeIcon icon={faArrowLeft} /> Back to exercises
+        <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" /> Back to
+        exercises
       </Link>
       <h2 className="text-2xl font-bold lg:text-4xl mb-6">{exercise.name}</h2>
 

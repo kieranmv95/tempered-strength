@@ -25,7 +25,7 @@ export default function Dashboard() {
                 className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded"
                 href="/exercises"
               >
-                <FontAwesomeIcon icon={faPlus} /> Log More
+                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log More
               </Link>
             </>
           ) : (
@@ -35,7 +35,8 @@ export default function Dashboard() {
                 className="mt-4 inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded"
                 href="/exercises"
               >
-                <FontAwesomeIcon icon={faPlus} /> Log Exercises
+                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
+                Exercises
               </Link>
             </>
           )}

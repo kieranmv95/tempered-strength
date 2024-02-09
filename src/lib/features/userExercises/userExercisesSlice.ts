@@ -10,7 +10,7 @@ type UserExercisesState = {
 export const fetchUserExercises = createAsyncThunk(
   "userExercises/fetch",
   async () => {
-    const res = await fetch("/api/user/exercises");
+    const res = await fetch("/api/user/exercises", { cache: "no-cache" });
     return await res.json();
   },
 );
@@ -46,6 +46,7 @@ export const userExercisesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchUserExercises.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.data = action.payload;
       state.loading = false;
       state.err = "";
