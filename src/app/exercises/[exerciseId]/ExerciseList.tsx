@@ -40,10 +40,9 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2">Best</p>
-                  {getExerciseById(exercise.id).reduce(
-                    (a, b) => Math.max(a, Number(b.log)),
-                    -Infinity,
-                  )}
+                  {getExerciseById(exercise.id).reduce((a, b) => {
+                    return Math.max(a, b.log);
+                  }, -Infinity)}
                   kg
                 </div>
                 <div className="bg-zinc-700 rounded-sm py-6">
