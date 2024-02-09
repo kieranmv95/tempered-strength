@@ -46,7 +46,6 @@ export const userExercisesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchUserExercises.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.data = action.payload;
       state.loading = false;
       state.err = "";

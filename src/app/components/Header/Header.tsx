@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
+import useUser from "@/app/hooks/useUser";
 
 import TemperedStrengthSvg from "../../assets/TemperedStrength.svg";
 
@@ -12,6 +13,7 @@ const Header = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [navOpen, setNavOpen] = useState(false);
+  const { data } = useUser();
 
   useEffect(() => {
     setNavOpen(false);
@@ -58,6 +60,11 @@ const Header = () => {
               <Link href="/exercises" className="py-2">
                 Exercises
               </Link>
+              {!!data && (
+                <Link href={`/bests/${data.username}`} className="py-2">
+                  Profile
+                </Link>
+              )}
             </SignedIn>
           </div>
           <div className="text-sm flex gap-3 mt-4 lg:mt-0">

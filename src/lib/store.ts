@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userExercisesReducer from "@/lib/features/userExercises/userExercisesSlice";
+import userReducer from "@/lib/features/user/userSlice";
+
 export const makeStore = () => {
   return configureStore({
     reducer: {
       exercises: userExercisesReducer,
+      user: userReducer,
     },
   });
 };
