@@ -41,13 +41,13 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                   onClick={() => setSelectedExercise(exercise)}
                   className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                 >
-                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                 </div>
                 <Link
                   href={`/exercises/${exercise.id}`}
                   className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
                 >
-                  <FontAwesomeIcon icon={faArrowRight} />
+                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
                 </Link>
               </div>
             </div>
