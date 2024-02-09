@@ -11,7 +11,6 @@ export async function POST(request: NextRequest) {
 
   try {
     const result = await query(sql);
-    console.log("TEST", result);
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
     return NextResponse.json({ err: "users not created", e }, { status: 404 });
