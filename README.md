@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Development
 
+Populate environment variables, found in `.env.sample` 
+
 ```bash
 npm run dev
 ```
