@@ -19,6 +19,7 @@ export default function Home() {
           <h1 className="text-base font-normal">Tempered Strength</h1>
         </div>
       </div>
+
       <div className="bg-amber-400 text-zinc-800 overflow-x-hidden">
         <div className="px-4 py-12 container mx-auto lg:py-24 grid grid-cols-[3fr_1fr] gap-4 md:grid-cols-2 items-center">
           <div>
@@ -55,22 +56,37 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="px-4 py-36 container mx-auto grid md:grid-cols-2 md:gap-4">
-        <div>
-          <h2 className="text-2xl font-bold lg:text-4xl">
-            SHOWCASE YOUR LIFTS
-          </h2>
-          <ul className="list-disc mt-4 pl-4 space-y-1.5">
-            <li>Flex all your lifts with your customised public profile</li>
-            <li>
-              COMING SOON - Create your own theme&apos;s or choose from one of
-              our many templates to brand your profile
-            </li>
-          </ul>
+
+      <div className="overflow-x-hidden">
+        <div className="px-4 py-12 container mx-auto lg:py-24 grid grid-cols-[3fr_1fr] gap-4 md:grid-cols-2 items-center">
+          <div>
+            <h2 className="text-2xl font-bold lg:text-4xl">
+              SHOWCASE YOUR LIFTS
+            </h2>
+            <ul className="list-disc mt-4 pl-4 space-y-1.5">
+              <li>Flex all your lifts with your customised public profile</li>
+              <li>
+                COMING SOON - Create your own theme&apos;s or choose from one of
+                our many templates to brand your profile
+              </li>
+            </ul>
+          </div>
+          <div className="relative h-[476px] w-full md:h-auto">
+            <div className="md:mt-6 md:flex md:gap-6">
+              <Image
+                src="/profilePage.png"
+                width={236}
+                height={475}
+                alt="phone logged in"
+                className="w-[236px] h-[475px] max-w-[475px] absolute top-0 left-0 md:block md:max-w-[100%] md:relative"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="bg-amber-400 text-zinc-800">
-        <div className="px-4 py-36 container mx-auto grid md:grid-cols-2 md:gap-4">
+
+      <div className="bg-amber-400 text-zinc-800 overflow-x-hidden">
+        <div className="px-4 py-12 container mx-auto lg:py-24 grid grid-cols-[3fr_1fr] gap-4 md:grid-cols-2 items-center">
           <div>
             <h2 className="text-2xl font-bold lg:text-4xl">
               COMPARE WITH FRIENDS
@@ -82,6 +98,17 @@ export default function Home() {
               </li>
               <li>COMING SOON - Compare your overall pound for pound score!</li>
             </ul>
+          </div>
+          <div className="relative h-[476px] w-full md:h-auto">
+            <div className="md:mt-6 md:flex md:gap-6">
+              <Image
+                src="/comparePage.png"
+                width={236}
+                height={475}
+                alt="phone logged in"
+                className="w-[236px] h-[475px] max-w-[475px] absolute top-0 left-0 md:block md:max-w-[100%] md:relative"
+              />
+            </div>
           </div>
         </div>
       </div>
