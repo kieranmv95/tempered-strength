@@ -66,6 +66,9 @@ const Header = () => {
                 </Link>
               )}
             </SignedIn>
+            <Link href="/compare" className="py-2">
+              Compare
+            </Link>
           </div>
           <div className="text-sm flex gap-3 mt-4 lg:mt-0">
             <SignedIn>
