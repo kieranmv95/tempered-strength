@@ -31,12 +31,7 @@ export default function Home() {
             <ul className="list-disc mt-4 pl-4 space-y-1.5">
               <li>Quickly update all your lifts</li>
               <li>See your best and latest scores at a glance</li>
-              <li>
-                <span className="bg-blue-600 text-base px-2 py-1 rounded text-white font-bold">
-                  COMING SOON
-                </span>{" "}
-                See progression graphs
-              </li>
+              <li>COMING SOON - See progression graphs</li>
             </ul>
           </div>
           <div className="relative h-[476px] w-full md:h-auto">
@@ -63,16 +58,13 @@ export default function Home() {
       <div className="px-4 py-36 container mx-auto grid md:grid-cols-2 md:gap-4">
         <div>
           <h2 className="text-2xl font-bold lg:text-4xl">
-            SHOWCASE YOUR LIFTS{" "}
-            <span className="bg-blue-600 text-base px-2 py-1 rounded">
-              COMING SOON
-            </span>
+            SHOWCASE YOUR LIFTS
           </h2>
           <ul className="list-disc mt-4 pl-4 space-y-1.5">
             <li>Flex all your lifts with your customised public profile</li>
             <li>
-              Create your own theme&apos;s or choose from one of our many
-              templates to brand your profile
+              COMING SOON - Create your own theme&apos;s or choose from one of
+              our many templates to brand your profile
             </li>
           </ul>
         </div>
@@ -81,16 +73,14 @@ export default function Home() {
         <div className="px-4 py-36 container mx-auto grid md:grid-cols-2 md:gap-4">
           <div>
             <h2 className="text-2xl font-bold lg:text-4xl">
-              COMPARE WITH FRIENDS{" "}
-              <span className="bg-blue-600 text-white text-base px-2 py-1 rounded">
-                COMING SOON
-              </span>
+              COMPARE WITH FRIENDS
             </h2>
-            <p className="mt-4">Coming soon</p>
             <ul className="list-disc mt-4 pl-4 space-y-1.5">
               <li>Find and compare lift data with friends</li>
-              <li>Get notified when a friend beats one of your lifts</li>
-              <li>Compare your overall pound for pound score!</li>
+              <li>
+                COMING SOON - Get notified when a friend beats one of your lifts
+              </li>
+              <li>COMING SOON - Compare your overall pound for pound score!</li>
             </ul>
           </div>
         </div>
