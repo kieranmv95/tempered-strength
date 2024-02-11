@@ -1,11 +1,15 @@
 import { query } from "@/db";
 import BackButton from "@/app/components/BackButton";
+import { ILoggingType } from "@/app/api/user/exercises/route";
+import { getUnits } from "@/app/helpers/units";
+import PoweredBy from "@/app/components/PoweredBy";
+import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
 
 type IUserStats = {
   log: string;
   date: Date;
   name: string;
-  logging_type: string;
+  logging_type: ILoggingType;
   username: string;
 };
 interface ExerciseWithDiff extends IUserStats {
@@ -115,7 +119,7 @@ export default async function Page({ params }: PageProps) {
     return (
       <div className="text-center">
         <div className="inline-block mx-auto mt-12">
-          <BackButton href="/bests">Back to compare</BackButton>
+          <BackButton href="/compare">Back to compare</BackButton>
         </div>
         <h1 className="text-2xl md:text-4xl font-bold">
           One of the users was not found
@@ -128,11 +132,12 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className="text-center px-4 w-full max-w-[960px] mx-auto">
-      <h1 className="text-2xl font-bold mt-12">Comparison</h1>
-      <div className="grid grid-cols-2 gap-4">
+      <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
+      <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {Object.values(comparisonData).map((item) => {
           return (
-            <div className="mt-8" key={item[0].username}>
+            <div key={item[0].username}>
               <h2 className="text-xl">@{item[0].username}</h2>
               <div className="grid gap-3 mt-3">
                 {item.map((exercise) => {
@@ -140,7 +145,7 @@ export default async function Page({ params }: PageProps) {
                   return (
                     <div
                       key={name}
-                      className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm flex"
+                      className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm"
                     >
                       <div>{name}</div>
                       <div className="md:flex md:gap-3">
@@ -151,9 +156,14 @@ export default async function Page({ params }: PageProps) {
                           ${diff > 0 && "text-green-400"}
                         `}
                         >
-                          {Number(diff)}kg
+                          {diff > 0 && "+"}
+                          {Number(diff)}
+                          {getUnits(exercise.logging_type)}
                         </div>
-                        <div className="font-bold">{Number(log)}kg</div>
+                        <div className="font-bold">
+                          {Number(log)}
+                          {getUnits(exercise.logging_type)}
+                        </div>
                       </div>
                     </div>
                   );
@@ -163,6 +173,7 @@ export default async function Page({ params }: PageProps) {
           );
         })}
       </div>
+      <PoweredBy />
     </div>
   );
 }

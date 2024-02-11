@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { IExercise } from "@/app/api/user/exercises/route";
-import LogExerciseForm from "@/app/components/LogExerciseForm";
+import LogExerciseForm from "../LogExerciseModal";
 import useUserExercises from "@/app/hooks/useUserExercises";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { getUnits } from "@/app/helpers/units";
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -34,7 +35,12 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             >
               <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
                 <p>{exercise.name}</p>
-                {oneRepMax && <p className="font-bold">{oneRepMax}kg</p>}
+                {oneRepMax && (
+                  <p className="font-bold">
+                    {oneRepMax}
+                    {getUnits(exercise.logging_type)}
+                  </p>
+                )}
               </div>
               <div className="flex gap-2">
                 <div

@@ -21,18 +21,6 @@ export default function Home() {
           <p className="text-[2.1em]">SHARE IT</p>
           <h1 className="text-base font-normal">Tempered Strength</h1>
           <div className="text-center mt-4">
-            <div>
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="w-[1.75em] h-[1.75em] mx-auto"
-              />
-            </div>
-            <div className="mt-[-0.3em]">
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="w-[1em] h-[1em] mx-auto"
-              />
-            </div>
             <div className="mt-[-0.5em]">
               <FontAwesomeIcon
                 icon={faChevronDown}

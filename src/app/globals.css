@@ -5,3 +5,7 @@
 body {
   @apply bg-zinc-800 text-white;
 }
+
+input[type="date"] {
+  -webkit-appearance: none;
+}
