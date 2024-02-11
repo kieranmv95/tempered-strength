@@ -4,19 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import React from "react";
+import copy from "copy-to-clipboard";
 
 const CopyUrlToClipboard = ({ children }: { children: React.ReactNode }) => {
   const url = window.location.href;
 
   const copyToClipboard = () => {
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        toast.success("Copied to clipboard");
-      })
-      .catch(() => {
-        toast.error("Failed to copy");
-      });
+    copy(window.location.href);
+    toast.success("Copied to clipboard");
   };
 
   return (
