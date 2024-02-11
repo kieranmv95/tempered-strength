@@ -66,6 +66,9 @@ const Header = () => {
                 </Link>
               )}
             </SignedIn>
+            <Link href="/bests" className="py-2">
+              Search for user
+            </Link>
             <Link href="/compare" className="py-2">
               Compare
             </Link>
