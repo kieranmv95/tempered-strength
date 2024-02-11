@@ -145,7 +145,7 @@ export default async function Page({ params }: PageProps) {
                   return (
                     <div
                       key={name}
-                      className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm flex"
+                      className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm"
                     >
                       <div>{name}</div>
                       <div className="md:flex md:gap-3">
