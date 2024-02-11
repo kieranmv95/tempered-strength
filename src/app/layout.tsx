@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Tempered Strength",
   description:
     "Lift it, Track it, Share it. Flex your one rep maxes with all your gym friends",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

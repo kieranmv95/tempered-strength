@@ -1,0 +1,19 @@
+{
+  "id": "TemperedStrength",
+  "name": "Tempered Strength",
+  "short_name": "TS",
+  "description": "TemperedStrength, Lift it, Share it, Track it, Compete",
+  "icons": [
+    {
+      "src": "./logo512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#232325",
+  "background_color": "#232325",
+  "start_url": "/",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait"
+}
