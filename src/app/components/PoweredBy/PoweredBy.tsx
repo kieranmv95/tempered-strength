@@ -3,7 +3,7 @@ import Image from "next/image";
 import TemperedStrengthSvg from "@/app/assets/TemperedStrength.svg";
 
 const PoweredBy = () => (
-  <div className="mt-8">
+  <div className="mt-8 mb-24">
     <Link href="/">
       <span className="text-xs">Powered by</span>
       <Image
