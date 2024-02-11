@@ -131,49 +131,54 @@ export default async function Page({ params }: PageProps) {
   const comparisonData = findCommonExercisesAndCalculateDiff(groupedByUser);
 
   return (
-    <div className="text-center px-4 w-full max-w-[960px] mx-auto">
-      <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
-      <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        {Object.values(comparisonData).map((item) => {
-          return (
-            <div key={item[0].username}>
-              <h2 className="text-xl">@{item[0].username}</h2>
-              <div className="grid gap-3 mt-3">
-                {item.map((exercise) => {
-                  const { name, log, diff } = exercise;
-                  return (
-                    <div
-                      key={name}
-                      className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm"
-                    >
-                      <div>{name}</div>
-                      <div className="md:flex md:gap-3">
-                        <div
-                          className={`
+    <>
+      <div className="mt-3 ml-4">
+        <BackButton href="/">Back to home</BackButton>
+      </div>
+      <div className="text-center px-4 w-full max-w-[960px] mx-auto">
+        <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
+        <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          {Object.values(comparisonData).map((item) => {
+            return (
+              <div key={item[0].username}>
+                <h2 className="text-xl">@{item[0].username}</h2>
+                <div className="grid gap-3 mt-3">
+                  {item.map((exercise) => {
+                    const { name, log, diff } = exercise;
+                    return (
+                      <div
+                        key={name}
+                        className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm"
+                      >
+                        <div>{name}</div>
+                        <div className="md:flex md:gap-3">
+                          <div
+                            className={`
                           font-bold
                           ${diff < 0 && "text-red-400"}
                           ${diff > 0 && "text-green-400"}
                         `}
-                        >
-                          {diff > 0 && "+"}
-                          {Number(diff)}
-                          {getUnits(exercise.logging_type)}
-                        </div>
-                        <div className="font-bold">
-                          {Number(log)}
-                          {getUnits(exercise.logging_type)}
+                          >
+                            {diff > 0 && "+"}
+                            {Number(diff)}
+                            {getUnits(exercise.logging_type)}
+                          </div>
+                          <div className="font-bold">
+                            {Number(log)}
+                            {getUnits(exercise.logging_type)}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <PoweredBy />
       </div>
-      <PoweredBy />
-    </div>
+    </>
   );
 }

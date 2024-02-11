@@ -81,56 +81,61 @@ export default async function Page({ params }: PageProps) {
   }, 0);
 
   return (
-    <div className="text-center px-4 w-full max-w-[600px] mx-auto">
-      <h1 className="text-2xl md:text-4xl font-bold mt-12">
-        @{params.username}
-      </h1>
-      <CopyUrlToClipboard>Copy profile url</CopyUrlToClipboard>
-      {powerLiftingMoves.length === 3 && (
-        <>
-          <p className="text-lg font-bold mt-6">
-            Powerlifting total {powerLiftingTotal}kg
-          </p>
-          <div className="grid grid-cols-3 mt-4 gap-4">
-            {powerLiftingMoves.map((plMove) => (
-              <div className="grid bg-zinc-700 py-4" key={plMove.name}>
-                <div className="text-sm mb-2">{plMove.name}</div>
-                <div className="font-bold">{Number(plMove.log)}kg</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-      {olympicLiftingMoves.length === 2 && (
-        <>
-          <p className="text-lg font-bold mt-6">
-            Olympic lifting total {olympicLiftingTotal}kg
-          </p>
-          <div className="grid grid-cols-2 mt-4 gap-4">
-            {olympicLiftingMoves.map((plMove) => (
-              <div className="grid bg-zinc-700 py-4" key={plMove.name}>
-                <div className="text-sm mb-2">{plMove.name}</div>
-                <div className="font-bold">{Number(plMove.log)}kg</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-      <div className="grid gap-3 mt-6">
-        {user.map((exercise) => (
-          <div
-            key={exercise.name}
-            className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm"
-          >
-            <div>{exercise.name}</div>
-            <div className="font-bold">
-              {Number(exercise.log)}
-              {getUnits(exercise.logging_type)}
-            </div>
-          </div>
-        ))}
+    <>
+      <div className="mt-3 ml-4">
+        <BackButton href="/">Back to home</BackButton>
       </div>
-      <PoweredBy />
-    </div>
+      <div className="text-center px-4 w-full max-w-[600px] mx-auto">
+        <h1 className="text-2xl md:text-4xl font-bold mt-120">
+          @{params.username}
+        </h1>
+        <CopyUrlToClipboard>Copy profile url</CopyUrlToClipboard>
+        {powerLiftingMoves.length === 3 && (
+          <>
+            <p className="text-lg font-bold mt-6">
+              Powerlifting total {powerLiftingTotal}kg
+            </p>
+            <div className="grid grid-cols-3 mt-4 gap-4">
+              {powerLiftingMoves.map((plMove) => (
+                <div className="grid bg-zinc-700 py-4" key={plMove.name}>
+                  <div className="text-sm mb-2">{plMove.name}</div>
+                  <div className="font-bold">{Number(plMove.log)}kg</div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+        {olympicLiftingMoves.length === 2 && (
+          <>
+            <p className="text-lg font-bold mt-6">
+              Olympic lifting total {olympicLiftingTotal}kg
+            </p>
+            <div className="grid grid-cols-2 mt-4 gap-4">
+              {olympicLiftingMoves.map((plMove) => (
+                <div className="grid bg-zinc-700 py-4" key={plMove.name}>
+                  <div className="text-sm mb-2">{plMove.name}</div>
+                  <div className="font-bold">{Number(plMove.log)}kg</div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+        <div className="grid gap-3 mt-6">
+          {user.map((exercise) => (
+            <div
+              key={exercise.name}
+              className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm"
+            >
+              <div>{exercise.name}</div>
+              <div className="font-bold">
+                {Number(exercise.log)}
+                {getUnits(exercise.logging_type)}
+              </div>
+            </div>
+          ))}
+        </div>
+        <PoweredBy />
+      </div>
+    </>
   );
 }
