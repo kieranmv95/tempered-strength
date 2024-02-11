@@ -50,7 +50,7 @@ export default async function Page({ params }: PageProps) {
   });
 
   let powerLiftingTotal = powerLiftingMoves.reduce((prev, curr) => {
-    return (prev += Number(curr.log));
+    return prev + Number(curr.log);
   }, 0);
 
   return (
@@ -77,7 +77,7 @@ export default async function Page({ params }: PageProps) {
         {user.map((exercise) => (
           <div
             key={exercise.name}
-            className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm flex"
+            className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm"
           >
             <div>{exercise.name}</div>
             <div className="font-bold">{Number(exercise.log)}kg</div>
