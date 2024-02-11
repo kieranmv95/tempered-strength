@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import useUserExercises from "@/app/hooks/useUserExercises";
 import { IExercise } from "@/app/api/user/exercises/route";
-import LogExerciseForm from "@/app/components/LogExerciseForm";
+import LogExerciseForm from "../../components/LogExerciseModal";
 import ExerciseListItem from "@/app/exercises/[exerciseId]/ExerciseListItem";
 import { removeSuccess } from "@/lib/features/userExercises/userExercisesSlice";
 import toast from "react-hot-toast";
