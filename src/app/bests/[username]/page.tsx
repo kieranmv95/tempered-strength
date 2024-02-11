@@ -53,7 +53,21 @@ export default async function Page({ params }: PageProps) {
     }
   });
 
+  const olympicLiftingMoves = user.filter((exercise) => {
+    switch (exercise.name.toLowerCase()) {
+      case "clean & jerk":
+      case "snatch":
+        return exercise;
+      default:
+        return null;
+    }
+  });
+
   let powerLiftingTotal = powerLiftingMoves.reduce((prev, curr) => {
+    return prev + Number(curr.log);
+  }, 0);
+
+  let olympicLiftingTotal = olympicLiftingMoves.reduce((prev, curr) => {
     return prev + Number(curr.log);
   }, 0);
 
@@ -69,6 +83,21 @@ export default async function Page({ params }: PageProps) {
           </p>
           <div className="grid grid-cols-3 mt-4 gap-4">
             {powerLiftingMoves.map((plMove) => (
+              <div className="grid bg-zinc-700 py-4" key={plMove.name}>
+                <div className="text-sm mb-2">{plMove.name}</div>
+                <div className="font-bold">{Number(plMove.log)}kg</div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+      {olympicLiftingMoves.length === 2 && (
+        <>
+          <p className="text-lg font-bold mt-6">
+            Olympic lifting total {olympicLiftingTotal}kg
+          </p>
+          <div className="grid grid-cols-2 mt-4 gap-4">
+            {olympicLiftingMoves.map((plMove) => (
               <div className="grid bg-zinc-700 py-4" key={plMove.name}>
                 <div className="text-sm mb-2">{plMove.name}</div>
                 <div className="font-bold">{Number(plMove.log)}kg</div>
