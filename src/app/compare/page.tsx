@@ -5,8 +5,18 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 
 const CompareSchema = Yup.object().shape({
-  userOne: Yup.string().required("Username Required"),
-  userTwo: Yup.string().required("Username Required"),
+  userOne: Yup.string()
+    .matches(
+      /^[\w-]*$/,
+      "Name can only contain letters, numbers, underscores, and hyphens",
+    )
+    .required("Username Required"),
+  userTwo: Yup.string()
+    .matches(
+      /^[\w-]*$/,
+      "Name can only contain letters, numbers, underscores, and hyphens",
+    )
+    .required("Username Required"),
 });
 
 export default function Compare() {
