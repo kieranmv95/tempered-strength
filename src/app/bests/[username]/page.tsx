@@ -1,4 +1,5 @@
 import { query } from "@/db";
+import BackButton from "@/app/components/BackButton";
 
 const getUserData = async (username: string) => {
   const user = (await query(`
@@ -33,7 +34,10 @@ export default async function Page({ params }: PageProps) {
   if (!user) {
     return (
       <div className="text-center">
-        <h1 className="text-2xl md:text-4xl font-bold mt-12">user not found</h1>
+        <div className="inline-block mx-auto mt-12">
+          <BackButton href="/bests">Back to search</BackButton>
+        </div>
+        <h1 className="text-2xl md:text-4xl font-bold">user not found</h1>
       </div>
     );
   }

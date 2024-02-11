@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { SearchForUserFormLarge } from "@/app/components/Forms";
 
 export default function Home() {
   return (
@@ -17,6 +20,33 @@ export default function Home() {
           <p className="text-[2.07em]">TRACK IT</p>
           <p className="text-[2.1em]">SHARE IT</p>
           <h1 className="text-base font-normal">Tempered Strength</h1>
+          <div className="text-center mt-4">
+            <div>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className="w-[1.75em] h-[1.75em] mx-auto"
+              />
+            </div>
+            <div className="mt-[-0.3em]">
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className="w-[1em] h-[1em] mx-auto"
+              />
+            </div>
+            <div className="mt-[-0.5em]">
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className="w-[.5em] h-[.5em] mx-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center py-24">
+        <h2 className="text-2xl font-bold lg:text-4xl">Search For a user</h2>
+        <div className="px-4 md:w-full max-w-[650px] md:mx-auto">
+          <SearchForUserFormLarge />
         </div>
       </div>
 

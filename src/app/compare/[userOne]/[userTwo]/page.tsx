@@ -1,4 +1,5 @@
 import { query } from "@/db";
+import BackButton from "@/app/components/BackButton";
 
 type IUserStats = {
   log: string;
@@ -88,7 +89,10 @@ export default async function Page({ params }: PageProps) {
   if (!user) {
     return (
       <div className="text-center">
-        <h1 className="text-2xl md:text-4xl font-bold mt-12">user not found</h1>
+        <div className="inline-block mx-auto mt-12">
+          <BackButton href="/compare">Back to compare</BackButton>
+        </div>
+        <h1 className="text-2xl md:text-4xl font-bold">user not found</h1>
       </div>
     );
   }
@@ -110,7 +114,10 @@ export default async function Page({ params }: PageProps) {
   if (result.length < 2) {
     return (
       <div className="text-center">
-        <h1 className="text-2xl md:text-4xl font-bold mt-12">
+        <div className="inline-block mx-auto mt-12">
+          <BackButton href="/bests">Back to compare</BackButton>
+        </div>
+        <h1 className="text-2xl md:text-4xl font-bold">
           One of the users was not found
         </h1>
       </div>
