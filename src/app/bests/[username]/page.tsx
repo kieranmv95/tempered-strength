@@ -3,6 +3,7 @@ import BackButton from "@/app/components/BackButton";
 import { ILoggingType } from "@/app/api/user/exercises/route";
 import { getUnits } from "@/app/helpers/units";
 import PoweredBy from "@/app/components/PoweredBy";
+import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
 
 const getUserData = async (username: string) => {
   const user = (await query(`
@@ -84,6 +85,7 @@ export default async function Page({ params }: PageProps) {
       <h1 className="text-2xl md:text-4xl font-bold mt-12">
         @{params.username}
       </h1>
+      <CopyUrlToClipboard>Copy profile url</CopyUrlToClipboard>
       {powerLiftingMoves.length === 3 && (
         <>
           <p className="text-lg font-bold mt-6">

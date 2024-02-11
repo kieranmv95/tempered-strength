@@ -3,6 +3,7 @@ import BackButton from "@/app/components/BackButton";
 import { ILoggingType } from "@/app/api/user/exercises/route";
 import { getUnits } from "@/app/helpers/units";
 import PoweredBy from "@/app/components/PoweredBy";
+import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
 
 type IUserStats = {
   log: string;
@@ -131,11 +132,12 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className="text-center px-4 w-full max-w-[960px] mx-auto">
-      <h1 className="text-2xl font-bold mt-12">Comparison</h1>
-      <div className="grid grid-cols-2 gap-4">
+      <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
+      <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {Object.values(comparisonData).map((item) => {
           return (
-            <div className="mt-8" key={item[0].username}>
+            <div key={item[0].username}>
               <h2 className="text-xl">@{item[0].username}</h2>
               <div className="grid gap-3 mt-3">
                 {item.map((exercise) => {
