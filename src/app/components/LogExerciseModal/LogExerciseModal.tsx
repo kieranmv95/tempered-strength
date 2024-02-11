@@ -1,3 +1,5 @@
+"use client";
+
 import { IExercise } from "@/app/api/user/exercises/route";
 import { LogExerciseForm } from "@/app/components/Forms";
 

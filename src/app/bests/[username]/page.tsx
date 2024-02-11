@@ -1,5 +1,8 @@
 import { query } from "@/db";
 import BackButton from "@/app/components/BackButton";
+import { ILoggingType } from "@/app/api/user/exercises/route";
+import { getUnits } from "@/app/helpers/units";
+import PoweredBy from "@/app/components/PoweredBy";
 
 const getUserData = async (username: string) => {
   const user = (await query(`
@@ -13,7 +16,12 @@ const getUserData = async (username: string) => {
     JOIN users u ON ue.userId = u.id
     JOIN exercises e ON ue.exerciseId = e.id
     WHERE u.username = '${username}';
-  `)) as { log: string; date: Date; name: string; logging_type: string }[];
+  `)) as {
+    log: string;
+    date: Date;
+    name: string;
+    logging_type: ILoggingType;
+  }[];
 
   if (!user.length) {
     return Promise.resolve(null);
@@ -113,10 +121,14 @@ export default async function Page({ params }: PageProps) {
             className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm"
           >
             <div>{exercise.name}</div>
-            <div className="font-bold">{Number(exercise.log)}kg</div>
+            <div className="font-bold">
+              {Number(exercise.log)}
+              {getUnits(exercise.logging_type)}
+            </div>
           </div>
         ))}
       </div>
+      <PoweredBy />
     </div>
   );
 }

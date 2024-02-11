@@ -1,11 +1,14 @@
 import { query } from "@/db";
 import BackButton from "@/app/components/BackButton";
+import { ILoggingType } from "@/app/api/user/exercises/route";
+import { getUnits } from "@/app/helpers/units";
+import PoweredBy from "@/app/components/PoweredBy";
 
 type IUserStats = {
   log: string;
   date: Date;
   name: string;
-  logging_type: string;
+  logging_type: ILoggingType;
   username: string;
 };
 interface ExerciseWithDiff extends IUserStats {
@@ -115,7 +118,7 @@ export default async function Page({ params }: PageProps) {
     return (
       <div className="text-center">
         <div className="inline-block mx-auto mt-12">
-          <BackButton href="/bests">Back to compare</BackButton>
+          <BackButton href="/compare">Back to compare</BackButton>
         </div>
         <h1 className="text-2xl md:text-4xl font-bold">
           One of the users was not found
@@ -151,9 +154,14 @@ export default async function Page({ params }: PageProps) {
                           ${diff > 0 && "text-green-400"}
                         `}
                         >
-                          {Number(diff)}kg
+                          {diff > 0 && "+"}
+                          {Number(diff)}
+                          {getUnits(exercise.logging_type)}
                         </div>
-                        <div className="font-bold">{Number(log)}kg</div>
+                        <div className="font-bold">
+                          {Number(log)}
+                          {getUnits(exercise.logging_type)}
+                        </div>
                       </div>
                     </div>
                   );
@@ -163,6 +171,7 @@ export default async function Page({ params }: PageProps) {
           );
         })}
       </div>
+      <PoweredBy />
     </div>
   );
 }

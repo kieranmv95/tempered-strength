@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useAppDispatch } from "@/lib/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { getUnits } from "@/app/helpers/units";
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
@@ -43,11 +44,12 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                   {getExerciseById(exercise.id).reduce((a, b) => {
                     return Math.max(a, b.log);
                   }, -Infinity)}
-                  kg
+                  {getUnits(exercise.logging_type)}
                 </div>
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2 text-center">Latest</p>
-                  {getExerciseById(exercise.id)[0].log}kg
+                  {getExerciseById(exercise.id)[0].log}
+                  {getUnits(exercise.logging_type)}
                 </div>
               </div>
               <p className="text-xl font-bold mb-6">Log</p>

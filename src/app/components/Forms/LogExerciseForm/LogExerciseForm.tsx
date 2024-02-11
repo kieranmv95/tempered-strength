@@ -9,8 +9,8 @@ import { IExercise } from "@/app/api/user/exercises/route";
 import { useAuth } from "@clerk/nextjs";
 
 const ExerciseSchema = Yup.object().shape({
-  log: Yup.number().required("Weight Required"),
-  date: Yup.date().required("Date Required"),
+  log: Yup.number().required("Required"),
+  date: Yup.date().required("Required"),
 });
 
 type LogExerciseFormProps = {
@@ -18,7 +18,7 @@ type LogExerciseFormProps = {
   close: () => void;
 };
 
-const LogExerciseForm = ({ exercise }: LogExerciseFormProps) => {
+const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
   const dispatch = useAppDispatch();
   const { userId } = useAuth();
 
@@ -85,12 +85,12 @@ const LogExerciseForm = ({ exercise }: LogExerciseFormProps) => {
           <div className="grid gap-4">
             <div>
               <label className="block mb-1" htmlFor="date">
-                Weight (kg)
+                {exercise.logging_type === "weight" ? "Weight (kg)" : "Reps"}
               </label>
               <Field
                 type="number"
                 name="log"
-                placeholder="100kg"
+                placeholder="100"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               />
               <ErrorMessage

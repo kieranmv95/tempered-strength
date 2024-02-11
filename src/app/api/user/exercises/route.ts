@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
 import { query } from "@/db";
 
+export type ILoggingType = "weight" | "reps";
+
 export type IExercise = {
   id: number;
   name: string;
-  logging_type: string;
+  logging_type: ILoggingType;
 };
 
 export type IUserExercise = {

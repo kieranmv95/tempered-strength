@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { IExercise, IUserExercise } from "@/app/api/user/exercises/route";
+import { getUnits } from "@/app/helpers/units";
 
 type ExerciseListItemProps = {
   exercise: IExercise;
@@ -25,7 +26,10 @@ const ExerciseListItem = ({
     >
       <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
         <p>{new Date(userExercise.date).toLocaleDateString("en-GB")}</p>
-        <p className="font-bold">{userExercise.log}kg</p>
+        <p className="font-bold">
+          {userExercise.log}
+          {getUnits(exercise.logging_type)}
+        </p>
       </div>
       <div className="flex gap-2">
         <div
