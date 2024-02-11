@@ -6,7 +6,12 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 
 const OnboardingSchema = Yup.object().shape({
-  username: Yup.string().required("Username Required"),
+  username: Yup.string()
+    .matches(
+      /^[\w-]*$/,
+      "Name can only contain letters, numbers, underscores, and hyphens",
+    )
+    .required("Username Required"),
 });
 
 export default function Page() {

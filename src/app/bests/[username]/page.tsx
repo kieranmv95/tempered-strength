@@ -38,16 +38,46 @@ export default async function Page({ params }: PageProps) {
     );
   }
 
+  const powerLiftingMoves = user.filter((exercise) => {
+    switch (exercise.name.toLowerCase()) {
+      case "deadlift":
+      case "bench press":
+      case "back squat":
+        return exercise;
+      default:
+        return null;
+    }
+  });
+
+  let powerLiftingTotal = powerLiftingMoves.reduce((prev, curr) => {
+    return prev + Number(curr.log);
+  }, 0);
+
   return (
     <div className="text-center px-4 w-full max-w-[600px] mx-auto">
       <h1 className="text-2xl md:text-4xl font-bold mt-12">
         @{params.username}
       </h1>
+      {powerLiftingMoves.length === 3 && (
+        <>
+          <p className="text-lg font-bold mt-6">
+            Powerlifting total {powerLiftingTotal}kg
+          </p>
+          <div className="grid grid-cols-3 mt-4 gap-4">
+            {powerLiftingMoves.map((plMove) => (
+              <div className="grid bg-zinc-700 py-4" key={plMove.name}>
+                <div className="text-sm mb-2">{plMove.name}</div>
+                <div className="font-bold">{Number(plMove.log)}kg</div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
       <div className="grid gap-3 mt-6">
         {user.map((exercise) => (
           <div
             key={exercise.name}
-            className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm flex"
+            className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm"
           >
             <div>{exercise.name}</div>
             <div className="font-bold">{Number(exercise.log)}kg</div>
