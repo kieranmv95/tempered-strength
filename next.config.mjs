@@ -13,4 +13,4 @@ const withPWA = require("@ducanh2912/next-pwa").default({
     },
 });
 
-export default withPwa(nextConfig;)
+export default withPwa(nextConfig)
