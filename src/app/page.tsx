@@ -20,14 +20,10 @@ export default function Home() {
           <p className="text-[2.07em]">TRACK IT</p>
           <p className="text-[2.1em]">SHARE IT</p>
           <h1 className="text-base font-normal">Tempered Strength</h1>
-          <div className="text-center mt-4">
-            <div className="mt-[-0.5em]">
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="w-[.5em] h-[.5em] mx-auto"
-              />
-            </div>
-          </div>
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className="w-[.5em] h-[.5em] mx-auto"
+          />
         </div>
       </div>
 

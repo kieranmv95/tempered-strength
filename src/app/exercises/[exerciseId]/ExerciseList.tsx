@@ -11,11 +11,14 @@ import { useAppDispatch } from "@/lib/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { getUnits } from "@/app/helpers/units";
+import PercentagesBreakdown from "@/app/components/PercentagesBreakdown";
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
     null,
   );
+  const [breakdownPb, setBreakdownPb] = useState(true);
+
   const { data, loading, err, getExerciseById } = useUserExercises();
   const dispatch = useAppDispatch();
 
@@ -52,7 +55,35 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                   {getUnits(exercise.logging_type)}
                 </div>
               </div>
-              <p className="text-xl font-bold mb-6">Log</p>
+              <p className="text-xl font-bold mb-2">Percentages Breakdown</p>
+              <div className="flex gap-3 mb-2">
+                <button
+                  className={`block py-2 px-4 rounded ${breakdownPb ? "bg-blue-600 hover:bg-blue-600" : "bg-blue-400 hover:bg-blue-500"}`}
+                  onClick={() => setBreakdownPb(true)}
+                >
+                  Best
+                </button>
+                <button
+                  className={`block py-2 px-4 rounded ${!breakdownPb ? "bg-blue-600 hover:bg-blue-600" : "bg-blue-400 hover:bg-blue-500"}`}
+                  onClick={() => setBreakdownPb(false)}
+                >
+                  Latest
+                </button>
+              </div>
+
+              <div className="mb-6">
+                <PercentagesBreakdown
+                  value={
+                    breakdownPb
+                      ? getExerciseById(exercise.id).reduce((a, b) => {
+                          return Math.max(a, b.log);
+                        }, -Infinity)
+                      : getExerciseById(exercise.id)[0].log
+                  }
+                  loggingType={exercise.logging_type}
+                />
+              </div>
+              <p className="text-xl font-bold mb-2">Log</p>
               <button
                 className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mb-4"
                 onClick={() => setSelectedExercise(exercise)}
