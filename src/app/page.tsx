@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { SearchForUserFormLarge } from "@/app/components/Forms";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -24,6 +25,27 @@ export default function Home() {
             icon={faChevronDown}
             className="w-[.5em] h-[.5em] mx-auto"
           />
+        </div>
+      </div>
+
+      <div className="text-center py-24 relative">
+        <Image
+          className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-20"
+          src="/rogueplates.png"
+          alt="lifting plates"
+          width={4570}
+          height={796}
+        />
+        <div className="relative z-10">
+          <h2 className="text-2xl font-bold lg:text-4xl">Sign up for FREE</h2>
+          <div className="px-4 md:w-full max-w-[650px] md:mx-auto">
+            <Link
+              href="/sign-up"
+              className="bg-zinc-800 text-white text-xl py-4 px-6 inline-block rounded mt-4"
+            >
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -80,6 +102,7 @@ export default function Home() {
             </h2>
             <ul className="list-disc mt-4 pl-4 space-y-1.5">
               <li>Flex all your lifts with your customised public profile</li>
+              <li>See your Powerlifitng weight and olympic lifting total</li>
               <li>
                 COMING SOON - Create your own theme&apos;s or choose from one of
                 our many templates to brand your profile
