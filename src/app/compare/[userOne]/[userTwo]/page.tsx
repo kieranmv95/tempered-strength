@@ -96,7 +96,9 @@ export default async function Page({ params }: PageProps) {
         <div className="inline-block mx-auto mt-12">
           <BackButton href="/compare">Back to compare</BackButton>
         </div>
-        <h1 className="text-2xl md:text-4xl font-bold">user not found</h1>
+        <h1 className="text-2xl">
+          Users not found or users have not logged any lifts yet!
+        </h1>
       </div>
     );
   }
@@ -121,8 +123,9 @@ export default async function Page({ params }: PageProps) {
         <div className="inline-block mx-auto mt-12">
           <BackButton href="/compare">Back to compare</BackButton>
         </div>
-        <h1 className="text-2xl md:text-4xl font-bold">
-          One of the users was not found
+        <h1 className="text-2xl">
+          One of the users was not found or hasn&apos;t not logged any lifts
+          yet!
         </h1>
       </div>
     );
