@@ -23,10 +23,12 @@ export default function Compare() {
   const router = useRouter();
 
   return (
-    <div className="px-4 py-12 mx-auto w-full max-w-[600px] md:text-center">
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6 text-center">
-        COMPARE
-      </h2>
+    <div className="px-4 py-12 mx-auto w-full max-w-[600px]">
+      <h2 className="text-2xl font-bold lg:text-4xl mb-6">Compare</h2>
+      <p>
+        It&apos;s as simple as putting in two usernames and hitting compare and
+        then you can start comparing stats!
+      </p>
       <Formik
         initialValues={{
           userOne: "",
@@ -42,7 +44,10 @@ export default function Compare() {
             <div className="grid gap-4 items-center">
               <div className="grid gap-4 md:grid-cols-2 md:gap-12">
                 <div>
-                  <label className="block mb-1" htmlFor="date">
+                  <label
+                    className="block mb-1 text-xl font-light"
+                    htmlFor="date"
+                  >
                     User One
                   </label>
                   <Field
@@ -59,7 +64,10 @@ export default function Compare() {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1" htmlFor="date">
+                  <label
+                    className="block mb-1 text-xl font-light"
+                    htmlFor="date"
+                  >
                     User Two
                   </label>
                   <Field
@@ -79,7 +87,7 @@ export default function Compare() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded text-center md:w-[250px]  md:mx-auto md:mt-6"
+                className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded text-center md:w-[250px] md:mt-6"
               >
                 Compare Users
               </button>
