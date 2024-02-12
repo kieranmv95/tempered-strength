@@ -45,14 +45,15 @@ export default function Home() {
             </p>
             <ul className="list-disc mt-4 pl-4 space-y-1.5">
               <li>Quickly update all your lifts</li>
-              <li>See your best and latest scores at a glance</li>
+              <li>See a percentage breakdown of your lifts</li>
+              <li>See your best and lifts at a glance</li>
               <li>COMING SOON - See progression graphs</li>
             </ul>
           </div>
           <div className="relative h-[476px] w-full md:h-auto">
             <div className="md:mt-6 md:flex md:gap-6">
               <Image
-                src="/exercisePage.png"
+                src="/exerciseIdPage.png"
                 width={236}
                 height={475}
                 alt="phone logged in"
