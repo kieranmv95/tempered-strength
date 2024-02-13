@@ -78,6 +78,9 @@ const Header = () => {
                   Profile
                 </Link>
               )}
+              <Link href={`/account`} className="py-2">
+                Account
+              </Link>
             </SignedIn>
             <Link href="/bests" className="py-2">
               Search for user

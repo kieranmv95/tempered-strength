@@ -9,7 +9,7 @@ type GetParams = {
 export async function POST(request: NextRequest) {
   const { userId } = auth();
   const data = (await request.json()) as GetParams;
-  const sql = `INSERT INTO users (id, username, onboarding) VALUES ('${userId}', '${data.username.toLowerCase()}', 1);`;
+  const sql = `UPDATE users SET username = '${data.username.toLowerCase()}' WHERE id = '${userId}';`;
 
   try {
     await query(sql);
@@ -18,6 +18,6 @@ export async function POST(request: NextRequest) {
       { status: 200 },
     );
   } catch (e) {
-    return NextResponse.json({ err: "users not created", e }, { status: 404 });
+    return NextResponse.json({ err: "users not updated", e }, { status: 404 });
   }
 }

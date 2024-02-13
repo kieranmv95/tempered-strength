@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UserState = {
   data: null | {
@@ -20,7 +20,11 @@ export const userSlice = createSlice({
     loading: null,
     err: "",
   } as UserState,
-  reducers: {},
+  reducers: {
+    updateUsername(state, action: PayloadAction<string>) {
+      state.data = { username: action.payload };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserName.rejected, (state, _) => {
       state.loading = false;
@@ -40,4 +44,5 @@ export const userSlice = createSlice({
   },
 });
 
+export const { updateUsername } = userSlice.actions;
 export default userSlice.reducer;
