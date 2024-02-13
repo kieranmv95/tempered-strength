@@ -21,17 +21,19 @@ export const userSlice = createSlice({
   } as UserState,
   reducers: {
     updateUsername(state, action: PayloadAction<string>) {
-      console.log("USERNAME UPDATE", {
-        id: state.data?.id || "",
-        username: action.payload,
-        onboarding: state.data?.onboarding || 1,
-        weight: state.data?.onboarding || null,
-      });
       state.data = {
         id: state.data?.id || "",
         username: action.payload,
         onboarding: state.data?.onboarding || 1,
         weight: state.data?.onboarding || null,
+      };
+    },
+    updateWeight(state, action: PayloadAction<number>) {
+      state.data = {
+        id: state.data?.id || "",
+        username: state.data?.username || "",
+        onboarding: state.data?.onboarding || 1,
+        weight: action.payload,
       };
     },
   },
@@ -56,5 +58,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { updateUsername } = userSlice.actions;
+export const { updateUsername, updateWeight } = userSlice.actions;
 export default userSlice.reducer;

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { useAppDispatch } from "@/lib/hooks";
 import { updateUsername } from "@/lib/features/user/userSlice";
+import { UpdateUserParams } from "@/app/api/user/update/route";
 
 const UsernameSchema = Yup.object().shape({
   username: Yup.string()
@@ -71,16 +72,29 @@ const UpdateUserDetails = () => {
                 const usernameCheck = await res.json();
 
                 if (!usernameCheck.length) {
-                  const updatedUser = await fetch("/api/user/update", {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                  });
-                  const resData = await updatedUser.json();
-                  dispatch(updateUsername(resData.username));
+                  if (user.data) {
+                    const userChanges: UpdateUserParams = {
+                      field: "username",
+                      user: {
+                        ...user.data,
+                        username: values.username,
+                      },
+                    };
 
-                  setSubmitting(false);
-                  toast.success("Username Added");
-                  setShowUpdateForm(false);
+                    const updatedUser = await fetch("/api/user/update", {
+                      method: "POST",
+                      body: JSON.stringify(userChanges),
+                    });
+                    const resData = await updatedUser.json();
+                    dispatch(updateUsername(resData.username));
+
+                    setSubmitting(false);
+                    toast.success("Username Added");
+                    setShowUpdateForm(false);
+                  } else {
+                    toast.error("Failed to update");
+                    setShowUpdateForm(false);
+                  }
                 } else {
                   toast.error("Username already exists");
                   return setFieldError("username", "Username already exists");
