@@ -28,7 +28,7 @@ export const userSlice = createSlice({
         weight: state.data?.onboarding || null,
       };
     },
-    updateWeight(state, action: PayloadAction<number>) {
+    updateWeight(state, action: PayloadAction<number | null>) {
       state.data = {
         id: state.data?.id || "",
         username: state.data?.username || "",
@@ -49,7 +49,6 @@ export const userSlice = createSlice({
     builder.addCase(
       fetchUserName.fulfilled,
       (state, action: PayloadAction<IUser[]>) => {
-        console.log("USER", action.payload[0]);
         state.data = action.payload[0];
         state.loading = false;
         state.err = "";
