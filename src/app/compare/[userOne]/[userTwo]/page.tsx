@@ -128,7 +128,6 @@ export default async function Page({ params }: PageProps) {
             return (
               <div key={item[0].username}>
                 <h2 className="text-xl">@{item[0].username}</h2>
-                <h2 className="text-xl">{item[0].weight}</h2>
                 <div className="grid gap-3 mt-3">
                   {item.map((exercise) => {
                     const { name, log, diff } = exercise;

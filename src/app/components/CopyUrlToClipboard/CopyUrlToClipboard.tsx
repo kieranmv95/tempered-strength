@@ -7,11 +7,11 @@ import React from "react";
 import copy from "copy-to-clipboard";
 
 const CopyUrlToClipboard = ({ children }: { children: React.ReactNode }) => {
-  const url = window.location.href;
-
   const copyToClipboard = () => {
-    copy(window.location.href);
-    toast.success("Copied to clipboard");
+    if (typeof window !== "undefined") {
+      copy(window.location.href);
+      toast.success("Copied to clipboard");
+    }
   };
 
   return (
