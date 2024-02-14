@@ -49,7 +49,7 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
               weight: user.weight || "",
             }}
             enableReinitialize={true}
-            onSubmit={async (values, { setSubmitting, setFieldError }) => {
+            onSubmit={async (values, { setSubmitting }) => {
               if (user.weight === values.weight) {
                 toast.success("Weight updated");
                 setShowUpdateForm(false);
