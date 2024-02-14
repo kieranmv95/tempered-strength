@@ -11,6 +11,7 @@ type IUserStats = {
   name: string;
   logging_type: ILoggingType;
   username: string;
+  weight: number;
 };
 interface ExerciseWithDiff extends IUserStats {
   diff: number;
@@ -25,7 +26,7 @@ interface UserDiffExercises {
 
 const getUserData = async (userOne: string, userTwo: string) => {
   const user = (await query(`
-    SELECT ue.log, ue.date, e.name, e.logging_type, u.username
+    SELECT ue.log, ue.date, e.name, e.logging_type, u.username, u.weight
     FROM (
         SELECT userId, exerciseId, MAX(log) as MaxLog
         FROM userExercises
@@ -59,14 +60,15 @@ export default async function Page({ params }: PageProps) {
   ): UserDiffExercises {
     // Initialize commonExercises with the correct type
     const commonExercises: UserDiffExercises = {};
-
     const usernames = Object.keys(usersData);
+
     const [firstUser, secondUser] = usernames.map(
       (username) => usersData[username],
     );
 
     firstUser.forEach((exercise) => {
       const matchingExercise = secondUser.find((e) => e.name === exercise.name);
+
       if (matchingExercise) {
         const diff =
           parseFloat(exercise.log) - parseFloat(matchingExercise.log);
@@ -146,6 +148,7 @@ export default async function Page({ params }: PageProps) {
             return (
               <div key={item[0].username}>
                 <h2 className="text-xl">@{item[0].username}</h2>
+                <h2 className="text-xl">{item[0].weight}</h2>
                 <div className="grid gap-3 mt-3">
                   {item.map((exercise) => {
                     const { name, log, diff } = exercise;
