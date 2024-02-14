@@ -4,6 +4,8 @@ import { ILoggingType } from "@/app/api/user/exercises/route";
 import { getUnits } from "@/app/helpers/units";
 import PoweredBy from "@/app/components/PoweredBy";
 import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
+import UsersNotFound from "@/app/compare/[userOne]/[userTwo]/UsersNotFound";
+import NotEnoughDataToCompare from "@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare";
 
 type IUserStats = {
   log: string;
@@ -13,6 +15,7 @@ type IUserStats = {
   username: string;
   weight: number;
 };
+
 interface ExerciseWithDiff extends IUserStats {
   diff: number;
 }
@@ -92,18 +95,7 @@ export default async function Page({ params }: PageProps) {
     return commonExercises;
   }
 
-  if (!user) {
-    return (
-      <div className="text-center">
-        <div className="inline-block mx-auto mt-12">
-          <BackButton href="/compare">Back to compare</BackButton>
-        </div>
-        <h1 className="text-2xl">
-          Users not found or users have not logged any lifts yet!
-        </h1>
-      </div>
-    );
-  }
+  if (!user) return <UsersNotFound />;
 
   const groupedByUser = user.reduce(
     (acc, currentItem) => {
@@ -119,19 +111,7 @@ export default async function Page({ params }: PageProps) {
 
   const result = Object.values(groupedByUser);
 
-  if (result.length < 2) {
-    return (
-      <div className="text-center">
-        <div className="inline-block mx-auto mt-12">
-          <BackButton href="/compare">Back to compare</BackButton>
-        </div>
-        <h1 className="text-2xl">
-          One of the users was not found or hasn&apos;t not logged any lifts
-          yet!
-        </h1>
-      </div>
-    );
-  }
+  if (result.length < 2) return <NotEnoughDataToCompare />;
 
   const comparisonData = findCommonExercisesAndCalculateDiff(groupedByUser);
 
