@@ -4,6 +4,8 @@ import { ILoggingType } from "@/app/api/user/exercises/route";
 import { getUnits } from "@/app/helpers/units";
 import PoweredBy from "@/app/components/PoweredBy";
 import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
+import UsersNotFound from "@/app/compare/[userOne]/[userTwo]/UsersNotFound";
+import NotEnoughDataToCompare from "@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare";
 
 type IUserStats = {
   log: string;
@@ -11,7 +13,9 @@ type IUserStats = {
   name: string;
   logging_type: ILoggingType;
   username: string;
+  weight: number;
 };
+
 interface ExerciseWithDiff extends IUserStats {
   diff: number;
 }
@@ -25,7 +29,7 @@ interface UserDiffExercises {
 
 const getUserData = async (userOne: string, userTwo: string) => {
   const user = (await query(`
-    SELECT ue.log, ue.date, e.name, e.logging_type, u.username
+    SELECT ue.log, ue.date, e.name, e.logging_type, u.username, u.weight
     FROM (
         SELECT userId, exerciseId, MAX(log) as MaxLog
         FROM userExercises
@@ -59,14 +63,15 @@ export default async function Page({ params }: PageProps) {
   ): UserDiffExercises {
     // Initialize commonExercises with the correct type
     const commonExercises: UserDiffExercises = {};
-
     const usernames = Object.keys(usersData);
+
     const [firstUser, secondUser] = usernames.map(
       (username) => usersData[username],
     );
 
     firstUser.forEach((exercise) => {
       const matchingExercise = secondUser.find((e) => e.name === exercise.name);
+
       if (matchingExercise) {
         const diff =
           parseFloat(exercise.log) - parseFloat(matchingExercise.log);
@@ -90,18 +95,7 @@ export default async function Page({ params }: PageProps) {
     return commonExercises;
   }
 
-  if (!user) {
-    return (
-      <div className="text-center">
-        <div className="inline-block mx-auto mt-12">
-          <BackButton href="/compare">Back to compare</BackButton>
-        </div>
-        <h1 className="text-2xl">
-          Users not found or users have not logged any lifts yet!
-        </h1>
-      </div>
-    );
-  }
+  if (!user) return <UsersNotFound />;
 
   const groupedByUser = user.reduce(
     (acc, currentItem) => {
@@ -117,19 +111,7 @@ export default async function Page({ params }: PageProps) {
 
   const result = Object.values(groupedByUser);
 
-  if (result.length < 2) {
-    return (
-      <div className="text-center">
-        <div className="inline-block mx-auto mt-12">
-          <BackButton href="/compare">Back to compare</BackButton>
-        </div>
-        <h1 className="text-2xl">
-          One of the users was not found or hasn&apos;t not logged any lifts
-          yet!
-        </h1>
-      </div>
-    );
-  }
+  if (result.length < 2) return <NotEnoughDataToCompare />;
 
   const comparisonData = findCommonExercisesAndCalculateDiff(groupedByUser);
 

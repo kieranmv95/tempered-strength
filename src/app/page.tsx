@@ -53,7 +53,7 @@ export default function Home() {
       </div>
 
       <div className="text-center py-24">
-        <h2 className="text-2xl font-bold lg:text-4xl">Search For a user</h2>
+        <h2 className="text-2xl font-bold lg:text-4xl">Search for a User</h2>
         <div className="px-4 md:w-full max-w-[650px] md:mx-auto">
           <SearchForUserFormLarge />
         </div>

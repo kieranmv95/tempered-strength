@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/bests",
-    "/bests/:username",
+    "/user",
+    "/user/:username",
     "/compare",
     "/compare/:userOne/:userTwo",
   ],

@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from "@/types/IUser";
 
 type UserState = {
-  data: null | {
-    username: string;
-  };
+  data: null | IUser;
   loading: null | boolean;
   err: string;
 };
@@ -22,7 +21,20 @@ export const userSlice = createSlice({
   } as UserState,
   reducers: {
     updateUsername(state, action: PayloadAction<string>) {
-      state.data = { username: action.payload };
+      state.data = {
+        id: state.data?.id || "",
+        username: action.payload,
+        onboarding: state.data?.onboarding || 1,
+        weight: state.data?.onboarding || null,
+      };
+    },
+    updateWeight(state, action: PayloadAction<number | null>) {
+      state.data = {
+        id: state.data?.id || "",
+        username: state.data?.username || "",
+        onboarding: state.data?.onboarding || 1,
+        weight: action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -34,15 +46,16 @@ export const userSlice = createSlice({
     builder.addCase(fetchUserName.pending, (state, _) => {
       state.loading = true;
     });
-    builder.addCase(fetchUserName.fulfilled, (state, action) => {
-      state.data = {
-        username: action.payload[0].username,
-      };
-      state.loading = false;
-      state.err = "";
-    });
+    builder.addCase(
+      fetchUserName.fulfilled,
+      (state, action: PayloadAction<IUser[]>) => {
+        state.data = action.payload[0];
+        state.loading = false;
+        state.err = "";
+      },
+    );
   },
 });
 
-export const { updateUsername } = userSlice.actions;
+export const { updateUsername, updateWeight } = userSlice.actions;
 export default userSlice.reducer;

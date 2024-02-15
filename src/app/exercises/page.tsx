@@ -11,7 +11,7 @@ export default async function Exercises() {
 
   return (
     <div className="px-4 py-12 container mx-auto">
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6">EXERCISES</h2>
+      <h2 className="text-2xl font-bold lg:text-4xl mb-6">Exercises</h2>
 
       <ExercisesList exercises={exercises} />
     </div>

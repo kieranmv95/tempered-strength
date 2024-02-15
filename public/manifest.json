@@ -12,7 +12,7 @@
   ],
   "theme_color": "#232325",
   "background_color": "#232325",
-  "start_url": "/",
+  "start_url": "/dashboard",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait"

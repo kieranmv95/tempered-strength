@@ -6,17 +6,23 @@ import toast from "react-hot-toast";
 import React from "react";
 import copy from "copy-to-clipboard";
 
-const CopyUrlToClipboard = ({ children }: { children: React.ReactNode }) => {
-  const url = window.location.href;
-
+const CopyUrlToClipboard = ({
+  children,
+  url,
+}: {
+  children: React.ReactNode;
+  url?: string;
+}) => {
   const copyToClipboard = () => {
-    copy(window.location.href);
-    toast.success("Copied to clipboard");
+    if (typeof window !== "undefined") {
+      copy(url ? url : window.location.href);
+      toast.success("Copied to clipboard");
+    }
   };
 
   return (
     <div
-      className="cursor-pointer hover:underline p-4 inline-block"
+      className="cursor-pointer hover:underline p-4 inline-flex gap-2 items-center"
       onClick={copyToClipboard}
     >
       <FontAwesomeIcon icon={faLink} className="w-4 h-4" /> {children}

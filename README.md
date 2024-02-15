@@ -66,4 +66,5 @@ The logging type will be to tell the user how the score is going to be recorded 
 - users
   - id varchar(255) NOT NULL PRIMARY KEY,
   - username varchar(255) UNIQUE NOT NULL,
+  - weight DECIMAL(5, 1),
   - onboarded TINYINT(1) NOT NULL,

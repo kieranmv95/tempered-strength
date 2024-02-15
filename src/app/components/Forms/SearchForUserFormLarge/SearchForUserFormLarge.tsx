@@ -24,7 +24,7 @@ const SearchForUserFormLarge = () => {
         username: "",
       }}
       onSubmit={(values) => {
-        router.push(`/bests/${values.username}`);
+        router.push(`/user/${values.username}`);
       }}
       validationSchema={BestsSchema}
     >
