@@ -88,7 +88,7 @@ export default async function Page() {
           </p>
           <Link
             href="/exercises"
-            className="inline block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded"
+            className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded"
           >
             Log your first Exercise
           </Link>
