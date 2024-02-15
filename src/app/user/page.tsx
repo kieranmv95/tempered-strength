@@ -17,16 +17,20 @@ export default function Compare() {
   const router = useRouter();
 
   return (
-    <div className="px-4 py-12 mx-auto w-full max-w-[600px] md:text-center">
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6 text-center">
+    <div className="px-4 py-12 mx-auto w-full max-w-[600px]">
+      <h2 className="text-2xl font-bold lg:text-4xl mb-6 ">
         Search for a user
       </h2>
+      <p>
+        It&apos;s as simple as putting in a username and hitting search then you
+        can start analysing lift data
+      </p>
       <Formik
         initialValues={{
           username: "",
         }}
         onSubmit={(values) => {
-          router.push(`/bests/${values.username}`);
+          router.push(`/user/${values.username}`);
         }}
         validationSchema={BestsSchema}
       >
@@ -53,7 +57,7 @@ export default function Compare() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded text-center md:w-[250px]  md:mx-auto md:mt-6"
+                className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded text-center md:w-[250px]"
               >
                 Search
               </button>
