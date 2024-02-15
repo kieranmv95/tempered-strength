@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import useUser from "@/app/hooks/useUser";
 
 import TemperedStrengthSvg from "../../assets/TemperedStrength.svg";
 import {
@@ -18,7 +17,6 @@ const Header = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [navOpen, setNavOpen] = useState(false);
-  const { data } = useUser();
 
   useEffect(() => {
     setNavOpen(false);
@@ -71,7 +69,7 @@ const Header = () => {
           className={`${!navOpen && "hidden"} w-full block flex-grow lg:flex lg:items-center lg:w-auto`}
         >
           <SignedIn>
-            <AuthenticatedHeader username={data?.username} />
+            <AuthenticatedHeader />
           </SignedIn>
           <SignedOut>
             <UnauthenticatedHeader />

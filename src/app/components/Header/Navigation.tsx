@@ -1,11 +1,7 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
-export const AuthenticatedHeader = ({
-  username,
-}: {
-  username: string | undefined;
-}) => (
+export const AuthenticatedHeader = () => (
   <>
     <div className="grid text-sm lg:flex-grow mt-4 lg:mt-0 lg:flex lg:gap-4">
       <Link href="/dashboard" className="py-2">

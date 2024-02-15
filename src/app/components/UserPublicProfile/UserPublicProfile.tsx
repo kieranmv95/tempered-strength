@@ -23,7 +23,6 @@ const UserPublicProfile = ({
   const powerLiftingMoves = user.filter((exercise) => {
     switch (exercise.name.toLowerCase()) {
       case "deadlift":
-        ``;
       case "bench press":
       case "back squat":
         return exercise;
