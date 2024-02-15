@@ -19,7 +19,6 @@ const UserPublicProfile = ({
   user,
   copyToClipboard = true,
 }: UserPublicProfileProps) => {
-  console.log(user);
   const powerLiftingMoves = user.filter((exercise) => {
     switch (exercise.name.toLowerCase()) {
       case "deadlift":

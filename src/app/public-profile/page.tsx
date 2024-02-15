@@ -43,11 +43,8 @@ const getUsername = async (userId: string) => {
 
 export default async function Page() {
   const { userId } = auth();
-  console.log("userId", userId);
   const username = await getUsername(userId || "");
-  console.log("username", username);
   const user = await getUserData(username);
-  console.log(user, user);
 
   return (
     <>
