@@ -172,7 +172,7 @@ export default async function Page({ params }: PageProps) {
                       className="grid md:flex md:justify-between items-center bg-zinc-700 p-3 rounded-sm"
                     >
                       <div>{name}</div>
-                      <div className="md:flex md:gap-3">
+                      <div className="flex gap-3 justify-center">
                         <div
                           className={`
                           font-bold
@@ -180,9 +180,13 @@ export default async function Page({ params }: PageProps) {
                           ${diff > 0 && "text-green-400"}
                         `}
                         >
-                          {diff > 0 && "+"}
-                          {Number(diff)}
-                          {getUnits(exercise.logging_type)}
+                          {diff > 0 ? (
+                            <>
+                              {diff > 0 && "+"}
+                              {Number(diff)}
+                              {getUnits(exercise.logging_type)}
+                            </>
+                          ) : null}
                         </div>
                         <div className="font-bold">
                           {Number(log)}
