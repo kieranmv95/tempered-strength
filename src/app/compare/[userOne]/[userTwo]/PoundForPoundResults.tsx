@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { SignedIn } from "@clerk/nextjs";
 
 type PfPData = {
   username: string;
@@ -16,9 +17,12 @@ const PoundForPoundResults = ({ data }: { data: PfPData }) => {
     return (
       <div className="bg-zinc-700 p-4 mb-8 max-w-[600px] mx-auto">
         <h2 className="text-lg font-bold mb-3">Strength Comparison</h2>
-        Both users must log a body weight in my account to find out strength
-        comparison. The following users have not logged their body weight:{" "}
-        {users.join(", ")}
+        Both users{" "}
+        <span className="font-bold">
+          must log a body weight in my account
+        </span>{" "}
+        to find out strength comparison. The following users have not logged
+        their body weight: <span className="font-bold">{users.join(", ")}</span>
       </div>
     );
   }
