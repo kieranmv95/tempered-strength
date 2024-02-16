@@ -6,6 +6,7 @@ export default authMiddleware({
     "/",
     "/user",
     "/user/:username",
+    "/how-is-strength-calculated",
     "/compare",
     "/compare/:userOne/:userTwo",
   ],
