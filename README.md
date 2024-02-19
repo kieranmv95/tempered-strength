@@ -53,6 +53,7 @@ The logging type will be to tell the user how the score is going to be recorded 
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY
   - name varchar(255) NOT NULL
   - logging_type varchar(255) NOT NULL
+  - onboarded TINYINT(1) NOT NULL,
 
 - userExercises
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,

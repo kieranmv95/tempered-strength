@@ -40,7 +40,7 @@ const getUserData = async (userOne: string, userTwo: string) => {
     JOIN userExercises ue ON max_ue.userId = ue.userId AND max_ue.exerciseId = ue.exerciseId AND max_ue.MaxLog = ue.log
     JOIN users u ON ue.userId = u.id
     JOIN exercises e ON ue.exerciseId = e.id
-    WHERE u.username = '${userOne}' OR u.username = '${userTwo}';
+    WHERE u.username = '${userOne}' OR u.username = '${userTwo}' AND e.public = 1;
   `)) as IUserStats[];
 
   if (!user.length) {

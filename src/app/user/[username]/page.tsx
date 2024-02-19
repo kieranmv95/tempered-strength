@@ -14,7 +14,7 @@ const getUserData = async (username: string) => {
     JOIN userExercises ue ON max_ue.userId = ue.userId AND max_ue.exerciseId = ue.exerciseId AND max_ue.MaxLog = ue.log
     JOIN users u ON ue.userId = u.id
     JOIN exercises e ON ue.exerciseId = e.id
-    WHERE u.username = '${username}';
+    WHERE u.username = '${username}' AND e.public = 1;
   `)) as {
     log: string;
     date: Date;
