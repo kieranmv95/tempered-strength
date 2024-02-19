@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ITeam } from "@/types/Team";
 import { deleteTeam } from "@/lib/features/userTeams/userTeamsSlice";
 
