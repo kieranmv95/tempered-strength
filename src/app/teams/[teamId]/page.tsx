@@ -86,7 +86,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
 
   return (
     <div className="px-4 py-12 container mx-auto">
-      <BackButton href="/compare">Back to compare</BackButton>
+      <BackButton href="/teams">Back to teams</BackButton>
       <h2 className="text-2xl font-bold lg:text-4xl mb-6">{team.name}</h2>
       {team.description && <p className="mb-3">{team.description}</p>}
       <p className="text-xl font-bold lg:text-2xl mb-3">Members</p>
