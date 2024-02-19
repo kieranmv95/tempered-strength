@@ -42,7 +42,7 @@ export default async function Page({ params }: PageProps) {
     return (
       <div className="text-center px-4">
         <div className="inline-block mx-auto mt-12">
-          <BackButton href="/user">Search for another user</BackButton>
+          <BackButton>Back</BackButton>
         </div>
         <h1>user not found or user has not logged any lifts yet!</h1>
       </div>

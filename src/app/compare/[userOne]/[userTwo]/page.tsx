@@ -6,6 +6,7 @@ import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
 import UsersNotFound from "@/app/compare/[userOne]/[userTwo]/UsersNotFound";
 import NotEnoughDataToCompare from "@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare";
 import PoundForPoundResults from "@/app/compare/[userOne]/[userTwo]/PoundForPoundResults";
+import BackButton from "@/components/BackButton";
 
 type IUserStats = {
   log: string;
@@ -151,6 +152,9 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       <div className="text-center px-4 w-full max-w-[960px] mx-auto">
+        <div className="mt-4">
+          <BackButton>Back</BackButton>
+        </div>
         <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
         <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
         <PoundForPoundResults data={poundforPoundData} />
