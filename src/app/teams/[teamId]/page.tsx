@@ -99,7 +99,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
             <div className="grid bg-zinc-700 px-3 rounded-sm h-11 items-center">
               <p>
                 {user.username}
-                {user.id === team.ownerUserId && " - Owner"}
+                {user.id === team.ownerUserId && " - Admin"}
                 {user.username === myUsername?.username && " - You"}
               </p>
             </div>
@@ -108,7 +108,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
                 href={`/user/${user.username}`}
                 className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 px-3 flex items-center justify-center"
               >
-                Profile
+                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
               </Link>
               {user.username !== myUsername?.username && (
                 <Link
