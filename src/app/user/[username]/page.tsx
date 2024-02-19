@@ -40,23 +40,14 @@ export default async function Page({ params }: PageProps) {
 
   if (!user) {
     return (
-      <div className="text-center">
+      <div className="text-center px-4">
         <div className="inline-block mx-auto mt-12">
           <BackButton href="/user">Search for another user</BackButton>
         </div>
-        <h1 className="text-2xl">
-          user not found or user has not logged any lifts yet!
-        </h1>
+        <h1>user not found or user has not logged any lifts yet!</h1>
       </div>
     );
   }
 
-  return (
-    <>
-      <div className="mt-3 ml-4">
-        <BackButton href="/user">Search for another user</BackButton>
-      </div>
-      <UserPublicProfile username={params.username} user={user} />
-    </>
-  );
+  return <UserPublicProfile username={params.username} user={user} />;
 }

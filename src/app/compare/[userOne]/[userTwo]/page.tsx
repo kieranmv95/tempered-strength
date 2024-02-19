@@ -1,5 +1,4 @@
 import { query } from "@/db";
-import BackButton from "@/components/BackButton";
 import { ILoggingType } from "@/app/api/user/exercises/route";
 import { getUnits } from "@/helpers/units";
 import PoweredBy from "@/components/PoweredBy";
@@ -146,15 +145,11 @@ export default async function Page({ params }: PageProps) {
   if (result.length < 2) return <NotEnoughDataToCompare />;
 
   const comparisonData = findCommonExercisesAndCalculateDiff(groupedByUser);
-  // const blob = getPfPChampion(comparisonData);
 
   const poundforPoundData = getPfPChampion(comparisonData);
 
   return (
     <>
-      <div className="mt-3 ml-4">
-        <BackButton href="/">Back to home</BackButton>
-      </div>
       <div className="text-center px-4 w-full max-w-[960px] mx-auto">
         <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
         <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>

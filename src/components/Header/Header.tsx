@@ -22,19 +22,6 @@ const Header = () => {
     setNavOpen(false);
   }, [pathname, searchParams]);
 
-  const hideHeader = (): boolean => {
-    // Regular expression for /compare/username/username
-    const comparePattern = /^\/compare\/[^/]+\/[^/]+$/;
-
-    // Regular expression for /user/username
-    const bestsPattern = /^\/user\/[^/]+$/;
-
-    // Test the pathname against both patterns
-    return comparePattern.test(pathname) || bestsPattern.test(pathname);
-  };
-
-  if (hideHeader()) return null;
-
   return (
     <header className="sticky top-0 left-0 z-20 bg-zinc-800">
       <nav className="flex items-center justify-between flex-wrap bg-zinc-700 p-4">

@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { SignedIn } from "@clerk/nextjs";
 
 type PfPData = {
   username: string;
