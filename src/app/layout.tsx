@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import StoreProvider from "@/app/StoreProvider";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
+import type { Viewport } from 'next'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
     "Lift it, Track it, Share it. Flex your one rep maxes with all your gym friends",
   manifest: "/manifest.json",
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
+}
 
 export default function RootLayout({
   children,
