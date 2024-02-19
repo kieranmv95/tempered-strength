@@ -1,4 +1,4 @@
-import BackButton from "@/app/components/BackButton";
+import BackButton from "@/components/BackButton";
 
 const UsersNotFound = () => (
   <div className="text-center">

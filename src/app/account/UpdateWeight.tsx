@@ -36,6 +36,9 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
         {!showUpdateForm ? (
           <>
             <p className="mb-1">Weight (kg)</p>
+            <p className="mb-2 text-sm">
+              Your weight will never be shared publicly
+            </p>
             <div
               className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
               onClick={showForm}
@@ -85,6 +88,9 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
                     <label className="block mb-1" htmlFor="date">
                       Weight (kg)
                     </label>
+                    <p className="mb-2 text-sm">
+                      Your weight will never be shared publicly
+                    </p>
                     <Field
                       id="weight"
                       type="text"

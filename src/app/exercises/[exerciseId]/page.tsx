@@ -2,10 +2,14 @@ import { query } from "@/db";
 import { IExercise } from "@/app/api/user/exercises/route";
 import React from "react";
 import ExerciseList from "./ExerciseList";
-import BackButton from "@/app/components/BackButton";
+import BackButton from "@/components/BackButton";
 
 async function getExercise(id: number) {
   const exercises = (await query(
+    `SELECT * FROM exercises WHERE id = ${id}`,
+  )) as IExercise[];
+
+  const users = (await query(
     `SELECT * FROM exercises WHERE id = ${id}`,
   )) as IExercise[];
 

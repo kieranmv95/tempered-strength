@@ -1,4 +1,4 @@
-import BackButton from "@/app/components/BackButton";
+import BackButton from "@/components/BackButton";
 
 const NotEnoughDataToCompare = () => (
   <div className="text-center">

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { IExercise, IUserExercise } from "@/app/api/user/exercises/route";
-import { getUnits } from "@/app/helpers/units";
+import { getUnits } from "@/helpers/units";
 
 type ExerciseListItemProps = {
   exercise: IExercise;

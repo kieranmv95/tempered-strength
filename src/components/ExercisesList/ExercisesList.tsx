@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { IExercise } from "@/app/api/user/exercises/route";
 import LogExerciseForm from "../LogExerciseModal";
-import useUserExercises from "@/app/hooks/useUserExercises";
+import useUserExercises from "@/hooks/useUserExercises";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { getUnits } from "@/app/helpers/units";
+import { getUnits } from "@/helpers/units";
 
 type ExercisesListProps = {
   exercises: IExercise[];

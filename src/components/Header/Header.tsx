@@ -9,7 +9,7 @@ import TemperedStrengthSvg from "../../assets/TemperedStrength.svg";
 import {
   AuthenticatedHeader,
   UnauthenticatedHeader,
-} from "@/app/components/Header/Navigation";
+} from "@/components/Header/Navigation";
 import { SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 
 const Header = () => {
