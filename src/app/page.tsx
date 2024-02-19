@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { SearchForUserFormLarge } from "@/app/components/Forms";
+import { SearchForUserFormLarge } from "@/components/Forms";
 import Link from "next/link";
 
 export default function Home() {

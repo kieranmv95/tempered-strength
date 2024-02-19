@@ -1,4 +1,4 @@
-import { getUnits } from "@/app/helpers/units";
+import { getUnits } from "@/helpers/units";
 import React from "react";
 import { ILoggingType } from "@/app/api/user/exercises/route";
 

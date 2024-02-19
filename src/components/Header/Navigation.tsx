@@ -10,6 +10,9 @@ export const AuthenticatedHeader = () => (
       <Link href="/exercises" className="py-2">
         Exercises
       </Link>
+      <Link href={`/teams`} className="py-2">
+        Teams
+      </Link>
       <Link href={`/account`} className="py-2">
         Account
       </Link>

@@ -1,6 +1,6 @@
-import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
-import { getUnits } from "@/app/helpers/units";
-import PoweredBy from "@/app/components/PoweredBy";
+import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
+import { getUnits } from "@/helpers/units";
+import PoweredBy from "@/components/PoweredBy";
 import { ILoggingType } from "@/app/api/user/exercises/route";
 
 type UserPublicProfileProps = {
@@ -50,7 +50,7 @@ const UserPublicProfile = ({
 
   return (
     <div className="text-center px-4 w-full max-w-[600px] mx-auto mt-12">
-      <h1 className="text-2xl md:text-4xl font-bold mt-120">@{username}</h1>
+      <h1 className="text-2xl md:text-4xl font-bold mt-120">{username}</h1>
 
       {copyToClipboard && (
         <CopyUrlToClipboard>Copy profile url</CopyUrlToClipboard>

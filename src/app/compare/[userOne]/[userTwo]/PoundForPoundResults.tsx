@@ -16,9 +16,12 @@ const PoundForPoundResults = ({ data }: { data: PfPData }) => {
     return (
       <div className="bg-zinc-700 p-4 mb-8 max-w-[600px] mx-auto">
         <h2 className="text-lg font-bold mb-3">Strength Comparison</h2>
-        Both users must log a body weight in my account to find out strength
-        comparison. The following users have not logged their body weight:{" "}
-        {users.join(", ")}
+        Both users{" "}
+        <span className="font-bold">
+          must log a body weight in my account
+        </span>{" "}
+        to find out strength comparison. The following users have not logged
+        their body weight: <span className="font-bold">{users.join(", ")}</span>
       </div>
     );
   }
@@ -58,7 +61,7 @@ const PoundForPoundResults = ({ data }: { data: PfPData }) => {
         <h2 className="text-lg font-bold mb-3">Strength Comparison</h2>
         <p>
           The results are in, the numbers crunched, we have determined that the
-          winner is <span className="font-bold">@{winner?.username}</span>. This
+          winner is <span className="font-bold">{winner?.username}</span>. This
           user is pound for pound stronger by{" "}
           <span className="font-bold">{percentageDifference}</span>%!{" "}
           <Link className="underline" href="/how-is-strength-calculated">

@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import useUserExercises from "@/app/hooks/useUserExercises";
+import useUserExercises from "@/hooks/useUserExercises";
 import { IExercise } from "@/app/api/user/exercises/route";
-import LogExerciseForm from "../../components/LogExerciseModal";
+import LogExerciseForm from "@/components/LogExerciseModal";
 import ExerciseListItem from "@/app/exercises/[exerciseId]/ExerciseListItem";
 import { removeSuccess } from "@/lib/features/userExercises/userExercisesSlice";
 import toast from "react-hot-toast";
 import { useAppDispatch } from "@/lib/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { getUnits } from "@/app/helpers/units";
-import PercentagesBreakdown from "@/app/components/PercentagesBreakdown";
+import { getUnits } from "@/helpers/units";
+import PercentagesBreakdown from "@/components/PercentagesBreakdown";
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(

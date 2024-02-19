@@ -1,6 +1,6 @@
 "use client";
 
-import useUser from "@/app/hooks/useUser";
+import useUser from "@/hooks/useUser";
 import UpdateUsername from "@/app/account/UpdateUsername";
 import UpdateWeight from "@/app/account/UpdateWeight";
 

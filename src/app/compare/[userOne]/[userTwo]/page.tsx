@@ -1,9 +1,8 @@
 import { query } from "@/db";
-import BackButton from "@/app/components/BackButton";
 import { ILoggingType } from "@/app/api/user/exercises/route";
-import { getUnits } from "@/app/helpers/units";
-import PoweredBy from "@/app/components/PoweredBy";
-import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
+import { getUnits } from "@/helpers/units";
+import PoweredBy from "@/components/PoweredBy";
+import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
 import UsersNotFound from "@/app/compare/[userOne]/[userTwo]/UsersNotFound";
 import NotEnoughDataToCompare from "@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare";
 import PoundForPoundResults from "@/app/compare/[userOne]/[userTwo]/PoundForPoundResults";
@@ -146,15 +145,11 @@ export default async function Page({ params }: PageProps) {
   if (result.length < 2) return <NotEnoughDataToCompare />;
 
   const comparisonData = findCommonExercisesAndCalculateDiff(groupedByUser);
-  // const blob = getPfPChampion(comparisonData);
 
   const poundforPoundData = getPfPChampion(comparisonData);
 
   return (
     <>
-      <div className="mt-3 ml-4">
-        <BackButton href="/">Back to home</BackButton>
-      </div>
       <div className="text-center px-4 w-full max-w-[960px] mx-auto">
         <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
         <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
@@ -162,7 +157,7 @@ export default async function Page({ params }: PageProps) {
         <div className="grid grid-cols-2 gap-4 mt-4">
           {Object.values(comparisonData).map((item) => (
             <div key={item[0].username}>
-              <h2 className="text-xl">@{item[0].username}</h2>
+              <h2 className="text-xl">{item[0].username}</h2>
               <div className="grid gap-3 mt-3">
                 {item.map((exercise) => {
                   const { name, log, diff } = exercise;

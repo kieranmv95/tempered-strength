@@ -1,7 +1,7 @@
 import { query } from "@/db";
 import { ILoggingType } from "@/app/api/user/exercises/route";
-import UserPublicProfile from "@/app/components/UserPublicProfile";
-import CopyUrlToClipboard from "@/app/components/CopyUrlToClipboard";
+import UserPublicProfile from "@/components/UserPublicProfile";
+import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 

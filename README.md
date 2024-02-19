@@ -54,7 +54,6 @@ The logging type will be to tell the user how the score is going to be recorded 
   - name varchar(255) NOT NULL
   - logging_type varchar(255) NOT NULL
 
-
 - userExercises
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   - userId varchar(255) NOT NULL,
@@ -62,9 +61,20 @@ The logging type will be to tell the user how the score is going to be recorded 
   - log decimal(5,2) NOT NULL,
   - date Date NOT NULL,
 
-
 - users
   - id varchar(255) NOT NULL PRIMARY KEY,
   - username varchar(255) UNIQUE NOT NULL,
   - weight DECIMAL(5, 1),
   - onboarded TINYINT(1) NOT NULL,
+
+- teams
+  - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  - name varchar(255) UNIQUE NOT NULL,
+  - description varchar(255)
+  - ownerUserId varchar(255) NOT NULL,
+  - password varchar(255),
+
+- userTeams
+  - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  - userId varchar(255) NOT NULL,
+  - teamId varchar(255) NOT NULL,

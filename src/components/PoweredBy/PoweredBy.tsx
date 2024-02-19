@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import TemperedStrengthSvg from "@/app/assets/TemperedStrength.svg";
+import TemperedStrengthSvg from "@/assets/TemperedStrength.svg";
 
 const PoweredBy = () => (
   <div className="mt-8 mb-24">

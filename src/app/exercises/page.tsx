@@ -1,5 +1,5 @@
 import { query } from "@/db";
-import ExercisesList from "@/app/components/ExercisesList";
+import ExercisesList from "@/components/ExercisesList";
 import { IExercise } from "@/app/api/user/exercises/route";
 
 async function getExercises() {
