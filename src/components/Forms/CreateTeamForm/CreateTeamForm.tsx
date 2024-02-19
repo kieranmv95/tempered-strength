@@ -77,6 +77,7 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
                 name="name"
                 placeholder="name"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                autoComplete="off"
               />
               <ErrorMessage
                 name="name"
@@ -94,6 +95,7 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
                 name="description"
                 placeholder="description"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                autoComplete="off"
               />
               <ErrorMessage
                 name="description"
@@ -115,6 +117,7 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
                 name="password"
                 placeholder="password"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                autoComplete="off"
               />
               <ErrorMessage
                 name="password"

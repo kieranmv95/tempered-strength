@@ -91,6 +91,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                 type="number"
                 name="log"
                 placeholder="100"
+                autoComplete="off"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               />
               <ErrorMessage
@@ -107,6 +108,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
               <Field
                 type="date"
                 name="date"
+                autoComplete="off"
                 placeholder="dd/mm/yyyy"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[42px]"
               />

@@ -17,6 +17,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
     null,
   );
+  const [search, setSearch] = useState("");
   const { loading, err, getOneRepMax } = useUserExercises();
 
   if (loading && !err) return <>Loading...</>;
@@ -24,11 +25,29 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
 
   return (
     <>
+      <p className="mb-1">Search</p>
+      <input
+          type="text"
+          className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[44px]"
+          placeholder="Search"
+          autoComplete="off"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+      />
       <div className="grid gap-3">
         {exercises
           .sort((a, b) => {
             return a.name.localeCompare(b.name);
           })
+            .filter((exercise) => {
+                if(search === "") {
+                    return exercise
+                } else {
+                    if(exercise.name.toLowerCase().includes(search.toLowerCase())) {
+                        return exercise;
+                    }
+                }
+            })
           .map((exercise) => {
             const oneRepMax = getOneRepMax(exercise.id);
 

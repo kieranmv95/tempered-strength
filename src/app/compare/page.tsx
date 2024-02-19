@@ -51,6 +51,7 @@ export default function Compare() {
                     type="text"
                     name="userOne"
                     placeholder="username"
+                    autoComplete="off"
                     className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
                   />
                   <ErrorMessage
@@ -68,6 +69,7 @@ export default function Compare() {
                     type="text"
                     name="userTwo"
                     placeholder="username"
+                    autoComplete="off"
                     className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
                   />
                   <ErrorMessage
