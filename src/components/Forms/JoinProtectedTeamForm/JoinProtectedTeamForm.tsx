@@ -1,12 +1,9 @@
 "use client";
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { addSuccess } from "@/lib/features/userExercises/userExercisesSlice";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { useAppDispatch } from "@/lib/hooks";
-import { IExercise } from "@/app/api/user/exercises/route";
-import { useAuth } from "@clerk/nextjs";
 import { joinTeam } from "@/lib/features/userTeams/userTeamsSlice";
 import { ITeam } from "@/types/Team";
 
@@ -65,7 +62,9 @@ const JoinProtectedTeamForm = ({ team, close }: LogExerciseFormProps) => {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold mb-4">Join "{team.name}"</h2>
+          <h2 className="text-xl font-bold mb-4">
+            Join &quot;{team.name}&quot;
+          </h2>
           <div className="grid gap-4">
             <div>
               <label className="block mb-1" htmlFor="date">

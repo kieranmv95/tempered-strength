@@ -34,7 +34,7 @@ const TeamsDirectory = () => {
         <h2 className="mb-3 font-bold text-lg">Team Directory</h2>
         <div className="mb-3">Error loading teams</div>
         <div
-          className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
           onClick={refreshTeams}
         >
           <FontAwesomeIcon icon={faRefresh} className="w-4 h-4" /> Refresh teams
@@ -51,7 +51,7 @@ const TeamsDirectory = () => {
         <div>
           <p className="mb-3">No teams have been created yet</p>
           <div
-            className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
             onClick={refreshTeams}
           >
             <FontAwesomeIcon icon={faRefresh} className="w-4 h-4" /> Refresh
@@ -61,7 +61,7 @@ const TeamsDirectory = () => {
       ) : (
         <>
           <div
-            className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer mb-3"
+            className="bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer mb-3"
             onClick={refreshTeams}
           >
             <FontAwesomeIcon icon={faRefresh} className="w-4 h-4" /> Refresh
