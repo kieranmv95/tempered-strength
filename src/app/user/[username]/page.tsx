@@ -49,5 +49,5 @@ export default async function Page({ params }: PageProps) {
     );
   }
 
-  return <UserPublicProfile username={params.username} user={user} />;
+  return <UserPublicProfile authedBack username={params.username} user={user}/>
 }

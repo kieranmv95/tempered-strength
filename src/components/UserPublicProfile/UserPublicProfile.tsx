@@ -2,10 +2,12 @@ import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
 import { getUnits } from "@/helpers/units";
 import PoweredBy from "@/components/PoweredBy";
 import { ILoggingType } from "@/app/api/user/exercises/route";
+import Back from "@/app/user/[username]/Back";
 
 type UserPublicProfileProps = {
   username: string;
   copyToClipboard?: boolean;
+  authedBack?: boolean;
   user: {
     log: string;
     date: Date;
@@ -15,6 +17,7 @@ type UserPublicProfileProps = {
 };
 
 const UserPublicProfile = ({
+  authedBack = false,
   username,
   user,
   copyToClipboard = true,
@@ -50,6 +53,7 @@ const UserPublicProfile = ({
 
   return (
     <div className="text-center px-4 w-full max-w-[600px] mx-auto mt-12">
+      {authedBack && <Back />}
       <h1 className="text-2xl md:text-4xl font-bold mt-120">{username}</h1>
 
       {copyToClipboard && (
