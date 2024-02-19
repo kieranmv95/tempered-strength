@@ -1,6 +1,6 @@
-import { query } from "@/db";
-import { ILoggingType } from "@/app/api/user/exercises/route";
-import { getUnits } from "@/helpers/units";
+import {query} from "@/db";
+import {ILoggingType} from "@/app/api/user/exercises/route";
+import {getUnits} from "@/helpers/units";
 import PoweredBy from "@/components/PoweredBy";
 import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
 import UsersNotFound from "@/app/compare/[userOne]/[userTwo]/UsersNotFound";
@@ -50,8 +50,6 @@ const getUserData = async (userOne: string, userTwo: string) => {
   }
 };
 
-type PfPData = any;
-
 type PageProps = {
   params: {
     userOne: string;
@@ -100,31 +98,29 @@ export default async function Page({ params }: PageProps) {
   }
 
   const getPfPChampion = (data: UserDiffExercises) => {
-    const test = Object.values(data).map((ewd) => {
+    return Object.values(data).map((ewd) => {
       return {
         username: ewd[0].username,
         multiplier: ewd
-          .map((exercise) => {
-            if (exercise.logging_type === "weight") {
-              return {
-                multiplier: exercise.weight
-                  ? Number(exercise.log) / Number(exercise.weight)
-                  : null,
-              };
-            } else {
-              return {
-                multiplier: null,
-              };
-            }
-          })
-          .reduce((acc, cur) => {
-            const curNum = cur.multiplier ? cur.multiplier : 0;
-            return acc + curNum;
-          }, 0),
+            .map((exercise) => {
+              if (exercise.logging_type === "weight") {
+                return {
+                  multiplier: exercise.weight
+                      ? Number(exercise.log) / Number(exercise.weight)
+                      : null,
+                };
+              } else {
+                return {
+                  multiplier: null,
+                };
+              }
+            })
+            .reduce((acc, cur) => {
+              const curNum = cur.multiplier ? cur.multiplier : 0;
+              return acc + curNum;
+            }, 0),
       };
     });
-
-    return test;
   };
 
   if (!user) return <UsersNotFound />;
