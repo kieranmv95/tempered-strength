@@ -50,7 +50,7 @@ export default function RootLayout({
           </StoreProvider>
         </ClerkProvider>
         </body>
-        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7988621555920336" crossorigin="anonymous" />
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7988621555920336" crossOrigin="anonymous" />
       </html>
     </>
   );
