@@ -11,6 +11,7 @@ type ButtonProps = {
   fullWidth?: boolean;
   className?: string;
   loadingText?: string;
+  theme?: 'green' | 'blue' | 'red';
 };
 const Button = ({
   type,
@@ -21,11 +22,12 @@ const Button = ({
   fullWidth,
   className,
   loadingText = 'Loading...',
+  theme = 'green',
 }: ButtonProps) => (
   <button
     type={type}
     disabled={disabled}
-    className={`block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`}
+    className={`block bg-${theme}-600 hover:bg-${theme}-700 click:bg-${theme}-600 py-2 px-4 rounded ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`}
     onClick={onClick && onClick}
   >
     {loading ? (
