@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { IExercise } from '@/app/api/user/exercises/route';
 import { useAuth } from '@clerk/nextjs';
+import Button from '@/components/Button';
 
 const ExerciseSchema = Yup.object().shape({
   log: Yup.number().required('Required'),
@@ -119,13 +120,9 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                 )}
               />
             </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded"
-            >
+            <Button disabled={isSubmitting} loading={isSubmitting}>
               Submit
-            </button>
+            </Button>
           </div>
         </Form>
       )}
