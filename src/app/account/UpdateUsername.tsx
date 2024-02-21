@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
-import { useAppDispatch } from "@/lib/hooks";
-import { updateUsername } from "@/lib/features/user/userSlice";
-import { UpdateUserParams } from "@/app/api/user/update/route";
-import { IUser } from "@/types/IUser";
+import { useEffect, useState } from 'react';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import toast from 'react-hot-toast';
+import * as Yup from 'yup';
+import { useAppDispatch } from '@/lib/hooks';
+import { updateUsername } from '@/lib/features/user/userSlice';
+import { UpdateUserParams } from '@/app/api/user/update/route';
+import { IUser } from '@/types/IUser';
 
 const UsernameSchema = Yup.object().shape({
   username: Yup.string()
     .matches(
       /^[\w-]*$/,
-      "Name can only contain letters, numbers, underscores, and hyphens",
+      'Name can only contain letters, numbers, underscores, and hyphens',
     )
-    .required("Username Required"),
+    .required('Username Required'),
 });
 
 type UpdateUsernameProps = {
@@ -31,7 +31,7 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
 
   useEffect(() => {
     if (showUpdateForm) {
-      document.getElementById("username")?.focus();
+      document.getElementById('username')?.focus();
     }
   }, [showUpdateForm]);
 
@@ -51,16 +51,16 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
         ) : (
           <Formik
             initialValues={{
-              username: user.username || "",
+              username: user.username || '',
             }}
             enableReinitialize={true}
             onSubmit={async (values, { setSubmitting, setFieldError }) => {
               if (user.username === values.username) {
-                toast.success("Username updated");
+                toast.success('Username updated');
                 setShowUpdateForm(false);
               } else {
-                const res = await fetch("/api/username/check", {
-                  method: "POST",
+                const res = await fetch('/api/username/check', {
+                  method: 'POST',
                   body: JSON.stringify({
                     username: values.username,
                   }),
@@ -70,15 +70,15 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
 
                 if (!usernameCheck.length) {
                   const userChanges: UpdateUserParams = {
-                    field: "username",
+                    field: 'username',
                     user: {
                       ...user,
                       username: values.username,
                     },
                   };
 
-                  const updatedUser = await fetch("/api/user/update", {
-                    method: "POST",
+                  const updatedUser = await fetch('/api/user/update', {
+                    method: 'POST',
                     body: JSON.stringify(userChanges),
                   });
 
@@ -87,11 +87,11 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
                   dispatch(updateUsername(resData.username));
 
                   setSubmitting(false);
-                  toast.success("Username Added");
+                  toast.success('Username Added');
                   setShowUpdateForm(false);
                 } else {
-                  toast.error("Username already exists");
-                  return setFieldError("username", "Username already exists");
+                  toast.error('Username already exists');
+                  return setFieldError('username', 'Username already exists');
                 }
               }
             }}
@@ -113,7 +113,7 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
                     />
                     <ErrorMessage
                       name="username"
-                      render={(msg) => (
+                      render={msg => (
                         <div className="text-xs text-red-400 mt-2">{msg}</div>
                       )}
                     />

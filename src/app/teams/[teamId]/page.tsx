@@ -1,18 +1,18 @@
-import TeamsDirectory from "@/components/TeamsDirectory";
-import UserTeamsDirectory from "@/components/UserTeamsDirectory";
-import CreateTeam from "@/components/CreateTeam/CreateTeam";
-import { query } from "@/db";
-import { IExercise } from "@/app/api/user/exercises/route";
-import { ITeamResponse } from "@/types/Team";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TeamsDirectory from '@/components/TeamsDirectory';
+import UserTeamsDirectory from '@/components/UserTeamsDirectory';
+import CreateTeam from '@/components/CreateTeam/CreateTeam';
+import { query } from '@/db';
+import { IExercise } from '@/app/api/user/exercises/route';
+import { ITeamResponse } from '@/types/Team';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,
   faPlus,
   faRefresh,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { auth } from "@clerk/nextjs";
-import BackButton from "@/components/BackButton";
+} from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import { auth } from '@clerk/nextjs';
+import BackButton from '@/components/BackButton';
 
 async function getTeam(id: string) {
   try {
@@ -58,7 +58,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
         <h2 className="text-2xl font-bold lg:text-4xl mb-6">Team not found!</h2>
         <Link
           className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
-          href={"/teams"}
+          href={'/teams'}
         >
           Back to teams
         </Link>
@@ -66,7 +66,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
     );
   }
 
-  const myUsername = users.find((user) => user.id === userId);
+  const myUsername = users.find(user => user.id === userId);
 
   if (!myUsername) {
     return (
@@ -76,7 +76,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
         <p className="mb-3">You can join teams from the teams screen</p>
         <Link
           className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
-          href={"/teams"}
+          href={'/teams'}
         >
           Back to teams
         </Link>
@@ -91,7 +91,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
       {team.description && <p className="mb-3">{team.description}</p>}
       <p className="text-xl font-bold lg:text-2xl mb-3">Members</p>
       <div className="grid gap-3">
-        {users.map((user) => (
+        {users.map(user => (
           <div
             key={user.id}
             className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
@@ -99,8 +99,8 @@ export default async function Team({ params }: { params: { teamId: string } }) {
             <div className="grid bg-zinc-700 px-3 rounded-sm h-11 items-center">
               <p>
                 {user.username}
-                {user.id === team.ownerUserId && " - Admin"}
-                {user.username === myUsername?.username && " - You"}
+                {user.id === team.ownerUserId && ' - Admin'}
+                {user.username === myUsername?.username && ' - You'}
               </p>
             </div>
             <div className="flex gap-2">
@@ -108,7 +108,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
                 href={`/user/${user.username}`}
                 className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 px-3 flex items-center justify-center"
               >
-                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
               </Link>
               {user.username !== myUsername?.username && (
                 <Link

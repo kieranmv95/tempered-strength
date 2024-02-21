@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
-import { query } from "@/db";
-import { ITeamResponse, IUserTeam } from "@/types/Team";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+import { query } from '@/db';
+import { ITeamResponse, IUserTeam } from '@/types/Team';
 
 type PostParams = {
   password: string;
@@ -23,11 +23,11 @@ export async function POST(request: NextRequest) {
     const teamPassword = team.password;
 
     if (teamPassword.length && teamPassword !== data.password) {
-      return NextResponse.json({ err: "password incorrect" }, { status: 401 });
+      return NextResponse.json({ err: 'password incorrect' }, { status: 401 });
     }
   } catch {
     return NextResponse.json(
-      { err: "password incorrect error" },
+      { err: 'password incorrect error' },
       { status: 401 },
     );
   }
@@ -47,6 +47,6 @@ export async function POST(request: NextRequest) {
       },
     );
   } catch (e) {
-    return NextResponse.json({ err: "error joining team", e }, { status: 400 });
+    return NextResponse.json({ err: 'error joining team', e }, { status: 400 });
   }
 }

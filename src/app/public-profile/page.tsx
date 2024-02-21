@@ -1,9 +1,9 @@
-import { query } from "@/db";
-import { ILoggingType } from "@/app/api/user/exercises/route";
-import UserPublicProfile from "@/components/UserPublicProfile";
-import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
-import { auth } from "@clerk/nextjs";
-import Link from "next/link";
+import { query } from '@/db';
+import { ILoggingType } from '@/app/api/user/exercises/route';
+import UserPublicProfile from '@/components/UserPublicProfile';
+import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
+import { auth } from '@clerk/nextjs';
+import Link from 'next/link';
 
 const getUserData = async (username: string) => {
   const user = (await query(`
@@ -43,7 +43,7 @@ const getUsername = async (userId: string) => {
 
 export default async function Page() {
   const { userId } = auth();
-  const username = await getUsername(userId || "");
+  const username = await getUsername(userId || '');
   const user = await getUserData(username);
 
   return (

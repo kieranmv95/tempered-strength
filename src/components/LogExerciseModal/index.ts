@@ -1,3 +1,3 @@
-import LogExerciseModal from "./LogExerciseModal";
+import LogExerciseModal from './LogExerciseModal';
 
 export default LogExerciseModal;

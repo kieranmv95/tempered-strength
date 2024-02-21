@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ITeam } from "@/types/Team";
-import { deleteTeam } from "@/lib/features/userTeams/userTeamsSlice";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { ITeam } from '@/types/Team';
+import { deleteTeam } from '@/lib/features/userTeams/userTeamsSlice';
 
 type TeamsState = {
   data: null | ITeam[];
@@ -8,24 +8,24 @@ type TeamsState = {
   err: string;
 };
 
-export const fetchTeams = createAsyncThunk("teams/fetch", async () => {
-  const res = await fetch("/api/teams", { cache: "no-cache" });
+export const fetchTeams = createAsyncThunk('teams/fetch', async () => {
+  const res = await fetch('/api/teams', { cache: 'no-cache' });
   return await res.json();
 });
 
 export const teamsSlice = createSlice({
-  name: "teams",
+  name: 'teams',
   initialState: {
     data: null,
     loading: null,
-    err: "",
+    err: '',
   } as TeamsState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(fetchTeams.rejected, (state, _) => {
       state.loading = false;
       state.data = [];
-      state.err = "Error loading teams";
+      state.err = 'Error loading teams';
     });
     builder.addCase(fetchTeams.pending, (state, _) => {
       state.loading = true;
@@ -33,13 +33,13 @@ export const teamsSlice = createSlice({
     builder.addCase(fetchTeams.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
-      state.err = "";
+      state.err = '';
     });
     builder.addCase(deleteTeam.fulfilled, (state, action) => {
       if (!action.payload.err) {
         const currentData = state.data ? state.data : [];
         state.data = currentData.filter(
-          (t) => t.id !== Number(action.payload.id),
+          t => t.id !== Number(action.payload.id),
         );
       }
     });

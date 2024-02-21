@@ -1,3 +1,3 @@
-import TeamsDirectory from "./TeamsDirectory";
+import TeamsDirectory from './TeamsDirectory';
 
 export default TeamsDirectory;

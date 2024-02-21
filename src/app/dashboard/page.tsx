@@ -1,6 +1,6 @@
-import Exercises from "@/app/dashboard/Exercises";
-import Teams from "@/app/dashboard/Teams";
-import Account from "@/app/dashboard/Account";
+import Exercises from '@/app/dashboard/Exercises';
+import Teams from '@/app/dashboard/Teams';
+import Account from '@/app/dashboard/Account';
 
 export default function Dashboard() {
   return (

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
-import toast from "react-hot-toast";
-import React from "react";
-import copy from "copy-to-clipboard";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import toast from 'react-hot-toast';
+import React from 'react';
+import copy from 'copy-to-clipboard';
 
 const CopyUrlToClipboard = ({
   children,
@@ -14,9 +14,9 @@ const CopyUrlToClipboard = ({
   url?: string;
 }) => {
   const copyToClipboard = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       copy(url ? url : window.location.href);
-      toast.success("Copied to clipboard");
+      toast.success('Copied to clipboard');
     }
   };
 

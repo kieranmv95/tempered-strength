@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { IExercise } from "@/app/api/user/exercises/route";
-import LogExerciseForm from "../LogExerciseModal";
-import useUserExercises from "@/hooks/useUserExercises";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { getUnits } from "@/helpers/units";
+import { useState } from 'react';
+import { IExercise } from '@/app/api/user/exercises/route';
+import LogExerciseForm from '../LogExerciseModal';
+import useUserExercises from '@/hooks/useUserExercises';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { getUnits } from '@/helpers/units';
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -17,7 +17,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
     null,
   );
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const { loading, err, getOneRepMax } = useUserExercises();
 
   if (loading && !err) return <>Loading...</>;
@@ -27,28 +27,28 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
     <>
       <p className="mb-1">Search</p>
       <input
-          type="text"
-          className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[44px]"
-          placeholder="Search"
-          autoComplete="off"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
+        type="text"
+        className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[44px]"
+        placeholder="Search"
+        autoComplete="off"
+        onChange={e => setSearch(e.target.value)}
+        value={search}
       />
       <div className="grid gap-3">
         {exercises
           .sort((a, b) => {
             return a.name.localeCompare(b.name);
           })
-            .filter((exercise) => {
-                if(search === "") {
-                    return exercise
-                } else {
-                    if(exercise.name.toLowerCase().includes(search.toLowerCase())) {
-                        return exercise;
-                    }
-                }
-            })
-          .map((exercise) => {
+          .filter(exercise => {
+            if (search === '') {
+              return exercise;
+            } else {
+              if (exercise.name.toLowerCase().includes(search.toLowerCase())) {
+                return exercise;
+              }
+            }
+          })
+          .map(exercise => {
             const oneRepMax = getOneRepMax(exercise.id);
 
             return (

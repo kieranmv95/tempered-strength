@@ -1,3 +1,3 @@
-import UserPublicProfile from "./UserPublicProfile";
+import UserPublicProfile from './UserPublicProfile';
 
 export default UserPublicProfile;

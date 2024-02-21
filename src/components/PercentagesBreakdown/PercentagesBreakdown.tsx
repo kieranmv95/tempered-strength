@@ -1,6 +1,6 @@
-import { getUnits } from "@/helpers/units";
-import React from "react";
-import { ILoggingType } from "@/app/api/user/exercises/route";
+import { getUnits } from '@/helpers/units';
+import React from 'react';
+import { ILoggingType } from '@/app/api/user/exercises/route';
 
 type PercentagesBreakdownProps = {
   value: number;
@@ -17,7 +17,7 @@ const PercentagesBreakdown = ({
     const result = parts * percent;
     let roundedResult;
 
-    if (loggingType === "weight") {
+    if (loggingType === 'weight') {
       roundedResult = Math.round(result * 2) / 2;
     } else {
       roundedResult = Math.round(result);

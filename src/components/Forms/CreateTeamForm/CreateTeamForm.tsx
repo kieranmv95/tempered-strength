@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { addSuccess } from "@/lib/features/userExercises/userExercisesSlice";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
-import { useAppDispatch } from "@/lib/hooks";
-import { IExercise } from "@/app/api/user/exercises/route";
-import { useAuth } from "@clerk/nextjs";
-import { createTeam, joinTeam } from "@/lib/features/userTeams/userTeamsSlice";
-import { ITeam } from "@/types/Team";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import toast from 'react-hot-toast';
+import * as Yup from 'yup';
+import { useAppDispatch } from '@/lib/hooks';
+import { IExercise } from '@/app/api/user/exercises/route';
+import { useAuth } from '@clerk/nextjs';
+import { createTeam, joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
+import { ITeam } from '@/types/Team';
 
 const CreateTeamSchema = Yup.object().shape({
-  name: Yup.string().required("required"),
+  name: Yup.string().required('required'),
   description: Yup.string(),
   password: Yup.string(),
 });
@@ -26,13 +26,13 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
   return (
     <Formik
       initialValues={{
-        name: "",
-        description: "",
-        password: "",
+        name: '',
+        description: '',
+        password: '',
       }}
       validationSchema={CreateTeamSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log("TEST");
+        console.log('TEST');
         const res = await dispatch(createTeam({ ...values })).unwrap();
 
         if (res.name) toast.success(`you joined ${res.name}`);
@@ -81,7 +81,7 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
               />
               <ErrorMessage
                 name="name"
-                render={(msg) => (
+                render={msg => (
                   <div className="text-xs text-red-600 mt-2">{msg}</div>
                 )}
               />
@@ -99,7 +99,7 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
               />
               <ErrorMessage
                 name="description"
-                render={(msg) => (
+                render={msg => (
                   <div className="text-xs text-red-600 mt-2">{msg}</div>
                 )}
               />
@@ -121,7 +121,7 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
               />
               <ErrorMessage
                 name="password"
-                render={(msg) => (
+                render={msg => (
                   <div className="text-xs text-red-600 mt-2">{msg}</div>
                 )}
               />

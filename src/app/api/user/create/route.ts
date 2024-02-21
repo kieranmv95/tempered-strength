@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
-import { query } from "@/db";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+import { query } from '@/db';
 
 type GetParams = {
   username: string;
@@ -18,6 +18,6 @@ export async function POST(request: NextRequest) {
       { status: 200 },
     );
   } catch (e) {
-    return NextResponse.json({ err: "users not created", e }, { status: 404 });
+    return NextResponse.json({ err: 'users not created', e }, { status: 404 });
   }
 }

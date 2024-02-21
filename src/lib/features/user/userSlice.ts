@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "@/types/IUser";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUser } from '@/types/IUser';
 
 type UserState = {
   data: null | IUser;
@@ -7,22 +7,22 @@ type UserState = {
   err: string;
 };
 
-export const fetchUserName = createAsyncThunk("user/fetch", async () => {
-  const res = await fetch("/api/user", { cache: "no-cache" });
+export const fetchUserName = createAsyncThunk('user/fetch', async () => {
+  const res = await fetch('/api/user', { cache: 'no-cache' });
   return await res.json();
 });
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: {
     data: null,
     loading: null,
-    err: "",
+    err: '',
   } as UserState,
   reducers: {
     updateUsername(state, action: PayloadAction<string>) {
       state.data = {
-        id: state.data?.id || "",
+        id: state.data?.id || '',
         username: action.payload,
         onboarding: state.data?.onboarding || 1,
         weight: state.data?.onboarding || null,
@@ -30,18 +30,18 @@ export const userSlice = createSlice({
     },
     updateWeight(state, action: PayloadAction<number | null>) {
       state.data = {
-        id: state.data?.id || "",
-        username: state.data?.username || "",
+        id: state.data?.id || '',
+        username: state.data?.username || '',
         onboarding: state.data?.onboarding || 1,
         weight: action.payload,
       };
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(fetchUserName.rejected, (state, _) => {
       state.loading = false;
       state.data = null;
-      state.err = "Error loading user";
+      state.err = 'Error loading user';
     });
     builder.addCase(fetchUserName.pending, (state, _) => {
       state.loading = true;
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
       (state, action: PayloadAction<IUser[]>) => {
         state.data = action.payload[0];
         state.loading = false;
-        state.err = "";
+        state.err = '';
       },
     );
   },

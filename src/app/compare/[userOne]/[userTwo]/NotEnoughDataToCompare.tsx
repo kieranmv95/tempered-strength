@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import BackButton from "@/components/BackButton";
+import BackButton from '@/components/BackButton';
 
 const NotEnoughDataToCompare = () => (
   <div className="text-center px-4">

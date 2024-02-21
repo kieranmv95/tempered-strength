@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import useTeams from "@/hooks/useTeams";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faUnlock, faRefresh } from "@fortawesome/free-solid-svg-icons";
-import useUserTeams from "@/hooks/useUserTeams";
-import { ITeam, IUserTeam } from "@/types/Team";
-import { joinTeam } from "@/lib/features/userTeams/userTeamsSlice";
-import { useAppDispatch } from "@/lib/hooks";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import { JoinProtectedTeamForm } from "@/components/Forms";
+import useTeams from '@/hooks/useTeams';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faUnlock, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import useUserTeams from '@/hooks/useUserTeams';
+import { ITeam, IUserTeam } from '@/types/Team';
+import { joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
+import { useAppDispatch } from '@/lib/hooks';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
+import { JoinProtectedTeamForm } from '@/components/Forms';
 
 const TeamsDirectory = () => {
   const dispatch = useAppDispatch();
@@ -68,9 +68,9 @@ const TeamsDirectory = () => {
             teams list
           </div>
           <div className="grid gap-3">
-            {data.map((team) => {
+            {data.map(team => {
               const checkTeam = !!(userTeams.data as IUserTeam[]).find(
-                (t) => t.name === team.name,
+                t => t.name === team.name,
               );
 
               if (checkTeam) return null;
@@ -102,7 +102,7 @@ const TeamsDirectory = () => {
                         if (!team.password) {
                           const res = await dispatch(
                             joinTeam({
-                              password: "",
+                              password: '',
                               team: team.id.toString(),
                             }),
                           ).unwrap();

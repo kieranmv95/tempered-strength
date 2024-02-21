@@ -1,12 +1,12 @@
-import {query} from "@/db";
-import {ILoggingType} from "@/app/api/user/exercises/route";
-import {getUnits} from "@/helpers/units";
-import PoweredBy from "@/components/PoweredBy";
-import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
-import UsersNotFound from "@/app/compare/[userOne]/[userTwo]/UsersNotFound";
-import NotEnoughDataToCompare from "@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare";
-import PoundForPoundResults from "@/app/compare/[userOne]/[userTwo]/PoundForPoundResults";
-import BackButton from "@/components/BackButton";
+import { query } from '@/db';
+import { ILoggingType } from '@/app/api/user/exercises/route';
+import { getUnits } from '@/helpers/units';
+import PoweredBy from '@/components/PoweredBy';
+import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
+import UsersNotFound from '@/app/compare/[userOne]/[userTwo]/UsersNotFound';
+import NotEnoughDataToCompare from '@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare';
+import PoundForPoundResults from '@/app/compare/[userOne]/[userTwo]/PoundForPoundResults';
+import BackButton from '@/components/BackButton';
 
 type IUserStats = {
   log: string;
@@ -68,11 +68,11 @@ export default async function Page({ params }: PageProps) {
     const usernames = Object.keys(usersData);
 
     const [firstUser, secondUser] = usernames.map(
-      (username) => usersData[username],
+      username => usersData[username],
     );
 
-    firstUser.forEach((exercise) => {
-      const matchingExercise = secondUser.find((e) => e.name === exercise.name);
+    firstUser.forEach(exercise => {
+      const matchingExercise = secondUser.find(e => e.name === exercise.name);
 
       if (matchingExercise) {
         const diff =
@@ -98,27 +98,27 @@ export default async function Page({ params }: PageProps) {
   }
 
   const getPfPChampion = (data: UserDiffExercises) => {
-    return Object.values(data).map((ewd) => {
+    return Object.values(data).map(ewd => {
       return {
         username: ewd[0].username,
         multiplier: ewd
-            .map((exercise) => {
-              if (exercise.logging_type === "weight") {
-                return {
-                  multiplier: exercise.weight
-                      ? Number(exercise.log) / Number(exercise.weight)
-                      : null,
-                };
-              } else {
-                return {
-                  multiplier: null,
-                };
-              }
-            })
-            .reduce((acc, cur) => {
-              const curNum = cur.multiplier ? cur.multiplier : 0;
-              return acc + curNum;
-            }, 0),
+          .map(exercise => {
+            if (exercise.logging_type === 'weight') {
+              return {
+                multiplier: exercise.weight
+                  ? Number(exercise.log) / Number(exercise.weight)
+                  : null,
+              };
+            } else {
+              return {
+                multiplier: null,
+              };
+            }
+          })
+          .reduce((acc, cur) => {
+            const curNum = cur.multiplier ? cur.multiplier : 0;
+            return acc + curNum;
+          }, 0),
       };
     });
   };
@@ -155,11 +155,11 @@ export default async function Page({ params }: PageProps) {
         <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
         <PoundForPoundResults data={poundforPoundData} />
         <div className="grid grid-cols-2 gap-4 mt-4">
-          {Object.values(comparisonData).map((item) => (
+          {Object.values(comparisonData).map(item => (
             <div key={item[0].username}>
               <h2 className="text-xl">{item[0].username}</h2>
               <div className="grid gap-3 mt-3">
-                {item.map((exercise) => {
+                {item.map(exercise => {
                   const { name, log, diff } = exercise;
                   return (
                     <div
@@ -171,13 +171,13 @@ export default async function Page({ params }: PageProps) {
                         <div
                           className={`
                           font-bold
-                          ${diff < 0 && "text-red-400"}
-                          ${diff > 0 && "text-green-400"}
+                          ${diff < 0 && 'text-red-400'}
+                          ${diff > 0 && 'text-green-400'}
                         `}
                         >
                           {diff > 0 ? (
                             <>
-                              {diff > 0 && "+"}
+                              {diff > 0 && '+'}
                               {Number(diff)}
                               {getUnits(exercise.logging_type)}
                             </>
