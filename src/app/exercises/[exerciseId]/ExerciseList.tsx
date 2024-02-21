@@ -38,7 +38,11 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
       {!loading && err && <>Error</>}
       {!loading && !err && data && (
         <>
-          <Button type="button" onClick={() => setSelectedExercise(exercise)}>
+          <Button
+            type="button"
+            onClick={() => setSelectedExercise(exercise)}
+            className="mb-4"
+          >
             <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
           </Button>
 

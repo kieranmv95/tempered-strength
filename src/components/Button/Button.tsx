@@ -9,6 +9,7 @@ type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => any;
   fullWidth?: boolean;
+  className?: string;
 };
 const Button = ({
   type,
@@ -17,11 +18,12 @@ const Button = ({
   children,
   onClick,
   fullWidth,
+  className,
 }: ButtonProps) => (
   <button
     type={type}
     disabled={disabled}
-    className={`block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded ${fullWidth ? 'w-full' : ''}`}
+    className={`block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`}
     onClick={onClick && onClick}
   >
     {loading ? (
