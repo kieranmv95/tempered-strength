@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import useUserExercises from '@/hooks/useUserExercises';
 import { IExercise } from '@/app/api/user/exercises/route';
-import LogExerciseForm from '@/components/LogExerciseModal';
 import ExerciseListItem from '@/app/exercises/[exerciseId]/ExerciseListItem';
 import { removeSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
@@ -11,7 +10,7 @@ import { useAppDispatch } from '@/lib/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
-import PercentagesBreakdown from '@/components/PercentagesBreakdown';
+import { Button, PercentagesBreakdown, LogExerciseModal } from '@/components';
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
@@ -39,6 +38,14 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
       {!loading && err && <>Error</>}
       {!loading && !err && data && (
         <>
+          <Button
+            type="button"
+            onClick={() => setSelectedExercise(exercise)}
+            className="mb-4"
+          >
+            <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
+          </Button>
+
           {getExerciseById(exercise.id).length ? (
             <>
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
@@ -84,12 +91,6 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                 />
               </div>
               <p className="text-xl font-bold mb-2">Log</p>
-              <button
-                className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mb-4"
-                onClick={() => setSelectedExercise(exercise)}
-              >
-                Log <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
-              </button>
               <div className="grid gap-3">
                 {getExerciseById(exercise.id).map(userExercise => {
                   return (
@@ -117,7 +118,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
         </>
       )}
       {selectedExercise && (
-        <LogExerciseForm
+        <LogExerciseModal
           exercise={selectedExercise}
           close={() => setSelectedExercise(null)}
         />

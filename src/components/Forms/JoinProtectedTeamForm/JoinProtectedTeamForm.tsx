@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
 import { ITeam } from '@/types/Team';
+import { Button } from '@/components';
 
 const ProtectedTeamSchema = Yup.object().shape({
   password: Yup.string().required('Required'),
@@ -68,12 +69,12 @@ const JoinProtectedTeamForm = ({ team, close }: LogExerciseFormProps) => {
           <div className="grid gap-4">
             <div>
               <label className="block mb-1" htmlFor="date">
-                Password
+                Join Code
               </label>
               <Field
-                type="password"
+                type="text"
                 name="password"
-                placeholder="password"
+                placeholder="Join code"
                 autoComplete="off"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               />
@@ -84,13 +85,14 @@ const JoinProtectedTeamForm = ({ team, close }: LogExerciseFormProps) => {
                 )}
               />
             </div>
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded"
+              loading={isSubmitting}
+              loadingText="Joining team"
             >
               Submit
-            </button>
+            </Button>
           </div>
         </Form>
       )}

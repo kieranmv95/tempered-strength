@@ -1,14 +1,11 @@
 'use client';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { IExercise } from '@/app/api/user/exercises/route';
-import { useAuth } from '@clerk/nextjs';
-import { createTeam, joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
-import { ITeam } from '@/types/Team';
+import { createTeam } from '@/lib/features/userTeams/userTeamsSlice';
+import { Button } from '@/components';
 
 const CreateTeamSchema = Yup.object().shape({
   name: Yup.string().required('required'),
@@ -32,11 +29,9 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
       }}
       validationSchema={CreateTeamSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log('TEST');
         const res = await dispatch(createTeam({ ...values })).unwrap();
 
         if (res.name) toast.success(`you joined ${res.name}`);
-
         if (res.err) toast.error(res.err);
 
         setSubmitting(false);
@@ -113,9 +108,9 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
                 Leave blank to make it public
               </p>
               <Field
-                type="password"
+                type="text"
                 name="password"
-                placeholder="password"
+                placeholder="join code"
                 className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                 autoComplete="off"
               />
@@ -126,13 +121,14 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
                 )}
               />
             </div>
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded"
+              loading={isSubmitting}
+              loadingText="Creating Team"
             >
               Submit
-            </button>
+            </Button>
           </div>
         </Form>
       )}

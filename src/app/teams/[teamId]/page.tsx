@@ -34,10 +34,7 @@ async function getTeam(id: string) {
     WHERE ut.teamId = '${id}';`)) as { username: string; id: string }[];
 
     return {
-      team: {
-        ...teams[0],
-        password: !!teams[0].password.length,
-      },
+      team: teams[0],
       users: users,
     };
   } catch {
@@ -88,7 +85,20 @@ export default async function Team({ params }: { params: { teamId: string } }) {
     <div className="px-4 py-12 container mx-auto">
       <BackButton href="/teams">Back to teams</BackButton>
       <h2 className="text-2xl font-bold lg:text-4xl mb-6">{team.name}</h2>
-      {team.description && <p className="mb-3">{team.description}</p>}
+      {!!team.password.length && (
+        <div className="mb-4">
+          <p className="mb-1">
+            This is a private group, to invite members they will need the join
+            code. Join Code:
+          </p>
+          <p className="bg-zinc-600 inline-block py-1 px-2 rounded">
+            {team.password}
+          </p>
+        </div>
+      )}
+      {team.description && (
+        <p className="mb-3">Description: {team.description}</p>
+      )}
       <p className="text-xl font-bold lg:text-2xl mb-3">Members</p>
       <div className="grid gap-3">
         {users.map(user => (
