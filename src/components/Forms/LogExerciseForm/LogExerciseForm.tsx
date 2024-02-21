@@ -124,6 +124,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
               type="submit"
               disabled={isSubmitting}
               loading={isSubmitting}
+              loadingText="Adding"
             >
               Submit
             </Button>

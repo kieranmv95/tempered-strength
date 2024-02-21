@@ -9,6 +9,7 @@ import { IExercise } from '@/app/api/user/exercises/route';
 import { useAuth } from '@clerk/nextjs';
 import { createTeam, joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
 import { ITeam } from '@/types/Team';
+import { Button } from '@/components';
 
 const CreateTeamSchema = Yup.object().shape({
   name: Yup.string().required('required'),
@@ -32,11 +33,9 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
       }}
       validationSchema={CreateTeamSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log('TEST');
         const res = await dispatch(createTeam({ ...values })).unwrap();
 
         if (res.name) toast.success(`you joined ${res.name}`);
-
         if (res.err) toast.error(res.err);
 
         setSubmitting(false);
@@ -126,13 +125,14 @@ const CreateTeamForm = ({ close }: LogExerciseFormProps) => {
                 )}
               />
             </div>
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded"
+              loading={isSubmitting}
+              loadingText="Creating Team"
             >
               Submit
-            </button>
+            </Button>
           </div>
         </Form>
       )}

@@ -10,6 +10,7 @@ type ButtonProps = {
   onClick?: () => any;
   fullWidth?: boolean;
   className?: string;
+  loadingText?: string;
 };
 const Button = ({
   type,
@@ -19,6 +20,7 @@ const Button = ({
   onClick,
   fullWidth,
   className,
+  loadingText = 'Loading...',
 }: ButtonProps) => (
   <button
     type={type}
@@ -29,7 +31,7 @@ const Button = ({
     {loading ? (
       <div className="inline-flex gap-2 items-center">
         <FontAwesomeIcon icon={faSpinner} className="animate-spin w-4 h-4" />
-        Loading...
+        {loadingText}
       </div>
     ) : (
       children
