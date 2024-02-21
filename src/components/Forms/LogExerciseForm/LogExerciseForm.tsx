@@ -120,7 +120,11 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                 )}
               />
             </div>
-            <Button disabled={isSubmitting} loading={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+            >
               Submit
             </Button>
           </div>
