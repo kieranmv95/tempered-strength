@@ -4,6 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components';
 
 const OnboardingSchema = Yup.object().shape({
   username: Yup.string()
@@ -78,13 +79,13 @@ export default function Page() {
                   )}
                 />
               </div>
-              <button
+              <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded"
+                loading={isSubmitting}
               >
                 Submit
-              </button>
+              </Button>
             </div>
           </Form>
         )}

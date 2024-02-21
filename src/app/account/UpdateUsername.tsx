@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/lib/hooks';
 import { updateUsername } from '@/lib/features/user/userSlice';
 import { UpdateUserParams } from '@/app/api/user/update/route';
 import { IUser } from '@/types/IUser';
+import { Button } from '@/components';
 
 const UsernameSchema = Yup.object().shape({
   username: Yup.string()
@@ -118,20 +119,23 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
                       )}
                     />
                     <div className="flex gap-4">
-                      <button
+                      <Button
                         type="button"
+                        theme="red"
                         onClick={() => setShowUpdateForm(false)}
-                        className="w-full block bg-blue-600 hover:bg-blue-700 click:bg-blue-600 py-2 px-4 rounded mt-3 md:w-36"
+                        className="w-full mt-3 md:w-36"
                       >
                         Cancel
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         type="submit"
+                        className="w-full mt-3 md:w-36"
                         disabled={isSubmitting}
-                        className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded mt-3 md:w-36"
+                        loading={isSubmitting}
+                        loadingText="Updating"
                       >
                         Update
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </div>
