@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserExercise } from "@/app/api/user/exercises/route";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUserExercise } from '@/app/api/user/exercises/route';
 
 type UserExercisesState = {
   data: null | IUserExercise[];
@@ -8,19 +8,19 @@ type UserExercisesState = {
 };
 
 export const fetchUserExercises = createAsyncThunk(
-  "userExercises/fetch",
+  'userExercises/fetch',
   async () => {
-    const res = await fetch("/api/user/exercises", { cache: "no-cache" });
+    const res = await fetch('/api/user/exercises', { cache: 'no-cache' });
     return await res.json();
   },
 );
 
 export const userExercisesSlice = createSlice({
-  name: "userExercises",
+  name: 'userExercises',
   initialState: {
     data: null,
     loading: null,
-    err: "",
+    err: '',
   } as UserExercisesState,
   reducers: {
     addSuccess: (state, action: PayloadAction<IUserExercise>) => {
@@ -32,15 +32,15 @@ export const userExercisesSlice = createSlice({
     },
     removeSuccess: (state, action: PayloadAction<{ id: number }>) => {
       if (state.data) {
-        state.data = state.data.filter((item) => item.id !== action.payload.id);
+        state.data = state.data.filter(item => item.id !== action.payload.id);
       }
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(fetchUserExercises.rejected, (state, _) => {
       state.loading = false;
       state.data = [];
-      state.err = "Error loading user exercises";
+      state.err = 'Error loading user exercises';
     });
     builder.addCase(fetchUserExercises.pending, (state, _) => {
       state.loading = true;
@@ -48,7 +48,7 @@ export const userExercisesSlice = createSlice({
     builder.addCase(fetchUserExercises.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
-      state.err = "";
+      state.err = '';
     });
   },
 });

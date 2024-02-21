@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 
-import TemperedStrengthSvg from "../../assets/TemperedStrength.svg";
+import TemperedStrengthSvg from '../../assets/TemperedStrength.svg';
 import {
   AuthenticatedHeader,
   UnauthenticatedHeader,
-} from "@/components/Header/Navigation";
-import { SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
+} from '@/components/Header/Navigation';
+import { SignedIn, SignedOut, useAuth } from '@clerk/nextjs';
 
 const Header = () => {
   const { isSignedIn } = useAuth();
@@ -26,7 +26,7 @@ const Header = () => {
     <header className="sticky top-0 left-0 z-20 bg-zinc-800">
       <nav className="flex items-center justify-between flex-wrap bg-zinc-700 p-4">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
-          <Link href={isSignedIn ? "/dashboard" : "/"}>
+          <Link href={isSignedIn ? '/dashboard' : '/'}>
             <Image
               src={TemperedStrengthSvg}
               alt="Primary Logo"
@@ -53,7 +53,7 @@ const Header = () => {
           </button>
         </div>
         <div
-          className={`${!navOpen && "hidden"} w-full block flex-grow lg:flex lg:items-center lg:w-auto`}
+          className={`${!navOpen && 'hidden'} w-full block flex-grow lg:flex lg:items-center lg:w-auto`}
         >
           <SignedIn>
             <AuthenticatedHeader />

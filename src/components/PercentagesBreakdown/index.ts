@@ -1,3 +1,3 @@
-import PercentagesBreakdown from "./PercentagesBreakdown";
+import PercentagesBreakdown from './PercentagesBreakdown';
 
 export default PercentagesBreakdown;

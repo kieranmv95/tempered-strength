@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { fetchUserExercises } from "@/lib/features/userExercises/userExercisesSlice";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { fetchUserExercises } from '@/lib/features/userExercises/userExercisesSlice';
 
 const useUserExercises = () => {
   const dispatch = useAppDispatch();
-  const { data, loading, err } = useAppSelector((state) => state.exercises);
+  const { data, loading, err } = useAppSelector(state => state.exercises);
 
   useEffect(() => {
     if (!data && !err && !loading) {
@@ -14,7 +14,7 @@ const useUserExercises = () => {
 
   const getOneRepMax = (exerciseId: number) => {
     const oneRepMax = data
-      ?.filter((userExercise) => Number(userExercise.exerciseId) === exerciseId)
+      ?.filter(userExercise => Number(userExercise.exerciseId) === exerciseId)
       .reduce((prev, curr) => {
         return curr.log > prev ? curr.log : prev;
       }, 0);
@@ -24,7 +24,7 @@ const useUserExercises = () => {
 
   const getExerciseById = (exerciseId: number) => {
     const oneRepMax = data
-      ?.filter((userExercise) => Number(userExercise.exerciseId) === exerciseId)
+      ?.filter(userExercise => Number(userExercise.exerciseId) === exerciseId)
       .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 
     return oneRepMax ? oneRepMax : [];

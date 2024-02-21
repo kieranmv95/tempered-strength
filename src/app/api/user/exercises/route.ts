@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
-import { query } from "@/db";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+import { query } from '@/db';
 
-export type ILoggingType = "weight" | "reps";
+export type ILoggingType = 'weight' | 'reps';
 
 export type IExercise = {
   id: number;
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result, { status: 201 });
   } catch (e) {
     return NextResponse.json(
-      { err: "Not created invalid data", e },
+      { err: 'Not created invalid data', e },
       { status: 422 },
     );
   }
@@ -57,7 +57,7 @@ export async function GET() {
   try {
     const result = (await query(sql)) as IUserExercise[];
 
-    const mappedResult = result.map((userExercise) => ({
+    const mappedResult = result.map(userExercise => ({
       ...userExercise,
       log: Number(userExercise.log),
     }));
@@ -65,7 +65,7 @@ export async function GET() {
     return NextResponse.json(mappedResult, { status: 200 });
   } catch (e) {
     return NextResponse.json(
-      { err: "User exercises not found", e },
+      { err: 'User exercises not found', e },
       { status: 404 },
     );
   }
@@ -82,7 +82,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
     return NextResponse.json(
-      { err: "User exercise not deleted", e },
+      { err: 'User exercise not deleted', e },
       { status: 404 },
     );
   }

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
-import { useAppDispatch } from "@/lib/hooks";
-import { joinTeam } from "@/lib/features/userTeams/userTeamsSlice";
-import { ITeam } from "@/types/Team";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import toast from 'react-hot-toast';
+import * as Yup from 'yup';
+import { useAppDispatch } from '@/lib/hooks';
+import { joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
+import { ITeam } from '@/types/Team';
 
 const ProtectedTeamSchema = Yup.object().shape({
-  password: Yup.string().required("Required"),
+  password: Yup.string().required('Required'),
 });
 
 type LogExerciseFormProps = {
@@ -22,7 +22,7 @@ const JoinProtectedTeamForm = ({ team, close }: LogExerciseFormProps) => {
   return (
     <Formik
       initialValues={{
-        password: "",
+        password: '',
       }}
       validationSchema={ProtectedTeamSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -79,7 +79,7 @@ const JoinProtectedTeamForm = ({ team, close }: LogExerciseFormProps) => {
               />
               <ErrorMessage
                 name="password"
-                render={(msg) => (
+                render={msg => (
                   <div className="text-xs text-red-600 mt-2">{msg}</div>
                 )}
               />

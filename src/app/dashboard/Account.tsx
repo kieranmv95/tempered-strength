@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import useUser from "@/hooks/useUser";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import useUser from '@/hooks/useUser';
 
 const Profile = () => {
   const user = useUser();

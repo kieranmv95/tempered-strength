@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const BestsSchema = Yup.object().shape({
   username: Yup.string()
     .matches(
       /^[\w-]*$/,
-      "Name can only contain letters, numbers, underscores, and hyphens",
+      'Name can only contain letters, numbers, underscores, and hyphens',
     )
-    .required("Username Required"),
+    .required('Username Required'),
 });
 
 const SearchForUserFormLarge = () => {
@@ -21,9 +21,9 @@ const SearchForUserFormLarge = () => {
   return (
     <Formik
       initialValues={{
-        username: "",
+        username: '',
       }}
-      onSubmit={(values) => {
+      onSubmit={values => {
         router.push(`/user/${values.username}`);
       }}
       validationSchema={BestsSchema}
@@ -48,7 +48,7 @@ const SearchForUserFormLarge = () => {
           </div>
           <ErrorMessage
             name="username"
-            render={(msg) => (
+            render={msg => (
               <div className="text-xs text-red-600 mt-2">{msg}</div>
             )}
           />

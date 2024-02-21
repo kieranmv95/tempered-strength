@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import useUser from "@/hooks/useUser";
-import UpdateUsername from "@/app/account/UpdateUsername";
-import UpdateWeight from "@/app/account/UpdateWeight";
+import useUser from '@/hooks/useUser';
+import UpdateUsername from '@/app/account/UpdateUsername';
+import UpdateWeight from '@/app/account/UpdateWeight';
 
 const UpdateUserDetails = () => {
   const user = useUser();

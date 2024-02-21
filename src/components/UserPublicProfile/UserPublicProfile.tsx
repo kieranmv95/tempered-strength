@@ -1,8 +1,8 @@
-import CopyUrlToClipboard from "@/components/CopyUrlToClipboard";
-import { getUnits } from "@/helpers/units";
-import PoweredBy from "@/components/PoweredBy";
-import { ILoggingType } from "@/app/api/user/exercises/route";
-import Back from "@/app/user/[username]/Back";
+import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
+import { getUnits } from '@/helpers/units';
+import PoweredBy from '@/components/PoweredBy';
+import { ILoggingType } from '@/app/api/user/exercises/route';
+import Back from '@/app/user/[username]/Back';
 
 type UserPublicProfileProps = {
   username: string;
@@ -22,21 +22,21 @@ const UserPublicProfile = ({
   user,
   copyToClipboard = true,
 }: UserPublicProfileProps) => {
-  const powerLiftingMoves = user.filter((exercise) => {
+  const powerLiftingMoves = user.filter(exercise => {
     switch (exercise.name.toLowerCase()) {
-      case "deadlift":
-      case "bench press":
-      case "back squat":
+      case 'deadlift':
+      case 'bench press':
+      case 'back squat':
         return exercise;
       default:
         return null;
     }
   });
 
-  const olympicLiftingMoves = user.filter((exercise) => {
+  const olympicLiftingMoves = user.filter(exercise => {
     switch (exercise.name.toLowerCase()) {
-      case "clean & jerk":
-      case "snatch":
+      case 'clean & jerk':
+      case 'snatch':
         return exercise;
       default:
         return null;
@@ -65,7 +65,7 @@ const UserPublicProfile = ({
             Powerlifting total {powerLiftingTotal}kg
           </p>
           <div className="grid grid-cols-3 mt-4 gap-4">
-            {powerLiftingMoves.map((plMove) => (
+            {powerLiftingMoves.map(plMove => (
               <div className="grid bg-zinc-700 py-4" key={plMove.name}>
                 <div className="text-sm mb-2">{plMove.name}</div>
                 <div className="font-bold">{Number(plMove.log)}kg</div>
@@ -80,7 +80,7 @@ const UserPublicProfile = ({
             Olympic lifting total {olympicLiftingTotal}kg
           </p>
           <div className="grid grid-cols-2 mt-4 gap-4">
-            {olympicLiftingMoves.map((plMove) => (
+            {olympicLiftingMoves.map(plMove => (
               <div className="grid bg-zinc-700 py-4" key={plMove.name}>
                 <div className="text-sm mb-2">{plMove.name}</div>
                 <div className="font-bold">{Number(plMove.log)}kg</div>
@@ -90,7 +90,7 @@ const UserPublicProfile = ({
         </>
       )}
       <div className="grid gap-3 mt-6">
-        {user.map((exercise) => (
+        {user.map(exercise => (
           <div
             key={exercise.name}
             className="flex justify-between items-center bg-zinc-700 p-3 rounded-sm"

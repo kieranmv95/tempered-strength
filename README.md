@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Development
 
-Populate environment variables, found in `.env.sample` 
+Populate environment variables, found in `.env.sample`
 
 ```bash
 npm run dev
@@ -30,7 +30,6 @@ protected route flow, **IN ORDER**:
   - If they have onboarded - Allow it
   - If they havent onboarded - Redirect to onboarding
 
-
 ### State Management
 
 We use redux toolkit for state management and follow the simple pattern of using basic slices with the createAsync builder pattern.
@@ -50,12 +49,14 @@ Currently kept extremely simple the schema for an exercise is literally a list o
 The logging type will be to tell the user how the score is going to be recorded e.g. "weight" | "time" | "distance"
 
 - exercises
+
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY
   - name varchar(255) NOT NULL
   - logging_type varchar(255) NOT NULL
   - onboarded TINYINT(1) NOT NULL,
 
 - userExercises
+
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   - userId varchar(255) NOT NULL,
   - exerciseId varchar(255) NOT NULL,
@@ -63,12 +64,14 @@ The logging type will be to tell the user how the score is going to be recorded 
   - date Date NOT NULL,
 
 - users
+
   - id varchar(255) NOT NULL PRIMARY KEY,
   - username varchar(255) UNIQUE NOT NULL,
   - weight DECIMAL(5, 1),
   - onboarded TINYINT(1) NOT NULL,
 
 - teams
+
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   - name varchar(255) UNIQUE NOT NULL,
   - description varchar(255)

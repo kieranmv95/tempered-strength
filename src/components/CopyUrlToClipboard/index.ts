@@ -1,3 +1,3 @@
-import CopyUrlToClipboard from "./CopyUrlToClipboard";
+import CopyUrlToClipboard from './CopyUrlToClipboard';
 
 export default CopyUrlToClipboard;

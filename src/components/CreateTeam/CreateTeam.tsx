@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import CreateTeamForm from "@/components/Forms/CreateTeamForm/CreateTeamForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
+import CreateTeamForm from '@/components/Forms/CreateTeamForm/CreateTeamForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const CreateTeam = () => {
   const [creatingTeam, setCreatingTeam] = useState(false);

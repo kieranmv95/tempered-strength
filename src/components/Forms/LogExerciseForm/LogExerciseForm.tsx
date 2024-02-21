@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { addSuccess } from "@/lib/features/userExercises/userExercisesSlice";
-import toast from "react-hot-toast";
-import * as Yup from "yup";
-import { useAppDispatch } from "@/lib/hooks";
-import { IExercise } from "@/app/api/user/exercises/route";
-import { useAuth } from "@clerk/nextjs";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import toast from 'react-hot-toast';
+import * as Yup from 'yup';
+import { useAppDispatch } from '@/lib/hooks';
+import { IExercise } from '@/app/api/user/exercises/route';
+import { useAuth } from '@clerk/nextjs';
 
 const ExerciseSchema = Yup.object().shape({
-  log: Yup.number().required("Required"),
-  date: Yup.date().required("Required"),
+  log: Yup.number().required('Required'),
+  date: Yup.date().required('Required'),
 });
 
 type LogExerciseFormProps = {
@@ -25,8 +25,8 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
   return (
     <Formik
       initialValues={{
-        log: "",
-        date: "",
+        log: '',
+        date: '',
       }}
       validationSchema={ExerciseSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -36,8 +36,8 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
           date: values.date,
         };
 
-        const res = await fetch("/api/user/exercises", {
-          method: "POST",
+        const res = await fetch('/api/user/exercises', {
+          method: 'POST',
           body: JSON.stringify(data),
         });
 
@@ -47,13 +47,13 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
           addSuccess({
             id: json.insertId,
             exerciseId: exercise.id,
-            userId: userId || "",
+            userId: userId || '',
             log: Number(values.log),
             date: values.date,
           }),
         );
 
-        toast.success("Exercise Logged");
+        toast.success('Exercise Logged');
 
         setSubmitting(false);
         close();
@@ -85,7 +85,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
           <div className="grid gap-4">
             <div>
               <label className="block mb-1" htmlFor="date">
-                {exercise.logging_type === "weight" ? "Weight (kg)" : "Reps"}
+                {exercise.logging_type === 'weight' ? 'Weight (kg)' : 'Reps'}
               </label>
               <Field
                 type="number"
@@ -96,7 +96,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
               />
               <ErrorMessage
                 name="log"
-                render={(msg) => (
+                render={msg => (
                   <div className="text-xs text-red-600 mt-2">{msg}</div>
                 )}
               />
@@ -114,7 +114,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
               />
               <ErrorMessage
                 name="date"
-                render={(msg) => (
+                render={msg => (
                   <div className="text-xs text-red-600 mt-2">{msg}</div>
                 )}
               />

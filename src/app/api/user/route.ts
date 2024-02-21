@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { query } from "@/db";
-import { auth } from "@clerk/nextjs";
+import { NextRequest, NextResponse } from 'next/server';
+import { query } from '@/db';
+import { auth } from '@clerk/nextjs';
 
 type GetParams = {
   id: string;
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
     return NextResponse.json(
-      { err: "users exercises not found", e },
+      { err: 'users exercises not found', e },
       { status: 404 },
     );
   }
@@ -30,7 +30,7 @@ export async function GET() {
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
     return NextResponse.json(
-      { err: "users exercises not found", e },
+      { err: 'users exercises not found', e },
       { status: 404 },
     );
   }

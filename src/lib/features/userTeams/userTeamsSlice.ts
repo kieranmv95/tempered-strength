@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IUserTeam } from "@/types/Team";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IUserTeam } from '@/types/Team';
 
 type TeamsState = {
   data: null | IUserTeam[];
@@ -7,17 +7,17 @@ type TeamsState = {
   err: string;
 };
 
-export const fetchUserTeams = createAsyncThunk("userTeams/fetch", async () => {
-  const res = await fetch("/api/user/teams", { cache: "no-cache" });
+export const fetchUserTeams = createAsyncThunk('userTeams/fetch', async () => {
+  const res = await fetch('/api/user/teams', { cache: 'no-cache' });
   return await res.json();
 });
 
 export const joinTeam = createAsyncThunk(
-  "userTeams/join",
+  'userTeams/join',
   async ({ password, team }: { password: string; team: string }) => {
-    const res = await fetch("/api/teams/join", {
-      method: "POST",
-      cache: "no-cache",
+    const res = await fetch('/api/teams/join', {
+      method: 'POST',
+      cache: 'no-cache',
       body: JSON.stringify({
         password,
         team,
@@ -29,11 +29,11 @@ export const joinTeam = createAsyncThunk(
 );
 
 export const deleteTeam = createAsyncThunk(
-  "userTeams/delete",
+  'userTeams/delete',
   async ({ id }: { id: string }) => {
-    const res = await fetch("/api/teams/delete", {
-      method: "POST",
-      cache: "no-cache",
+    const res = await fetch('/api/teams/delete', {
+      method: 'POST',
+      cache: 'no-cache',
       body: JSON.stringify({
         id,
       }),
@@ -44,7 +44,7 @@ export const deleteTeam = createAsyncThunk(
 );
 
 export const createTeam = createAsyncThunk(
-  "userTeams/create",
+  'userTeams/create',
   async ({
     password,
     name,
@@ -54,9 +54,9 @@ export const createTeam = createAsyncThunk(
     description: string;
     name: string;
   }) => {
-    const res = await fetch("/api/teams", {
-      method: "POST",
-      cache: "no-cache",
+    const res = await fetch('/api/teams', {
+      method: 'POST',
+      cache: 'no-cache',
       body: JSON.stringify({
         password,
         name,
@@ -69,18 +69,18 @@ export const createTeam = createAsyncThunk(
 );
 
 export const userTeamsSlice = createSlice({
-  name: "userTeams",
+  name: 'userTeams',
   initialState: {
     data: null,
     loading: null,
-    err: "",
+    err: '',
   } as TeamsState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(fetchUserTeams.rejected, (state, _) => {
       state.loading = false;
       state.data = [];
-      state.err = "Error loading user teams";
+      state.err = 'Error loading user teams';
     });
     builder.addCase(fetchUserTeams.pending, (state, _) => {
       state.loading = true;
@@ -88,7 +88,7 @@ export const userTeamsSlice = createSlice({
     builder.addCase(fetchUserTeams.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
-      state.err = "";
+      state.err = '';
     });
     builder.addCase(joinTeam.fulfilled, (state, action) => {
       const currentData = state.data ? state.data : [];
@@ -110,7 +110,7 @@ export const userTeamsSlice = createSlice({
       if (!action.payload.err) {
         const currentData = state.data ? state.data : [];
         state.data = currentData.filter(
-          (t) => t.id !== Number(action.payload.id),
+          t => t.id !== Number(action.payload.id),
         );
       }
     });

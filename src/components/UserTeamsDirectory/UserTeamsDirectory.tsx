@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
-import useUserTeams from "@/hooks/useUserTeams";
-import Link from "next/link";
-import { useState } from "react";
-import { IUserTeam } from "@/types/Team";
-import { useAppDispatch } from "@/lib/hooks";
-import toast from "react-hot-toast";
-import { deleteTeam as deleteteamSlice } from "@/lib/features/userTeams/userTeamsSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+import useUserTeams from '@/hooks/useUserTeams';
+import Link from 'next/link';
+import { useState } from 'react';
+import { IUserTeam } from '@/types/Team';
+import { useAppDispatch } from '@/lib/hooks';
+import toast from 'react-hot-toast';
+import { deleteTeam as deleteteamSlice } from '@/lib/features/userTeams/userTeamsSlice';
 
 const UserTeamsDirectory = () => {
   const { data, loading, err } = useUserTeams();
@@ -22,13 +22,13 @@ const UserTeamsDirectory = () => {
       ).unwrap();
 
       if (res.id) {
-        toast.success("Team Deleted");
+        toast.success('Team Deleted');
         setDeleteTeam(null);
       }
 
       if (res.err) toast.error(res.err);
     } else {
-      toast.error("no team selected to delete");
+      toast.error('no team selected to delete');
     }
   };
 
@@ -60,14 +60,14 @@ const UserTeamsDirectory = () => {
       ) : (
         <>
           <div className="grid gap-3">
-            {data.map((team) => (
+            {data.map(team => (
               <div
                 key={team.name}
                 className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
               >
                 <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
                   <div>{team.name}</div>
-                  {team.owner ? "Owner" : "Member"}
+                  {team.owner ? 'Owner' : 'Member'}
                 </div>
                 <div className="flex gap-2">
                   {team.owner && (

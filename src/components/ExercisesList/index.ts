@@ -1,3 +1,3 @@
-import ExercisesList from "./ExercisesList";
+import ExercisesList from './ExercisesList';
 
 export default ExercisesList;

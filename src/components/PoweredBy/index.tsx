@@ -1,3 +1,3 @@
-import PoweredBy from "./PoweredBy";
+import PoweredBy from './PoweredBy';
 
 export default PoweredBy;

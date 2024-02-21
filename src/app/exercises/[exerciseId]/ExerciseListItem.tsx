@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { IExercise, IUserExercise } from "@/app/api/user/exercises/route";
-import { getUnits } from "@/helpers/units";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { IExercise, IUserExercise } from '@/app/api/user/exercises/route';
+import { getUnits } from '@/helpers/units';
 
 type ExerciseListItemProps = {
   exercise: IExercise;
@@ -25,7 +25,7 @@ const ExerciseListItem = ({
       className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
     >
       <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
-        <p>{new Date(userExercise.date).toLocaleDateString("en-GB")}</p>
+        <p>{new Date(userExercise.date).toLocaleDateString('en-GB')}</p>
         <p className="font-bold">
           {userExercise.log}
           {getUnits(exercise.logging_type)}

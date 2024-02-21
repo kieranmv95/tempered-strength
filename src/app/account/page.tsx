@@ -1,4 +1,4 @@
-import UpdateUserDetails from "@/app/account/UpdateUserDetails";
+import UpdateUserDetails from '@/app/account/UpdateUserDetails';
 
 export default function Account() {
   return (

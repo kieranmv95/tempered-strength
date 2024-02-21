@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { fetchUserName } from "@/lib/features/user/userSlice";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { fetchUserName } from '@/lib/features/user/userSlice';
 
 const useUser = () => {
   const dispatch = useAppDispatch();
-  const { data, loading, err } = useAppSelector((state) => state.user);
+  const { data, loading, err } = useAppSelector(state => state.user);
 
   useEffect(() => {
     if (!data && !err && !loading) {

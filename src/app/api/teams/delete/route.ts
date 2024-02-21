@@ -1,7 +1,7 @@
-import { query } from "@/db";
-import { NextRequest, NextResponse } from "next/server";
-import { ITeam } from "@/types/Team";
-import { auth } from "@clerk/nextjs";
+import { query } from '@/db';
+import { NextRequest, NextResponse } from 'next/server';
+import { ITeam } from '@/types/Team';
+import { auth } from '@clerk/nextjs';
 
 type PostParams = {
   id: string;
@@ -20,9 +20,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ id: id }, { status: 200 });
   } catch (e: any) {
     if (e.code) {
-      return NextResponse.json({ err: "team not deleted", e }, { status: 404 });
+      return NextResponse.json({ err: 'team not deleted', e }, { status: 404 });
     }
 
-    return NextResponse.json({ err: "team not deleted", e }, { status: 404 });
+    return NextResponse.json({ err: 'team not deleted', e }, { status: 404 });
   }
 }

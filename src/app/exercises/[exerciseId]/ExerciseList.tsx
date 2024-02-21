@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import useUserExercises from "@/hooks/useUserExercises";
-import { IExercise } from "@/app/api/user/exercises/route";
-import LogExerciseForm from "@/components/LogExerciseModal";
-import ExerciseListItem from "@/app/exercises/[exerciseId]/ExerciseListItem";
-import { removeSuccess } from "@/lib/features/userExercises/userExercisesSlice";
-import toast from "react-hot-toast";
-import { useAppDispatch } from "@/lib/hooks";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { getUnits } from "@/helpers/units";
-import PercentagesBreakdown from "@/components/PercentagesBreakdown";
+import React, { useState } from 'react';
+import useUserExercises from '@/hooks/useUserExercises';
+import { IExercise } from '@/app/api/user/exercises/route';
+import LogExerciseForm from '@/components/LogExerciseModal';
+import ExerciseListItem from '@/app/exercises/[exerciseId]/ExerciseListItem';
+import { removeSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import toast from 'react-hot-toast';
+import { useAppDispatch } from '@/lib/hooks';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { getUnits } from '@/helpers/units';
+import PercentagesBreakdown from '@/components/PercentagesBreakdown';
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
@@ -23,14 +23,14 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const dispatch = useAppDispatch();
 
   const deleteExercise = async (id: number) => {
-    await fetch("/api/user/exercises", {
-      method: "DELETE",
+    await fetch('/api/user/exercises', {
+      method: 'DELETE',
       body: JSON.stringify({ id }),
     });
 
     dispatch(removeSuccess({ id }));
 
-    toast.success("Exercise Removed");
+    toast.success('Exercise Removed');
   };
 
   return (
@@ -58,13 +58,13 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
               <p className="text-xl font-bold mb-2">Percentages Breakdown</p>
               <div className="flex gap-3 mb-2">
                 <button
-                  className={`block py-2 px-4 rounded ${breakdownPb ? "bg-blue-600 hover:bg-blue-600" : "bg-blue-400 hover:bg-blue-500"}`}
+                  className={`block py-2 px-4 rounded ${breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
                   onClick={() => setBreakdownPb(true)}
                 >
                   Best
                 </button>
                 <button
-                  className={`block py-2 px-4 rounded ${!breakdownPb ? "bg-blue-600 hover:bg-blue-600" : "bg-blue-400 hover:bg-blue-500"}`}
+                  className={`block py-2 px-4 rounded ${!breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
                   onClick={() => setBreakdownPb(false)}
                 >
                   Latest
@@ -91,13 +91,13 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                 Log <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
               </button>
               <div className="grid gap-3">
-                {getExerciseById(exercise.id).map((userExercise) => {
+                {getExerciseById(exercise.id).map(userExercise => {
                   return (
                     <ExerciseListItem
                       key={userExercise.id}
                       exercise={exercise}
                       userExercise={userExercise}
-                      deleteExercise={(id) => deleteExercise(id)}
+                      deleteExercise={id => deleteExercise(id)}
                     />
                   );
                 })}
@@ -109,7 +109,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                 className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"
                 onClick={() => setSelectedExercise(exercise)}
               >
-                Log your first {exercise.name}{" "}
+                Log your first {exercise.name}{' '}
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
               </button>
             </div>

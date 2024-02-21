@@ -1,7 +1,7 @@
-import { query } from "@/db";
-import BackButton from "@/components/BackButton";
-import { ILoggingType } from "@/app/api/user/exercises/route";
-import UserPublicProfile from "@/components/UserPublicProfile";
+import { query } from '@/db';
+import BackButton from '@/components/BackButton';
+import { ILoggingType } from '@/app/api/user/exercises/route';
+import UserPublicProfile from '@/components/UserPublicProfile';
 
 const getUserData = async (username: string) => {
   const user = (await query(`
@@ -49,5 +49,7 @@ export default async function Page({ params }: PageProps) {
     );
   }
 
-  return <UserPublicProfile authedBack username={params.username} user={user}/>
+  return (
+    <UserPublicProfile authedBack username={params.username} user={user} />
+  );
 }

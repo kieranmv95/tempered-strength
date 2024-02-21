@@ -1,6 +1,6 @@
-import TeamsDirectory from "@/components/TeamsDirectory";
-import UserTeamsDirectory from "@/components/UserTeamsDirectory";
-import CreateTeam from "@/components/CreateTeam/CreateTeam";
+import TeamsDirectory from '@/components/TeamsDirectory';
+import UserTeamsDirectory from '@/components/UserTeamsDirectory';
+import CreateTeam from '@/components/CreateTeam/CreateTeam';
 
 export default function Teams() {
   return (
