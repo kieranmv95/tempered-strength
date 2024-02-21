@@ -30,7 +30,7 @@ const TeamsDirectory = () => {
           theme="blue"
           loading={true}
           disabled={true}
-          loadingText="Refreshing teams"
+          loadingText="Loading teams"
         >
           <FontAwesomeIcon icon={faRefresh} className="w-4 h-4" /> Refresh teams
           list
@@ -61,13 +61,17 @@ const TeamsDirectory = () => {
       {!data || !data.length || !userTeams.data ? (
         <div>
           <p className="mb-3">No teams have been created yet</p>
-          <div
-            className="bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
+          <Button
+            type="button"
             onClick={refreshTeams}
+            className="mb-3"
+            theme="blue"
           >
-            <FontAwesomeIcon icon={faRefresh} className="w-4 h-4" /> Refresh
-            teams list
-          </div>
+            <div className="flex gap-2 items-center">
+              <FontAwesomeIcon icon={faRefresh} className="w-4 h-4" /> Refresh
+              teams list
+            </div>
+          </Button>
         </div>
       ) : (
         <>

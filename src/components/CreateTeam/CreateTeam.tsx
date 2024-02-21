@@ -14,7 +14,9 @@ const CreateTeam = () => {
       <h2 className="mb-3 font-bold text-lg">Team Directory</h2>
       <p className="mb-3">Compete with your friends by creating a new team</p>
       <Button type="button" onClick={() => setCreatingTeam(true)}>
-        <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Create Team
+        <div className="flex gap-2 items-center">
+          <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Create Team
+        </div>
       </Button>
       {creatingTeam && (
         <>
