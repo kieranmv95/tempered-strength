@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { IExercise } from '@/app/api/user/exercises/route';
 import { useAuth } from '@clerk/nextjs';
-import Button from '@/components/Button';
+import { Button } from '@/components';
 
 const ExerciseSchema = Yup.object().shape({
   log: Yup.number().required('Required'),
