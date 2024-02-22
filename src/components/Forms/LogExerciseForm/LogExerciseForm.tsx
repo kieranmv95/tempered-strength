@@ -55,11 +55,20 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
     });
   };
 
+  const getCurrentDate = () => {
+    const date = new Date();
+    const padNumber = (num: number) => num.toString().padStart(2, '0');
+    const day = padNumber(date.getDate());
+    const month = padNumber(date.getMonth() + 1); // getMonth() returns 0-11
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <Formik
       initialValues={{
         log: '',
-        date: '',
+        date: getCurrentDate(),
         durationGroup: {
           HH: '00',
           MM: '00',
