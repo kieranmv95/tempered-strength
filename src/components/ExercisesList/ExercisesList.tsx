@@ -18,7 +18,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
     null,
   );
   const [search, setSearch] = useState('');
-  const { loading, err, getOneRepMax } = useUserExercises();
+  const { loading, err, getOneRepMax, getFastestTime } = useUserExercises();
 
   if (loading && !err) return <>Loading...</>;
   if (!loading && err) return <>Error</>;
@@ -49,7 +49,18 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             }
           })
           .map(exercise => {
-            const oneRepMax = getOneRepMax(exercise.id);
+            let oneRepMax;
+
+            if (
+              exercise.logging_type === 'weight' ||
+              exercise.logging_type === 'reps'
+            ) {
+              oneRepMax = getOneRepMax(exercise.id);
+            }
+
+            if (exercise.logging_type === 'duration') {
+              oneRepMax = getFastestTime(exercise.id);
+            }
 
             return (
               <div

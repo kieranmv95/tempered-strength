@@ -19,6 +19,18 @@ const ExerciseListItem = ({
 }: ExerciseListItemProps) => {
   const [showOptions, setShowOptions] = useState(false);
 
+  const getFigure = () => {
+    if (
+      exercise.logging_type === 'weight' ||
+      exercise.logging_type === 'reps'
+    ) {
+      return userExercise.log;
+    }
+    if (exercise.logging_type === 'duration') {
+      return userExercise.duration;
+    }
+  };
+
   return (
     <div
       key={exercise.id}
@@ -27,7 +39,7 @@ const ExerciseListItem = ({
       <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
         <p>{new Date(userExercise.date).toLocaleDateString('en-GB')}</p>
         <p className="font-bold">
-          {userExercise.log}
+          {getFigure()}
           {getUnits(exercise.logging_type)}
         </p>
       </div>

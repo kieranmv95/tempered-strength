@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { query } from '@/db';
-import { IUserExercise } from '@/types/IExercise';
+import { ILoggingType, IUserExercise } from '@/types/IExercise';
 
 type GetParams = {
   exerciseId: number;
   log: number;
+  duration: string;
   date: Date;
+  loggingType: ILoggingType;
 };
 
 type DeleteParams = {
@@ -16,15 +18,26 @@ type DeleteParams = {
 export async function POST(request: NextRequest) {
   const { userId } = auth();
   const data = (await request.json()) as GetParams;
-  const { exerciseId, log, date } = data;
+  const { exerciseId, log, date, duration, loggingType } = data;
 
-  const sql = `
+  let sql;
+
+  if (loggingType === 'weight' || loggingType == 'reps') {
+    sql = `
         INSERT INTO userExercises (userId, exerciseid, log, date)
         VALUES ('${userId}', ${exerciseId}, '${log}', '${date}'); 
     `;
+  }
+
+  if (loggingType === 'duration') {
+    sql = `
+        INSERT INTO userExercises (userId, exerciseid, date, duration)
+        VALUES ('${userId}', ${exerciseId}, '${date}', '${duration}'); 
+    `;
+  }
 
   try {
-    const result = await query(sql);
+    const result = await query(sql as string);
     return NextResponse.json(result, { status: 201 });
   } catch (e) {
     return NextResponse.json(
