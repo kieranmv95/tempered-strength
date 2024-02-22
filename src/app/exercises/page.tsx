@@ -1,6 +1,6 @@
 import { query } from '@/db';
 import ExercisesList from '@/components/ExercisesList';
-import { IExercise } from '@/app/api/user/exercises/route';
+import { IExercise } from '@/types/IExercise';
 
 async function getExercises() {
   return (await query('SELECT * FROM exercises')) as IExercise[];

@@ -5,14 +5,9 @@ import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { IExercise } from '@/app/api/user/exercises/route';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
-
-const ExerciseSchema = Yup.object().shape({
-  log: Yup.number().required('Required'),
-  date: Yup.date().required('Required'),
-});
+import { IExercise, ILoggingType } from '@/types/IExercise';
 
 type LogExerciseFormProps = {
   exercise: IExercise;
@@ -23,18 +18,66 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
   const dispatch = useAppDispatch();
   const { userId } = useAuth();
 
+  const getLabel = (logging_type: ILoggingType) => {
+    switch (logging_type) {
+      case 'duration':
+        return 'Duration (hh:mm:ss)';
+      case 'weight':
+        return 'Weight (kg)';
+      case 'reps':
+        return 'Reps';
+    }
+  };
+
+  const ExerciseSchema = () => {
+    const isDuration = exercise.logging_type === 'duration';
+    const isWeight =
+      exercise.logging_type === 'weight' || exercise.logging_type === 'reps';
+
+    return Yup.object().shape({
+      log: isWeight ? Yup.string().required('Required') : Yup.string(),
+      date: Yup.date().required('Date is required'),
+      durationGroup: Yup.object()
+        .shape({
+          HH: Yup.string(),
+          MM: Yup.string(),
+          SS: Yup.string(),
+        })
+        .test(
+          'duration-validation',
+          'At least one field must be provided',
+          function (value) {
+            if (!isDuration) return true;
+            const { HH, MM, SS } = value;
+            return HH !== '00' || MM !== '00' || SS !== '00';
+          },
+        ),
+    });
+  };
+
   return (
     <Formik
       initialValues={{
         log: '',
         date: '',
+        durationGroup: {
+          HH: '00',
+          MM: '00',
+          SS: '00',
+        },
       }}
+      enableReinitialize={true}
       validationSchema={ExerciseSchema}
       onSubmit={async (values, { setSubmitting }) => {
+        const { HH, MM, SS } = values.durationGroup;
+        const concatDuration = `${HH}:${MM}:${SS}`;
+
         const data = {
           exerciseId: exercise.id,
           log: values.log,
           date: values.date,
+          duration: concatDuration,
+          loggingType: exercise.logging_type,
         };
 
         const res = await fetch('/api/user/exercises', {
@@ -50,6 +93,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
             exerciseId: exercise.id,
             userId: userId || '',
             log: Number(values.log),
+            duration: concatDuration,
             date: values.date,
           }),
         );
@@ -85,23 +129,96 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
           <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
           <div className="grid gap-4">
             <div>
-              <label className="block mb-1" htmlFor="date">
-                {exercise.logging_type === 'weight' ? 'Weight (kg)' : 'Reps'}
+              <label className="block mb-1">
+                {getLabel(exercise.logging_type)}
               </label>
-              <Field
-                type="number"
-                name="log"
-                inputMode="numeric"
-                placeholder="100"
-                autoComplete="off"
-                className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-              />
-              <ErrorMessage
-                name="log"
-                render={msg => (
-                  <div className="text-xs text-red-600 mt-2">{msg}</div>
-                )}
-              />
+              {(exercise.logging_type === 'weight' ||
+                exercise.logging_type === 'reps') && (
+                <>
+                  <Field
+                    type="number"
+                    name="log"
+                    inputMode="numeric"
+                    placeholder="100"
+                    autoComplete="off"
+                    className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  <ErrorMessage
+                    name="log"
+                    render={msg => (
+                      <div className="text-xs text-red-600 mt-2">{msg}</div>
+                    )}
+                  />
+                </>
+              )}
+              {exercise.logging_type === 'duration' && (
+                <>
+                  <div className="flex items-center">
+                    <Field
+                      as="select"
+                      name="durationGroup.HH"
+                      placeholder="HH"
+                      className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value={'00'}>00</option>
+                      <option value={'01'}>01</option>
+                      <option value={'02'}>02</option>
+                      <option value={'03'}>03</option>
+                      <option value={'04'}>04</option>
+                      <option value={'05'}>05</option>
+                      <option value={'06'}>06</option>
+                      <option value={'07'}>07</option>
+                      <option value={'08'}>08</option>
+                      <option value={'09'}>09</option>
+                      <option value={'10'}>10</option>
+                    </Field>
+                    <div className="text-2xl font-light px-1">:</div>
+                    <Field
+                      as="select"
+                      name="durationGroup.MM"
+                      placeholder="MM"
+                      className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value={'00'}>00</option>
+                      <option value={'01'}>01</option>
+                      <option value={'02'}>02</option>
+                      <option value={'03'}>03</option>
+                      <option value={'04'}>04</option>
+                      <option value={'05'}>05</option>
+                      <option value={'06'}>06</option>
+                      <option value={'07'}>07</option>
+                      <option value={'08'}>08</option>
+                      <option value={'09'}>09</option>
+                      <option value={'10'}>10</option>
+                    </Field>
+                    <div className="text-2xl font-light px-1">:</div>
+                    <Field
+                      as="select"
+                      name="durationGroup.SS"
+                      placeholder="MM"
+                      className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value={'00'}>00</option>
+                      <option value={'01'}>01</option>
+                      <option value={'02'}>02</option>
+                      <option value={'03'}>03</option>
+                      <option value={'04'}>04</option>
+                      <option value={'05'}>05</option>
+                      <option value={'06'}>06</option>
+                      <option value={'07'}>07</option>
+                      <option value={'08'}>08</option>
+                      <option value={'09'}>09</option>
+                      <option value={'10'}>10</option>
+                    </Field>
+                  </div>
+                  <ErrorMessage
+                    name="durationGroup"
+                    render={msg => (
+                      <div className="text-xs text-red-600 mt-2">{msg}</div>
+                    )}
+                  />
+                </>
+              )}
             </div>
             <div>
               <label className="block mb-1" htmlFor="date">

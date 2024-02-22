@@ -1,5 +1,4 @@
 import { query } from '@/db';
-import { ILoggingType } from '@/app/api/user/exercises/route';
 import { getUnits } from '@/helpers/units';
 import PoweredBy from '@/components/PoweredBy';
 import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
@@ -7,6 +6,7 @@ import UsersNotFound from '@/app/compare/[userOne]/[userTwo]/UsersNotFound';
 import NotEnoughDataToCompare from '@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare';
 import PoundForPoundResults from '@/app/compare/[userOne]/[userTwo]/PoundForPoundResults';
 import BackButton from '@/components/BackButton';
+import { ILoggingType } from '@/types/IExercise';
 
 type IUserStats = {
   log: string;

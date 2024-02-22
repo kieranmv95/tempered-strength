@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserExercise } from '@/app/api/user/exercises/route';
+import { IUserExercise } from '@/types/IExercise';
 
 type UserExercisesState = {
   data: null | IUserExercise[];

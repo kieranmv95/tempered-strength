@@ -15,11 +15,41 @@ const useUserExercises = () => {
   const getOneRepMax = (exerciseId: number) => {
     const oneRepMax = data
       ?.filter(userExercise => Number(userExercise.exerciseId) === exerciseId)
-      .reduce((prev, curr) => {
-        return curr.log > prev ? curr.log : prev;
-      }, 0);
+      .reduce(
+        (prev, curr) =>
+          (curr.log as number) > prev ? (curr.log as number) : prev,
+        0,
+      );
 
     return oneRepMax ? oneRepMax : null;
+  };
+
+  const getFastestTime = (exerciseId: number) => {
+    const exercises = data?.filter(
+      userExercise => Number(userExercise.exerciseId) === exerciseId,
+    );
+
+    if (!exercises || exercises.length === 0) {
+      return null;
+    }
+
+    const exercisesWithDurationInSeconds = exercises.map(exercise => ({
+      ...exercise,
+      durationInSeconds: (exercise.duration as string)
+        .split(':')
+        .reduce((acc, time) => 60 * acc + +time, 0),
+    }));
+
+    const fastestExercise = exercisesWithDurationInSeconds.reduce(
+      (minExercise, currentExercise) => {
+        return currentExercise.durationInSeconds < minExercise.durationInSeconds
+          ? currentExercise
+          : minExercise;
+      },
+      exercisesWithDurationInSeconds[0],
+    );
+
+    return fastestExercise.duration;
   };
 
   const getExerciseById = (exerciseId: number) => {
@@ -30,7 +60,7 @@ const useUserExercises = () => {
     return oneRepMax ? oneRepMax : [];
   };
 
-  return { data, loading, err, getOneRepMax, getExerciseById };
+  return { data, loading, err, getOneRepMax, getExerciseById, getFastestTime };
 };
 
 export default useUserExercises;

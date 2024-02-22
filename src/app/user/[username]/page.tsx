@@ -1,6 +1,6 @@
 import { query } from '@/db';
 import BackButton from '@/components/BackButton';
-import { ILoggingType } from '@/app/api/user/exercises/route';
+import { ILoggingType } from '@/types/IExercise';
 import UserPublicProfile from '@/components/UserPublicProfile';
 
 const getUserData = async (username: string) => {

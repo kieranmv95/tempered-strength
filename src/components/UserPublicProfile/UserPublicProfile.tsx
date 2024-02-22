@@ -1,7 +1,7 @@
 import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
 import { getUnits } from '@/helpers/units';
 import PoweredBy from '@/components/PoweredBy';
-import { ILoggingType } from '@/app/api/user/exercises/route';
+import { ILoggingType } from '@/types/IExercise';
 import Back from '@/app/user/[username]/Back';
 
 type UserPublicProfileProps = {

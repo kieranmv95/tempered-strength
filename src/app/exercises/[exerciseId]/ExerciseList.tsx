@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import useUserExercises from '@/hooks/useUserExercises';
-import { IExercise } from '@/app/api/user/exercises/route';
 import ExerciseListItem from '@/app/exercises/[exerciseId]/ExerciseListItem';
 import { removeSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
@@ -10,7 +9,8 @@ import { useAppDispatch } from '@/lib/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
-import { Button, PercentagesBreakdown, LogExerciseModal } from '@/components';
+import { PercentagesBreakdown, LogExerciseModal, Button } from '@/components';
+import { IExercise } from '@/types/IExercise';
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
@@ -18,7 +18,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   );
   const [breakdownPb, setBreakdownPb] = useState(true);
 
-  const { data, loading, err, getExerciseById } = useUserExercises();
+  const { data, loading, err, getFastestTime, getExerciseById, getOneRepMax } =
+    useUserExercises();
   const dispatch = useAppDispatch();
 
   const deleteExercise = async (id: number) => {
@@ -32,64 +33,91 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
     toast.success('Exercise Removed');
   };
 
+  const getBest = () => {
+    if (
+      exercise.logging_type === 'weight' ||
+      exercise.logging_type === 'reps'
+    ) {
+      return getOneRepMax(exercise.id);
+    }
+    if (exercise.logging_type === 'duration') {
+      return getFastestTime(exercise.id);
+    }
+  };
+
+  const getLatest = () => {
+    if (
+      exercise.logging_type === 'weight' ||
+      exercise.logging_type === 'reps'
+    ) {
+      return getExerciseById(exercise.id)[0].log;
+    }
+    if (exercise.logging_type === 'duration') {
+      return getExerciseById(exercise.id)[0].duration;
+    }
+  };
+
   return (
     <>
       {loading && !err && <>Loading...</>}
       {!loading && err && <>Error</>}
       {!loading && !err && data && (
         <>
-          <Button
-            type="button"
-            onClick={() => setSelectedExercise(exercise)}
-            className="mb-4"
-          >
-            <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
-          </Button>
-
           {getExerciseById(exercise.id).length ? (
             <>
+              <Button
+                type="button"
+                onClick={() => setSelectedExercise(exercise)}
+                className="mb-4"
+              >
+                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
+              </Button>
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2">Best</p>
-                  {getExerciseById(exercise.id).reduce((a, b) => {
-                    return Math.max(a, b.log);
-                  }, -Infinity)}
+                  {getBest()}
                   {getUnits(exercise.logging_type)}
                 </div>
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2 text-center">Latest</p>
-                  {getExerciseById(exercise.id)[0].log}
+                  {getLatest()}
                   {getUnits(exercise.logging_type)}
                 </div>
               </div>
-              <p className="text-xl font-bold mb-2">Percentages Breakdown</p>
-              <div className="flex gap-3 mb-2">
-                <button
-                  className={`block py-2 px-4 rounded ${breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
-                  onClick={() => setBreakdownPb(true)}
-                >
-                  Best
-                </button>
-                <button
-                  className={`block py-2 px-4 rounded ${!breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
-                  onClick={() => setBreakdownPb(false)}
-                >
-                  Latest
-                </button>
-              </div>
-
-              <div className="mb-6">
-                <PercentagesBreakdown
-                  value={
-                    breakdownPb
-                      ? getExerciseById(exercise.id).reduce((a, b) => {
-                          return Math.max(a, b.log);
-                        }, -Infinity)
-                      : getExerciseById(exercise.id)[0].log
-                  }
-                  loggingType={exercise.logging_type}
-                />
-              </div>
+              {(exercise.logging_type === 'weight' ||
+                exercise.logging_type === 'reps') && (
+                <>
+                  <p className="text-xl font-bold mb-2">
+                    Percentages Breakdown
+                  </p>
+                  <div className="flex gap-3 mb-2">
+                    <button
+                      className={`block py-2 px-4 rounded ${breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
+                      onClick={() => setBreakdownPb(true)}
+                    >
+                      Best
+                    </button>
+                    <button
+                      className={`block py-2 px-4 rounded ${!breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
+                      onClick={() => setBreakdownPb(false)}
+                    >
+                      Latest
+                    </button>
+                  </div>
+                  <div className="mb-6">
+                    <PercentagesBreakdown
+                      value={
+                        breakdownPb
+                          ? getExerciseById(exercise.id).reduce((a, b) => {
+                              return Math.max(a, b.log as number);
+                            }, -Infinity)
+                          : (getExerciseById(exercise.id)[0].log as number)
+                      }
+                      loggingType={exercise.logging_type}
+                    />
+                  </div>
+                </>
+              )}
               <p className="text-xl font-bold mb-2">Log</p>
               <div className="grid gap-3">
                 {getExerciseById(exercise.id).map(userExercise => {

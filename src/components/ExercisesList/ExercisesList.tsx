@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { IExercise } from '@/app/api/user/exercises/route';
 import LogExerciseForm from '../LogExerciseModal';
 import useUserExercises from '@/hooks/useUserExercises';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
+import { IExercise } from '@/types/IExercise';
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -18,7 +18,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
     null,
   );
   const [search, setSearch] = useState('');
-  const { loading, err, getOneRepMax } = useUserExercises();
+  const { loading, err, getOneRepMax, getFastestTime } = useUserExercises();
 
   if (loading && !err) return <>Loading...</>;
   if (!loading && err) return <>Error</>;
@@ -49,7 +49,18 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             }
           })
           .map(exercise => {
-            const oneRepMax = getOneRepMax(exercise.id);
+            let oneRepMax;
+
+            if (
+              exercise.logging_type === 'weight' ||
+              exercise.logging_type === 'reps'
+            ) {
+              oneRepMax = getOneRepMax(exercise.id);
+            }
+
+            if (exercise.logging_type === 'duration') {
+              oneRepMax = getFastestTime(exercise.id);
+            }
 
             return (
               <div

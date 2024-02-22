@@ -1,4 +1,4 @@
-import { ILoggingType } from '@/app/api/user/exercises/route';
+import { ILoggingType } from '@/types/IExercise';
 
 export const getUnits = (loggingType: ILoggingType) => {
   switch (loggingType) {
