@@ -169,7 +169,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                       placeholder="HH"
                       className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     >
-                      {Array.from({ length: 24 }).map((item, i) => {
+                      {Array.from({ length: 24 }).map((_, i) => {
                         return (
                           <option
                             key={i.toString().padStart(2, '0')}
@@ -187,7 +187,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                       placeholder="MM"
                       className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     >
-                      {Array.from({ length: 60 }).map((item, i) => {
+                      {Array.from({ length: 60 }).map((_, i) => {
                         return (
                           <option
                             key={i.toString().padStart(2, '0')}
@@ -205,7 +205,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                       placeholder="MM"
                       className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     >
-                      {Array.from({ length: 60 }).map((item, i) => {
+                      {Array.from({ length: 60 }).map((_, i) => {
                         return (
                           <option
                             key={i.toString().padStart(2, '0')}
