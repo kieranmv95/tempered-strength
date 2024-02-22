@@ -1,7 +1,5 @@
 import { query } from '@/db';
 import { NextRequest, NextResponse } from 'next/server';
-import { ITeam } from '@/types/ITeam';
-import { auth } from '@clerk/nextjs';
 
 type PostParams = {
   id: string;

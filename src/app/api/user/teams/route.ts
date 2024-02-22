@@ -1,6 +1,6 @@
 import { query } from '@/db';
 import { NextResponse } from 'next/server';
-import { ITeam, IUserTeam } from '@/types/ITeam';
+import { IUserTeam } from '@/types/ITeam';
 import { auth } from '@clerk/nextjs';
 
 export async function GET() {
