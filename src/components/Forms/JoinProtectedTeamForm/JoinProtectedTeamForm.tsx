@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
-import { ITeam } from '@/types/Team';
+import { ITeam } from '@/types/ITeam';
 import { Button } from '@/components';
 
 const ProtectedTeamSchema = Yup.object().shape({

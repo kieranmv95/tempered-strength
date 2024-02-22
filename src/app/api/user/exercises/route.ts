@@ -1,22 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { query } from '@/db';
-
-export type ILoggingType = 'weight' | 'reps';
-
-export type IExercise = {
-  id: number;
-  name: string;
-  logging_type: ILoggingType;
-};
-
-export type IUserExercise = {
-  id: number;
-  userId: string;
-  exerciseId: number;
-  log: number;
-  date: string;
-};
+import { IUserExercise } from '@/types/IExercise';
 
 type GetParams = {
   exerciseId: number;

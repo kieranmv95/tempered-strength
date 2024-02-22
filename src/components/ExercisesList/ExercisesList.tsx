@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { IExercise } from '@/app/api/user/exercises/route';
 import LogExerciseForm from '../LogExerciseModal';
 import useUserExercises from '@/hooks/useUserExercises';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
+import { IExercise } from '@/types/IExercise';
 
 type ExercisesListProps = {
   exercises: IExercise[];

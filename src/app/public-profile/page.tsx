@@ -1,9 +1,9 @@
 import { query } from '@/db';
-import { ILoggingType } from '@/app/api/user/exercises/route';
 import UserPublicProfile from '@/components/UserPublicProfile';
 import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
 import { auth } from '@clerk/nextjs';
 import Link from 'next/link';
+import { ILoggingType } from '@/types/IExercise';
 
 const getUserData = async (username: string) => {
   const user = (await query(`

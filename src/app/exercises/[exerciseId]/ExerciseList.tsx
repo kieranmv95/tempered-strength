@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import useUserExercises from '@/hooks/useUserExercises';
-import { IExercise } from '@/app/api/user/exercises/route';
 import ExerciseListItem from '@/app/exercises/[exerciseId]/ExerciseListItem';
 import { removeSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
@@ -11,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
 import { Button, PercentagesBreakdown, LogExerciseModal } from '@/components';
+import { IExercise } from '@/types/IExercise';
 
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(

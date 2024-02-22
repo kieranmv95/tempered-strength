@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { IExercise, IUserExercise } from '@/app/api/user/exercises/route';
 import { getUnits } from '@/helpers/units';
+import { IExercise, IUserExercise } from '@/types/IExercise';
 
 type ExerciseListItemProps = {
   exercise: IExercise;

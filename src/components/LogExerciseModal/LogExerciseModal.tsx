@@ -1,7 +1,7 @@
 'use client';
 
-import { IExercise } from '@/app/api/user/exercises/route';
 import { LogExerciseForm } from '@/components/Forms';
+import { IExercise } from '@/types/IExercise';
 
 type LogExerciseFormProps = {
   close: () => void;

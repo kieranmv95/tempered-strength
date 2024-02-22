@@ -1,15 +1,7 @@
-import TeamsDirectory from '@/components/TeamsDirectory';
-import UserTeamsDirectory from '@/components/UserTeamsDirectory';
-import CreateTeam from '@/components/CreateTeam/CreateTeam';
 import { query } from '@/db';
-import { IExercise } from '@/app/api/user/exercises/route';
-import { ITeamResponse } from '@/types/Team';
+import { ITeamResponse } from '@/types/ITeam';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowRight,
-  faPlus,
-  faRefresh,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs';
 import BackButton from '@/components/BackButton';

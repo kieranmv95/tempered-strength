@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { query } from '@/db';
-import { ITeamResponse, IUserTeam } from '@/types/Team';
+import { ITeamResponse, IUserTeam } from '@/types/ITeam';
 
 type PostParams = {
   password: string;

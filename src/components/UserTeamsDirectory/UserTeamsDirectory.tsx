@@ -5,7 +5,7 @@ import { faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 import useUserTeams from '@/hooks/useUserTeams';
 import Link from 'next/link';
 import { useState } from 'react';
-import { IUserTeam } from '@/types/Team';
+import { IUserTeam } from '@/types/ITeam';
 import { useAppDispatch } from '@/lib/hooks';
 import toast from 'react-hot-toast';
 import { deleteTeam as deleteteamSlice } from '@/lib/features/userTeams/userTeamsSlice';

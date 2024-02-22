@@ -5,9 +5,9 @@ import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { IExercise } from '@/app/api/user/exercises/route';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
+import { IExercise } from '@/types/IExercise';
 
 const ExerciseSchema = Yup.object().shape({
   log: Yup.number().required('Required'),

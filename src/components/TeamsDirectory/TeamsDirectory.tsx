@@ -4,7 +4,7 @@ import useTeams from '@/hooks/useTeams';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import useUserTeams from '@/hooks/useUserTeams';
-import { ITeam, IUserTeam } from '@/types/Team';
+import { ITeam, IUserTeam } from '@/types/ITeam';
 import { joinTeam } from '@/lib/features/userTeams/userTeamsSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import toast from 'react-hot-toast';

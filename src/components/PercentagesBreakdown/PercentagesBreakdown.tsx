@@ -1,6 +1,6 @@
 import { getUnits } from '@/helpers/units';
 import React from 'react';
-import { ILoggingType } from '@/app/api/user/exercises/route';
+import { ILoggingType } from '@/types/IExercise';
 
 type PercentagesBreakdownProps = {
   value: number;

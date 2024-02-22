@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ITeam } from '@/types/Team';
+import { ITeam } from '@/types/ITeam';
 import { deleteTeam } from '@/lib/features/userTeams/userTeamsSlice';
 
 type TeamsState = {
