@@ -162,7 +162,10 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                     >
                       {Array.from({ length: 24 }).map((item, i) => {
                         return (
-                          <option value={i.toString().padStart(2, '0')}>
+                          <option
+                            key={i.toString().padStart(2, '0')}
+                            value={i.toString().padStart(2, '0')}
+                          >
                             {i.toString().padStart(2, '0')}
                           </option>
                         );
@@ -177,7 +180,10 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                     >
                       {Array.from({ length: 60 }).map((item, i) => {
                         return (
-                          <option value={i.toString().padStart(2, '0')}>
+                          <option
+                            key={i.toString().padStart(2, '0')}
+                            value={i.toString().padStart(2, '0')}
+                          >
                             {i.toString().padStart(2, '0')}
                           </option>
                         );
@@ -192,7 +198,10 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                     >
                       {Array.from({ length: 60 }).map((item, i) => {
                         return (
-                          <option value={i.toString().padStart(2, '0')}>
+                          <option
+                            key={i.toString().padStart(2, '0')}
+                            value={i.toString().padStart(2, '0')}
+                          >
                             {i.toString().padStart(2, '0')}
                           </option>
                         );
