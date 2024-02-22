@@ -160,17 +160,13 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                       placeholder="HH"
                       className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option value={'00'}>00</option>
-                      <option value={'01'}>01</option>
-                      <option value={'02'}>02</option>
-                      <option value={'03'}>03</option>
-                      <option value={'04'}>04</option>
-                      <option value={'05'}>05</option>
-                      <option value={'06'}>06</option>
-                      <option value={'07'}>07</option>
-                      <option value={'08'}>08</option>
-                      <option value={'09'}>09</option>
-                      <option value={'10'}>10</option>
+                      {Array.from({ length: 24 }).map((item, i) => {
+                        return (
+                          <option value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        );
+                      })}
                     </Field>
                     <div className="text-2xl font-light px-1">:</div>
                     <Field
@@ -179,17 +175,13 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                       placeholder="MM"
                       className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option value={'00'}>00</option>
-                      <option value={'01'}>01</option>
-                      <option value={'02'}>02</option>
-                      <option value={'03'}>03</option>
-                      <option value={'04'}>04</option>
-                      <option value={'05'}>05</option>
-                      <option value={'06'}>06</option>
-                      <option value={'07'}>07</option>
-                      <option value={'08'}>08</option>
-                      <option value={'09'}>09</option>
-                      <option value={'10'}>10</option>
+                      {Array.from({ length: 60 }).map((item, i) => {
+                        return (
+                          <option value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        );
+                      })}
                     </Field>
                     <div className="text-2xl font-light px-1">:</div>
                     <Field
@@ -198,17 +190,13 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                       placeholder="MM"
                       className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                     >
-                      <option value={'00'}>00</option>
-                      <option value={'01'}>01</option>
-                      <option value={'02'}>02</option>
-                      <option value={'03'}>03</option>
-                      <option value={'04'}>04</option>
-                      <option value={'05'}>05</option>
-                      <option value={'06'}>06</option>
-                      <option value={'07'}>07</option>
-                      <option value={'08'}>08</option>
-                      <option value={'09'}>09</option>
-                      <option value={'10'}>10</option>
+                      {Array.from({ length: 60 }).map((item, i) => {
+                        return (
+                          <option value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        );
+                      })}
                     </Field>
                   </div>
                   <ErrorMessage
