@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs';
 import { query } from '@/db';
 import { ILoggingType, IUserExercise } from '@/types/IExercise';
 
-type GetParams = {
+type PostParams = {
   exerciseId: number;
   log: number;
   duration: string;
@@ -11,13 +11,9 @@ type GetParams = {
   loggingType: ILoggingType;
 };
 
-type DeleteParams = {
-  id: number;
-};
-
 export async function POST(request: NextRequest) {
   const { userId } = auth();
-  const data = (await request.json()) as GetParams;
+  const data = (await request.json()) as PostParams;
   const { exerciseId, log, date, duration, loggingType } = data;
 
   let sql;
@@ -68,6 +64,10 @@ export async function GET() {
     );
   }
 }
+
+type DeleteParams = {
+  id: number;
+};
 
 export async function DELETE(request: NextRequest) {
   const data = (await request.json()) as DeleteParams;

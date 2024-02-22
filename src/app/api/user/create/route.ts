@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { query } from '@/db';
 
-type GetParams = {
+type PostParams = {
   username: string;
 };
 
 export async function POST(request: NextRequest) {
   const { userId } = auth();
-  const data = (await request.json()) as GetParams;
+  const data = (await request.json()) as PostParams;
   const sql = `INSERT INTO users (id, username, onboarding) VALUES ('${userId}', '${data.username.toLowerCase()}', 1);`;
 
   try {
