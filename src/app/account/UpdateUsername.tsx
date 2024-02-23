@@ -5,10 +5,10 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { updateUsername } from '@/lib/features/user/userSlice';
-import { UpdateUserParams } from '@/app/api/user/update/route';
+import { fetchUpdateUser } from '@/lib/features/user/userSlice';
 import { IUser } from '@/types/IUser';
 import { Button } from '@/components';
+import { UpdateUserParams } from '@/app/api/user/route';
 
 const UsernameSchema = Yup.object().shape({
   username: Yup.string()
@@ -78,17 +78,17 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
                     },
                   };
 
-                  const updatedUser = await fetch('/api/user/update', {
-                    method: 'POST',
-                    body: JSON.stringify(userChanges),
-                  });
+                  const res = await dispatch(
+                    fetchUpdateUser(userChanges),
+                  ).unwrap();
 
-                  const resData = await updatedUser.json();
-
-                  dispatch(updateUsername(resData.username));
+                  if (res.err) {
+                    toast.error(res.err);
+                  } else {
+                    toast.success('Username Updated');
+                  }
 
                   setSubmitting(false);
-                  toast.success('Username Added');
                   setShowUpdateForm(false);
                 } else {
                   toast.error('Username already exists');

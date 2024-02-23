@@ -5,10 +5,10 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { updateWeight } from '@/lib/features/user/userSlice';
-import { UpdateUserParams } from '@/app/api/user/update/route';
+import { fetchUpdateUser } from '@/lib/features/user/userSlice';
 import { IUser } from '@/types/IUser';
 import { Button } from '@/components';
+import { UpdateUserParams } from '@/app/api/user/route';
 
 const WeightSchema = Yup.object().shape({
   weight: Yup.number(),
@@ -68,15 +68,17 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
                   },
                 };
 
-                await fetch('/api/user/update', {
-                  method: 'POST',
-                  body: JSON.stringify(userChanges),
-                });
+                const res = await dispatch(
+                  fetchUpdateUser(userChanges),
+                ).unwrap();
 
-                dispatch(updateWeight(weight));
+                if (res.err) {
+                  toast.error(res.err);
+                } else {
+                  toast.success('Weight updated');
+                }
 
                 setSubmitting(false);
-                toast.success('Weight Updated');
                 setShowUpdateForm(false);
               }
             }}

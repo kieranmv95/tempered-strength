@@ -17,16 +17,14 @@ export default authMiddleware({
 
     if (auth.userId && !auth.isPublicRoute) {
       const url = req.nextUrl.origin;
-      const data = await fetch(`${url}/api/user`, {
-        method: 'POST',
-        body: JSON.stringify({ id: auth.userId }),
-      });
+
+      const data = await fetch(`${url}/api/user/${auth.userId}`);
 
       const users = await data.json();
       const attemptingToOnboard = req.url.includes('onboarding');
 
       // list of APIs a user can access when onboarding
-      const allowedApis = ['/api/user/create', '/api/username/check'];
+      const allowedApis = ['/api/user', '/api/username/check'];
 
       const accessingAllowedApi = !!allowedApis.find(item => {
         return req.url.includes(item);

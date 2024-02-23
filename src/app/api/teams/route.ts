@@ -3,6 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ITeam } from '@/types/ITeam';
 import { auth } from '@clerk/nextjs';
 
+type PostParams = {
+  name: string;
+  description: string;
+  password: string;
+};
+
+type DeleteParams = {
+  id: string;
+};
+
 export async function GET() {
   const sql = `SELECT * FROM teams`;
 
@@ -18,12 +28,6 @@ export async function GET() {
     return NextResponse.json({ err: 'Teams not found', e }, { status: 404 });
   }
 }
-
-type PostParams = {
-  name: string;
-  description: string;
-  password: string;
-};
 
 export async function POST(request: NextRequest) {
   const { userId } = auth();
@@ -61,5 +65,25 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ err: 'teams not created', e }, { status: 404 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  const { id } = (await request.json()) as DeleteParams;
+
+  const deleteTeamSql = `DELETE FROM teams WHERE id = '${id}'`;
+  const deleteUserTeams = `DELETE FROM userTeams WHERE teamId = '${id}'`;
+
+  try {
+    await query(deleteTeamSql);
+    await query(deleteUserTeams);
+
+    return NextResponse.json({ id: id }, { status: 200 });
+  } catch (e: any) {
+    if (e.code) {
+      return NextResponse.json({ err: 'team not deleted', e }, { status: 404 });
+    }
+
+    return NextResponse.json({ err: 'team not deleted', e }, { status: 404 });
   }
 }
