@@ -24,7 +24,7 @@ export default authMiddleware({
       const attemptingToOnboard = req.url.includes('onboarding');
 
       // list of APIs a user can access when onboarding
-      const allowedApis = ['/api/user/create', '/api/username/check'];
+      const allowedApis = ['/api/user', '/api/username/check'];
 
       const accessingAllowedApi = !!allowedApis.find(item => {
         return req.url.includes(item);

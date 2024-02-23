@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components';
+import { useAppDispatch } from '@/lib/hooks';
+import { fetchCreateUser } from '@/lib/features/user/userSlice';
 
 const OnboardingSchema = Yup.object().shape({
   username: Yup.string()
@@ -17,6 +19,7 @@ const OnboardingSchema = Yup.object().shape({
 
 export default function Page() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   return (
     <div className="w-full max-w-[800px] px-4 mx-auto pt-12">
@@ -41,13 +44,16 @@ export default function Page() {
           const usernameCheck = await res.json();
 
           if (!usernameCheck.length) {
-            await fetch('/api/user/create', {
-              method: 'POST',
-              body: JSON.stringify(data),
-            });
-            setSubmitting(false);
-            toast.success('Username Added');
-            router.push('/dashboard');
+            const res = await dispatch(fetchCreateUser(data)).unwrap();
+
+            if (res.err) {
+              toast.error(res.err);
+              setSubmitting(false);
+            } else {
+              toast.success('Username Added');
+              setSubmitting(false);
+              router.push('/dashboard');
+            }
           } else {
             toast.error('Username already exists');
             return setFieldError('username', 'Username already exists');

@@ -26,6 +26,18 @@ export const fetchUpdateUser = createAsyncThunk(
   },
 );
 
+export const fetchCreateUser = createAsyncThunk(
+  'user/create',
+  async (data: { username: string }) => {
+    const res = await fetch('/api/user', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+
+    return await res.json();
+  },
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -53,6 +65,14 @@ export const userSlice = createSlice({
     );
     builder.addCase(
       fetchUpdateUser.fulfilled,
+      (state, action: PayloadAction<IUser | { err: string }>) => {
+        if (!isError(action.payload)) {
+          state.data = action.payload;
+        }
+      },
+    );
+    builder.addCase(
+      fetchCreateUser.fulfilled,
       (state, action: PayloadAction<IUser | { err: string }>) => {
         if (!isError(action.payload)) {
           state.data = action.payload;

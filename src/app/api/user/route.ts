@@ -8,6 +8,10 @@ export type UpdateUserParams = {
   field: 'username' | 'weight';
 };
 
+type PostParams = {
+  username: string;
+};
+
 export async function GET() {
   const { userId } = auth();
   const sql = `SELECT * FROM users WHERE id = '${userId}'`;
@@ -38,5 +42,21 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json(data.user, { status: 200 });
   } catch (e) {
     return NextResponse.json({ err: 'users not updated', e }, { status: 404 });
+  }
+}
+
+export async function POST(request: NextRequest) {
+  const { userId } = auth();
+  const data = (await request.json()) as PostParams;
+  const sql = `INSERT INTO users (id, username, onboarding) VALUES ('${userId}', '${data.username.toLowerCase()}', 1);`;
+
+  try {
+    await query(sql);
+    return NextResponse.json(
+      { id: userId, username: data.username, onboarding: 1, weight: null },
+      { status: 200 },
+    );
+  } catch (e) {
+    return NextResponse.json({ err: 'user not created', e }, { status: 404 });
   }
 }
