@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/db';
-import { auth } from '@clerk/nextjs';
 
-export async function GET() {
-  const { userId } = auth();
-  const sql = `SELECT * FROM users WHERE id = '${userId}'`;
+export async function GET(
+  _: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const sql = `SELECT * FROM users WHERE id = '${params.id}'`;
 
   try {
     const result = await query(sql);

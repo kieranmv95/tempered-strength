@@ -17,10 +17,8 @@ export default authMiddleware({
 
     if (auth.userId && !auth.isPublicRoute) {
       const url = req.nextUrl.origin;
-      const data = await fetch(`${url}/api/user`, {
-        method: 'POST',
-        body: JSON.stringify({ id: auth.userId }),
-      });
+
+      const data = await fetch(`${url}/api/user/${auth.userId}`);
 
       const users = await data.json();
       const attemptingToOnboard = req.url.includes('onboarding');
