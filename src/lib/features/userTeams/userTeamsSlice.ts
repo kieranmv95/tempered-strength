@@ -31,8 +31,8 @@ export const joinTeam = createAsyncThunk(
 export const deleteTeam = createAsyncThunk(
   'userTeams/delete',
   async ({ id }: { id: string }) => {
-    const res = await fetch('/api/teams/delete', {
-      method: 'POST',
+    const res = await fetch('/api/teams', {
+      method: 'DELETE',
       cache: 'no-cache',
       body: JSON.stringify({
         id,
