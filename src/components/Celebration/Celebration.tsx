@@ -8,7 +8,7 @@ import { clearCelebration } from '@/lib/features/celebration/celebrationSlice';
 import { getUnits } from '@/helpers/units';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { useToPng } from '@hugocxl/react-to-image';
+import { useToPng, useToSvg } from '@hugocxl/react-to-image';
 
 const Celebration = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const Celebration = () => {
     onSuccess: successData => {
       if (data) {
         const link = document.createElement('a');
-        link.download = `${data.exercise}-${data.score.toString()}.jpeg`;
+        link.download = `${data.exercise}-${data.score.toString()}.png`;
         link.href = successData;
         link.click();
       }
