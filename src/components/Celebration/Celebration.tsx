@@ -82,7 +82,7 @@ const Test = ({ data }: { data: any }) => {
             loading={saving}
             className="w-full"
           >
-            Save image
+            Share image
           </Button>
         )}
         <Button
