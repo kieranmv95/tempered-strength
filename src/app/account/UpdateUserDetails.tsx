@@ -7,9 +7,8 @@ import UpdateWeight from '@/app/account/UpdateWeight';
 const UpdateUserDetails = () => {
   const user = useUser();
 
-  if (user.loading) return <div>Loading</div>;
+  if (user.loading || !user.data) return <div>Loading...</div>;
   if (user.err) return <div>Error</div>;
-  if (!user.data) return null;
 
   return (
     <div className="bg-zinc-600 rounded p-4 grid gap-4">
