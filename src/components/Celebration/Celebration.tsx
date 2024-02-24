@@ -9,23 +9,25 @@ import { getUnits } from '@/helpers/units';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { useToPng, useToSvg, useToCanvas } from '@hugocxl/react-to-image';
+import { useState } from 'react';
 
 const Celebration = () => {
   const dispatch = useAppDispatch();
+  const [saving, setSaving] = useState(false);
   const { data } = useAppSelector(state => state.celebration);
 
   const [_, convert, ref] = useToPng<HTMLDivElement>({
     quality: 1,
     onSuccess: successData => {
       if (data) {
+        setSaving(true);
         setTimeout(() => {
           const link = document.createElement('a');
           link.download = `${data.exercise}-${data.score.toString()}.png`;
           link.href = successData;
           link.click();
-          // delay because IOS is shit as fuck
-          dispatch(clearCelebration());
-        }, 500);
+          setSaving(false);
+        }, 1000);
       }
     },
   });
@@ -67,7 +69,13 @@ const Celebration = () => {
             </div>
           </div>
           <div className="absolute bottom-[-60px] left-0 w-full z-[100] grid grid-cols-2 gap-4">
-            <Button type="button" onClick={convert} className="w-full">
+            <Button
+              type="button"
+              onClick={convert}
+              disabled={saving}
+              loading={saving}
+              className="w-full"
+            >
               Save image
             </Button>
             <Button
