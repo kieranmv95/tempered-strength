@@ -8,7 +8,7 @@ import { clearCelebration } from '@/lib/features/celebration/celebrationSlice';
 import { getUnits } from '@/helpers/units';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { useToPng, useToSvg } from '@hugocxl/react-to-image';
+import { useToPng, useToSvg, useToCanvas } from '@hugocxl/react-to-image';
 
 const Celebration = () => {
   const dispatch = useAppDispatch();
@@ -18,10 +18,14 @@ const Celebration = () => {
     quality: 1,
     onSuccess: successData => {
       if (data) {
-        const link = document.createElement('a');
-        link.download = `${data.exercise}-${data.score.toString()}.png`;
-        link.href = successData;
-        link.click();
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.download = `${data.exercise}-${data.score.toString()}.png`;
+          link.href = successData;
+          link.click();
+          // delay because IOS is shit as fuck
+          dispatch(clearCelebration());
+        }, 500);
       }
     },
   });
