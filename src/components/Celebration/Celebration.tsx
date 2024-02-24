@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { Button } from '@/components';
 import { clearCelebration } from '@/lib/features/celebration/celebrationSlice';
