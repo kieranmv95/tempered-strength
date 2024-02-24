@@ -9,6 +9,7 @@ export default authMiddleware({
     '/how-is-strength-calculated',
     '/compare',
     '/compare/:userOne/:userTwo',
+    '/api/webhooks/stripe',
   ],
   async afterAuth(auth, req, _) {
     if (!auth.userId && !auth.isPublicRoute) {
