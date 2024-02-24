@@ -22,5 +22,5 @@ export async function POST(request: NextRequest) {
       break;
   }
 
-  return NextResponse.json({ message: `Type ${type}` });
+  return NextResponse.json({}, { status: 200 });
 }
