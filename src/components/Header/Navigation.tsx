@@ -1,33 +1,81 @@
 import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGauge,
+  faDumbbell,
+  faPeopleGroup,
+  faUser,
+  faMagnifyingGlass,
+  faCrosshairs,
+  faShare,
+} from '@fortawesome/free-solid-svg-icons';
 
 export const AuthenticatedHeader = () => (
   <>
-    <div className="text-sm lg:flex-grow lg:flex lg:gap-4">
+    <div className="lg:text-sm lg:flex-grow lg:flex lg:gap-4">
       <Link
         href="/dashboard"
-        className="py-3 px-4 block lg:py-1 lg:px-0 lg:inline"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
       >
+        <FontAwesomeIcon icon={faGauge} className="w-4 h-4 lg:hidden" />
         Dashboard
       </Link>
       <Link
         href="/exercises"
-        className="py-3 px-4 block lg:py-1 lg:px-0 lg:inline"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
       >
+        <FontAwesomeIcon icon={faDumbbell} className="w-4 h-4 lg:hidden" />
         Exercises
       </Link>
       <Link
         href={`/teams`}
-        className="py-3 px-4 block lg:py-1 lg:px-0 lg:inline"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
       >
+        <FontAwesomeIcon icon={faPeopleGroup} className="w-4 h-4 lg:hidden" />
         Teams
       </Link>
       <Link
         href={`/account`}
-        className="py-3 px-4 block lg:py-1 lg:px-0 lg:inline"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
       >
+        <FontAwesomeIcon icon={faUser} className="w-4 h-4 lg:hidden" />
         Account
       </Link>
+      <Link
+        href="/user"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
+      >
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          className="w-4 h-4 lg:hidden"
+        />
+        Search for a User
+      </Link>
+      <Link
+        href="/compare"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
+      >
+        <FontAwesomeIcon icon={faCrosshairs} className="w-4 h-4 lg:hidden" />
+        Compare Users
+      </Link>
+      <Link
+        href={`/public-profile`}
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
+      >
+        <FontAwesomeIcon icon={faShare} className="w-4 h-4 lg:hidden" />
+        Your Public Profile
+      </Link>
+    </div>
+    <div className="lg:text-sm flex gap-3 mt-4 lg:mt-0 px-4 pb-4 lg:px-0 lg:pb-0">
+      <UserButton afterSignOutUrl="/" />
+    </div>
+  </>
+);
+
+export const UnauthenticatedHeader = () => (
+  <>
+    <div className="lg:text-sm lg:flex-grow lg:flex lg:gap-4">
       <Link href="/user" className="py-3 px-4 block lg:py-1 lg:px-0 lg:inline">
         Search for a User
       </Link>
@@ -37,30 +85,8 @@ export const AuthenticatedHeader = () => (
       >
         Compare Users
       </Link>
-      <Link
-        href={`/public-profile`}
-        className="py-3 px-4 block lg:py-1 lg:px-0 lg:inline"
-      >
-        Your Public Profile
-      </Link>
     </div>
-    <div className="text-sm flex gap-3 mt-4 lg:mt-0 px-4 pb-4 lg:px-0 lg:pb-0">
-      <UserButton afterSignOutUrl="/" />
-    </div>
-  </>
-);
-
-export const UnauthenticatedHeader = () => (
-  <>
-    <div className="grid text-sm lg:flex-grow mt-4 lg:mt-0 lg:flex lg:gap-4">
-      <Link href="/user" className="py-2 px-4">
-        Search for a User
-      </Link>
-      <Link href="/compare" className="py-2 px-4">
-        Compare Users
-      </Link>
-    </div>
-    <div className="text-sm flex gap-3 mt-4 lg:mt-0">
+    <div className="p-4 lg:p-0 grid grid-cols-2 text-center lg:flex gap-3 mt-4 lg:mt-0 lg:text-sm">
       <Link
         className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded"
         href="/sign-in"
