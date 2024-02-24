@@ -10,7 +10,7 @@ import { useToBlob } from '@hugocxl/react-to-image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const Test = ({ data }: { data: any }) => {
+const Share = ({ data }: { data: any }) => {
   const [saving, setSaving] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -18,8 +18,6 @@ const Test = ({ data }: { data: any }) => {
     quality: 1,
     onSuccess: async blob => {
       if (data && blob) {
-        setSaving(true);
-
         const fileName = `${data.exercise}-${data.score.toString()}.png`;
         const file = new File([blob], fileName, { type: 'image/png' }); // Create a file
         const shareData = {
@@ -77,7 +75,12 @@ const Test = ({ data }: { data: any }) => {
         {(navigator.share as null | {}) && (
           <Button
             type="button"
-            onClick={convert}
+            onClick={() => {
+              setSaving(true);
+              setTimeout(() => {
+                convert();
+              }, 1000);
+            }}
             disabled={saving}
             loading={saving}
             className="w-full"
@@ -110,7 +113,7 @@ const Celebration = () => {
             <div className="mb-2">Share your success!</div>
             <div className="mb-2">Tag @temperedstrength on IG!</div>
           </div>
-          <Test data={data} />
+          <Share data={data} />
         </div>
       </div>
       <div className="fixed top-0 left-0 bg-black opacity-80 w-full h-full z-[99]" />
