@@ -2,9 +2,15 @@
 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEllipsis,
+  faTrash,
+  faShare,
+} from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
 import { IExercise, IUserExercise } from '@/types/IExercise';
+import { celebrate } from '@/lib/features/celebration/celebrationSlice';
+import { useAppDispatch } from '@/lib/hooks';
 
 type ExerciseListItemProps = {
   exercise: IExercise;
@@ -17,6 +23,7 @@ const ExerciseListItem = ({
   userExercise,
   deleteExercise,
 }: ExerciseListItemProps) => {
+  const dispatch = useAppDispatch();
   const [showOptions, setShowOptions] = useState(false);
 
   const getFigure = () => {
@@ -31,6 +38,8 @@ const ExerciseListItem = ({
     }
   };
 
+  const score = getFigure();
+
   return (
     <div
       key={exercise.id}
@@ -39,7 +48,7 @@ const ExerciseListItem = ({
       <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
         <p>{new Date(userExercise.date).toLocaleDateString('en-GB')}</p>
         <p className="font-bold">
-          {getFigure()}
+          {score}
           {getUnits(exercise.logging_type)}
         </p>
       </div>
@@ -51,11 +60,27 @@ const ExerciseListItem = ({
           <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
         </div>
         {showOptions && (
-          <div
-            onClick={() => deleteExercise(userExercise.id)}
-            className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
-          >
-            <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
+          <div className="flex gap-3">
+            <div
+              onClick={() => {
+                dispatch(
+                  celebrate({
+                    exercise: exercise.name,
+                    loggingType: exercise.logging_type,
+                    score: score as string,
+                  }),
+                );
+              }}
+              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+            >
+              <FontAwesomeIcon icon={faShare} className="w-4 h-4" />
+            </div>
+            <div
+              onClick={() => deleteExercise(userExercise.id)}
+              className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+            >
+              <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
+            </div>
           </div>
         )}
       </div>
