@@ -3,6 +3,7 @@ import userExercisesReducer from '@/lib/features/userExercises/userExercisesSlic
 import userReducer from '@/lib/features/user/userSlice';
 import teamsReducer from '@/lib/features/teams/teamsSlice';
 import userTeamsReducer from '@/lib/features/userTeams/userTeamsSlice';
+import celebrationReducer from '@/lib/features/celebration/celebrationSlice';
 
 export const makeStore = () => {
   return configureStore({
@@ -11,6 +12,7 @@ export const makeStore = () => {
       user: userReducer,
       userTeams: userTeamsReducer,
       teams: teamsReducer,
+      celebration: celebrationReducer,
     },
   });
 };

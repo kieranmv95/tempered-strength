@@ -2,12 +2,12 @@
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
-import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
 import { IExercise, ILoggingType } from '@/types/IExercise';
+import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 
 type LogExerciseFormProps = {
   exercise: IExercise;
@@ -107,7 +107,25 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
           }),
         );
 
-        toast.success('Exercise Logged');
+        let score;
+
+        switch (exercise.logging_type) {
+          case 'weight':
+          case 'reps':
+            score = Number(values.log);
+            break;
+          case 'duration':
+            score = concatDuration;
+            break;
+        }
+
+        dispatch(
+          celebrate({
+            exercise: exercise.name,
+            loggingType: exercise.logging_type,
+            score,
+          }),
+        );
 
         setSubmitting(false);
         close();
