@@ -53,7 +53,7 @@ const Header = () => {
           </button>
         </div>
         <div
-          className={`${!navOpen && 'hidden'} w-full block flex-grow lg:flex lg:items-center lg:w-auto`}
+          className={`${!navOpen && 'hidden'} fixed top-[74px] left-0 bg-zinc-700 w-[80%] h-[calc(100%-74px)] max-w-sm grid grid-rows-[1fr_auto] lg:relative lg:top-0 lg:h-auto lg:flex lg:flex-grow lg:w-auto lg:max-w-none lg:items-center`}
         >
           <SignedIn>
             <AuthenticatedHeader />

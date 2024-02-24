@@ -7,7 +7,6 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <>
-      {/* Magic number is the header height*/}
       <div className="relative h-[500px] md:h-[750px] lg:h-[875px] flex justify-center items-center">
         <Image
           className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-20"
