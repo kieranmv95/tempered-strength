@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 const Share = ({ data }: { data: any }) => {
   const [saving, setSaving] = useState(false);
   const dispatch = useAppDispatch();
+  const share = false;
 
   const [_, convert, ref] = useToBlob<HTMLDivElement>({
     quality: 1,
@@ -72,7 +73,7 @@ const Share = ({ data }: { data: any }) => {
         </div>
       </div>
       <div className="absolute bottom-[-60px] left-0 w-full z-[100] grid grid-cols-2 gap-4">
-        {(navigator.share as null | {}) && (
+        {(navigator.share as null | {}) && share && (
           <Button
             type="button"
             onClick={() => {
@@ -109,10 +110,10 @@ const Celebration = () => {
     <>
       <div className="fixed top-0 left-0 w-full h-full z-[100] flex items-center justify-center p-4">
         <div className="w-full max-w-[400px] relative">
-          <div className="absolute top-[-75px] left-0 w-full z-[100] text-center font-bold">
-            <div className="mb-2">Share your success!</div>
-            <div className="mb-2">Tag @temperedstrength on IG!</div>
-          </div>
+          {/*<div className="absolute top-[-75px] left-0 w-full z-[100] text-center font-bold">*/}
+          {/*  <div className="mb-2">Share your success!</div>*/}
+          {/*  <div className="mb-2">Tag @temperedstrength on IG!</div>*/}
+          {/*</div>*/}
           <Share data={data} />
         </div>
       </div>
