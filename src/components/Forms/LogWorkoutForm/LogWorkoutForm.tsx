@@ -1,29 +1,30 @@
 'use client';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import { addSuccess } from '@/lib/features/userWorkouts/userWorkoutsSlice';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
-import { IExercise, ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
+import { IWorkout } from '@/types/IWorkout';
 import { getCurrentDate } from '@/helpers/getCurrentDate';
 import { getFormLabel } from '@/components/Forms/formHelpers';
+import { PostWorkoutParams } from '@/app/api/user/workouts/route';
 
-type LogExerciseFormProps = {
-  exercise: IExercise;
+type LogWorkoutFormProps = {
+  workout: IWorkout;
   close: () => void;
 };
 
-const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
+const LogWorkoutForm = ({ workout, close }: LogWorkoutFormProps) => {
   const dispatch = useAppDispatch();
   const { userId } = useAuth();
 
-  const ExerciseSchema = () => {
-    const isDuration = exercise.logging_type === 'duration';
+  const WorkoutSchema = () => {
+    const isDuration = workout.logging_type === 'duration';
     const isWeight =
-      exercise.logging_type === 'weight' || exercise.logging_type === 'reps';
+      workout.logging_type === 'weight' || workout.logging_type === 'reps';
 
     return Yup.object().shape({
       log: isWeight ? Yup.string().required('Required') : Yup.string(),
@@ -58,20 +59,29 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
         },
       }}
       enableReinitialize={true}
-      validationSchema={ExerciseSchema}
+      validationSchema={WorkoutSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        const { HH, MM, SS } = values.durationGroup;
-        const concatDuration = `${HH}:${MM}:${SS}`;
+        let log = '';
 
-        const data = {
-          exerciseId: exercise.id,
-          log: values.log,
+        switch (workout.logging_type) {
+          case 'weight':
+          case 'reps':
+            log = values.log;
+            break;
+          case 'duration':
+            const { HH, MM, SS } = values.durationGroup;
+            const concatDuration = `${HH}:${MM}:${SS}`;
+            log = concatDuration;
+            break;
+        }
+
+        const data: PostWorkoutParams = {
+          workoutId: workout.id,
+          log,
           date: values.date,
-          duration: concatDuration,
-          loggingType: exercise.logging_type,
         };
 
-        const res = await fetch('/api/user/exercises', {
+        const res = await fetch('/api/user/workouts', {
           method: 'POST',
           body: JSON.stringify(data),
         });
@@ -81,31 +91,18 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
         dispatch(
           addSuccess({
             id: json.insertId,
-            exerciseId: exercise.id,
+            workoutId: workout.id,
             userId: userId || '',
-            log: Number(values.log),
-            duration: concatDuration,
+            log,
             date: values.date,
           }),
         );
 
-        let score;
-
-        switch (exercise.logging_type) {
-          case 'weight':
-          case 'reps':
-            score = Number(values.log);
-            break;
-          case 'duration':
-            score = concatDuration;
-            break;
-        }
-
         dispatch(
           celebrate({
-            exercise: exercise.name,
-            loggingType: exercise.logging_type,
-            score,
+            exercise: workout.name,
+            loggingType: workout.logging_type,
+            score: log,
           }),
         );
 
@@ -135,14 +132,15 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
+          <p className="text-sm">{workout.workout_type}</p>
+          <h2 className="text-xl font-bold mb-4">{workout.name}</h2>
           <div className="grid gap-4">
             <div>
               <label className="block mb-1">
-                {getFormLabel(exercise.logging_type)}
+                {getFormLabel(workout.logging_type)}
               </label>
-              {(exercise.logging_type === 'weight' ||
-                exercise.logging_type === 'reps') && (
+              {(workout.logging_type === 'weight' ||
+                workout.logging_type === 'reps') && (
                 <>
                   <Field
                     type="number"
@@ -160,7 +158,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
                   />
                 </>
               )}
-              {exercise.logging_type === 'duration' && (
+              {workout.logging_type === 'duration' && (
                 <>
                   <div className="flex items-center">
                     <Field
@@ -259,4 +257,4 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
   );
 };
 
-export default LogExerciseForm;
+export default LogWorkoutForm;

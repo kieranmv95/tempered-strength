@@ -83,3 +83,19 @@ The logging type will be to tell the user how the score is going to be recorded 
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   - userId varchar(255) NOT NULL,
   - teamId varchar(255) NOT NULL,
+
+- workouts
+
+  - id int NOT NULL AUTO_INCREMENT PRIMARY KEY
+  - description varchar(255)
+  - name varchar(255) NOT NULL
+  - logging_type varchar(255) NOT NULL
+  - workout_type varchar(255) NOT NULL
+
+- userWorkouts
+
+  - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  - userId varchar(255) NOT NULL,
+  - workoutId varchar(255) NOT NULL,
+  - log varchar(255),
+  - date Date NOT NULL,
