@@ -7,8 +7,9 @@ import {
   faPeopleGroup,
   faUser,
   faMagnifyingGlass,
-  faCrosshairs,
   faShare,
+  faMedal,
+  faHeartPulse,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const AuthenticatedHeader = () => (
@@ -27,6 +28,13 @@ export const AuthenticatedHeader = () => (
       >
         <FontAwesomeIcon icon={faDumbbell} className="w-4 h-4 lg:hidden" />
         Exercises
+      </Link>
+      <Link
+        href="/workouts"
+        className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
+      >
+        <FontAwesomeIcon icon={faHeartPulse} className="w-4 h-4 lg:hidden" />
+        Workouts
       </Link>
       <Link
         href={`/teams`}
@@ -56,7 +64,7 @@ export const AuthenticatedHeader = () => (
         href="/compare"
         className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
       >
-        <FontAwesomeIcon icon={faCrosshairs} className="w-4 h-4 lg:hidden" />
+        <FontAwesomeIcon icon={faMedal} className="w-4 h-4 lg:hidden" />
         Compare Users
       </Link>
       <Link
