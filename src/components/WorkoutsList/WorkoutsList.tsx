@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import useUserExercises from '@/hooks/useUserExercises';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { IWorkout } from '@/types/IWorkout';
+import { IWorkout, IWorkoutType } from '@/types/IWorkout';
 import LogWorkoutForm from '@/components/LogWorkoutModal';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
 import { getUnits } from '@/helpers/units';
@@ -17,6 +16,7 @@ type WorkoutsListProps = {
 const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
   const [selectedWorkout, setSelectedWorkout] = useState<IWorkout | null>(null);
   const [search, setSearch] = useState('');
+  const [category, setCategory] = useState<'' | IWorkoutType>('');
   const { loading, err, getOneRepMax, getFastestTime } = useUserWorkouts();
 
   if (loading && !err) return <>Loading...</>;
@@ -24,19 +24,48 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
 
   return (
     <>
-      <p className="mb-1">Search</p>
-      <input
-        type="text"
-        className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4"
-        placeholder="Search"
-        autoComplete="off"
-        onChange={e => setSearch(e.target.value)}
-        value={search}
-      />
+      <div className="md:grid md:grid-cols-2 gap-4">
+        <div>
+          <p className="mb-1">Search</p>
+          <input
+            type="text"
+            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4"
+            placeholder="Search"
+            autoComplete="off"
+            onChange={e => setSearch(e.target.value)}
+            value={search}
+          />
+        </div>
+        <div>
+          <p className="mb-1">Category</p>
+          <select
+            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4"
+            onChange={e => setCategory(e.target.value as '' | IWorkoutType)}
+            value={category}
+          >
+            <option value="">All</option>
+            <option value="CrossFit">CrossFit</option>
+            <option value="Hyrox">Hyrox</option>
+          </select>
+        </div>
+      </div>
       <div className="grid gap-3">
         {workouts
           .sort((a, b) => {
             return a.name.localeCompare(b.name);
+          })
+          .filter(workout => {
+            if (category === '') {
+              return workout;
+            } else {
+              if (
+                workout.workout_type
+                  .toLowerCase()
+                  .includes(category.toLowerCase())
+              ) {
+                return workout;
+              }
+            }
           })
           .filter(workout => {
             if (search === '') {
