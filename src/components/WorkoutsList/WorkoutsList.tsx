@@ -108,6 +108,8 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                 } else {
                   oneRepMax += ` ${parts[2]} ${parts[3]}`;
                 }
+              } else {
+                oneRepMax = null;
               }
             }
             return (
