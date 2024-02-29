@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import useUser from '@/hooks/useUser';
 
 const Profile = () => {
