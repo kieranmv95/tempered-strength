@@ -1,6 +1,9 @@
 import { ILoggingType } from '@/types/IExercise';
+import { IWorkoutLoggingType } from '@/types/IWorkout';
 
-export const getFormLabel = (logging_type: ILoggingType) => {
+export const getFormLabel = (
+  logging_type: ILoggingType | IWorkoutLoggingType,
+) => {
   switch (logging_type) {
     case 'duration':
       return 'Duration (hh:mm:ss)';
@@ -8,5 +11,7 @@ export const getFormLabel = (logging_type: ILoggingType) => {
       return 'Weight (kg)';
     case 'reps':
       return 'Reps';
+    default:
+      return '';
   }
 };

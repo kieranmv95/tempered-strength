@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
 import { Button } from '@/components';
-import { IWorkout } from '@/types/IWorkout';
+import { IWorkout, IWorkoutLoggingType } from '@/types/IWorkout';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
 import LogWorkoutModal from '@/components/LogWorkoutModal';
 import WorkoutListItem from './WorkoutListItem';
@@ -16,6 +16,28 @@ import WorkoutListItem from './WorkoutListItem';
 type SelectedWorkoutType = {
   workout: IWorkout;
   existingPb?: string;
+};
+
+export const getPrettyValue = (
+  value: string,
+  logging_type: IWorkoutLoggingType,
+) => {
+  if (logging_type === 'tiebreak_time_or_reps') {
+    let oneRepMax = '';
+
+    const parts = value.split(',');
+    oneRepMax = ` ${parts[0]}`;
+
+    if (parts[1] === 'yes') {
+      oneRepMax += ` ${parts[3]}`;
+    } else {
+      oneRepMax += ` ${parts[2]} ${parts[3]}`;
+    }
+
+    return oneRepMax;
+  }
+
+  return logging_type;
 };
 
 const WorkoutList = ({ workout }: { workout: IWorkout }) => {
@@ -67,14 +89,19 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
               </Button>
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
-                <div className="bg-zinc-700 rounded-sm py-6">
-                  <p className="text-xl font-bold mb-2">Best</p>
-                  {getBest()}
-                  {getUnits(workout.logging_type)}
-                </div>
+                {workout.logging_type !== 'tiebreak_time_or_reps' && (
+                  <div className="bg-zinc-700 rounded-sm py-6">
+                    <p className="text-xl font-bold mb-2">Best</p>
+                    {getBest()}
+                    {getUnits(workout.logging_type)}
+                  </div>
+                )}
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2 text-center">Latest</p>
-                  {getWorkoutById(workout.id)[0].log}
+                  {getPrettyValue(
+                    getWorkoutById(workout.id)[0].log,
+                    workout.logging_type,
+                  )}
                   {getUnits(workout.logging_type)}
                 </div>
               </div>
