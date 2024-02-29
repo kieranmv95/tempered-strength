@@ -13,11 +13,12 @@ import { getFormLabel } from '@/components/Forms/formHelpers';
 import { PostWorkoutParams } from '@/app/api/user/workouts/route';
 
 type LogWorkoutFormProps = {
+  currentPb?: string;
   workout: IWorkout;
   close: () => void;
 };
 
-const LogWorkoutForm = ({ workout, close }: LogWorkoutFormProps) => {
+const LogWorkoutForm = ({ workout, close, currentPb }: LogWorkoutFormProps) => {
   const dispatch = useAppDispatch();
   const { userId } = useAuth();
 
@@ -100,6 +101,7 @@ const LogWorkoutForm = ({ workout, close }: LogWorkoutFormProps) => {
 
         dispatch(
           celebrate({
+            existingPersonalBest: currentPb,
             exercise: workout.name,
             loggingType: workout.logging_type,
             score: log,

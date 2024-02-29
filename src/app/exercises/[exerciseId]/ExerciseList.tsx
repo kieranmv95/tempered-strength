@@ -12,10 +12,14 @@ import { getUnits } from '@/helpers/units';
 import { PercentagesBreakdown, LogExerciseModal, Button } from '@/components';
 import { IExercise } from '@/types/IExercise';
 
+type SelectedExerciseType = {
+  exercise: IExercise;
+  existingPb?: string | number;
+};
+
 const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
-  const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
-    null,
-  );
+  const [selectedExercise, setSelectedExercise] =
+    useState<SelectedExerciseType | null>(null);
   const [breakdownPb, setBreakdownPb] = useState(true);
 
   const { data, loading, err, getFastestTime, getExerciseById, getOneRepMax } =
@@ -39,8 +43,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
       exercise.logging_type === 'reps'
     ) {
       return getOneRepMax(exercise.id);
-    }
-    if (exercise.logging_type === 'duration') {
+    } else {
+      // duration
       return getFastestTime(exercise.id);
     }
   };
@@ -67,7 +71,12 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
             <>
               <Button
                 type="button"
-                onClick={() => setSelectedExercise(exercise)}
+                onClick={() =>
+                  setSelectedExercise({
+                    exercise,
+                    existingPb: getBest() || undefined,
+                  })
+                }
                 className="mb-4"
               >
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
@@ -136,7 +145,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
             <div>
               <button
                 className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"
-                onClick={() => setSelectedExercise(exercise)}
+                onClick={() => setSelectedExercise({ exercise })}
               >
                 Log your first {exercise.name}{' '}
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
@@ -147,7 +156,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
       )}
       {selectedExercise && (
         <LogExerciseModal
-          exercise={selectedExercise}
+          currentPb={selectedExercise.existingPb}
+          exercise={selectedExercise.exercise}
           close={() => setSelectedExercise(null)}
         />
       )}
