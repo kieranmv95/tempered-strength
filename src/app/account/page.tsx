@@ -1,4 +1,5 @@
 import UpdateUserDetails from '@/app/account/UpdateUserDetails';
+import SignOut from '@/components/SignOut';
 
 export default function Account() {
   return (
@@ -6,6 +7,10 @@ export default function Account() {
       <h1 className="text-2xl font-bold lg:text-4xl mb-3">Account</h1>
       <p className="mb-6">Click the field to update/change the value</p>
       <UpdateUserDetails />
+
+      <div className="mt-4">
+        <SignOut />
+      </div>
     </div>
   );
 }

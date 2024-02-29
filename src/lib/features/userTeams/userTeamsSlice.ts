@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IUserTeam } from '@/types/ITeam';
+import { logout } from '@/lib/store';
 
 type TeamsState = {
   data: null | IUserTeam[];
@@ -68,13 +69,15 @@ export const createTeam = createAsyncThunk(
   },
 );
 
+const initialState: TeamsState = {
+  data: null,
+  loading: null,
+  err: '',
+};
+
 export const userTeamsSlice = createSlice({
   name: 'userTeams',
-  initialState: {
-    data: null,
-    loading: null,
-    err: '',
-  } as TeamsState,
+  initialState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchUserTeams.rejected, (state, _) => {
@@ -114,6 +117,7 @@ export const userTeamsSlice = createSlice({
         );
       }
     });
+    builder.addCase(logout, () => initialState);
   },
 });
 

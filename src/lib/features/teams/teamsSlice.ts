@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { ITeam } from '@/types/ITeam';
 import { deleteTeam } from '@/lib/features/userTeams/userTeamsSlice';
+import { logout } from '@/lib/store';
 
 type TeamsState = {
   data: null | ITeam[];
@@ -13,13 +14,15 @@ export const fetchTeams = createAsyncThunk('teams/fetch', async () => {
   return await res.json();
 });
 
+const initialState: TeamsState = {
+  data: null,
+  loading: null,
+  err: '',
+};
+
 export const teamsSlice = createSlice({
   name: 'teams',
-  initialState: {
-    data: null,
-    loading: null,
-    err: '',
-  } as TeamsState,
+  initialState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchTeams.rejected, (state, _) => {
@@ -43,6 +46,7 @@ export const teamsSlice = createSlice({
         );
       }
     });
+    builder.addCase(logout, () => initialState);
   },
 });
 
