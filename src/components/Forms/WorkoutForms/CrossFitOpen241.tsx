@@ -49,11 +49,7 @@ type CrossFitOpen241Props = {
   close: () => void;
 };
 
-const CrossFitOpen241 = ({
-  workout,
-  close,
-  currentPb,
-}: CrossFitOpen241Props) => {
+const CrossFitOpen241 = ({ workout, close }: CrossFitOpen241Props) => {
   const dispatch = useAppDispatch();
   const { userId } = useAuth();
 
