@@ -1,6 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import {
+  JSXElementConstructor,
+  PromiseLikeOfReactNode,
+  ReactElement,
+  ReactNode,
+  useState,
+} from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -13,8 +19,14 @@ type WorkoutsListProps = {
   workouts: IWorkout[];
 };
 
+type SelectedWorkoutType = {
+  workout: IWorkout;
+  existingPb?: string;
+};
+
 const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
-  const [selectedWorkout, setSelectedWorkout] = useState<IWorkout | null>(null);
+  const [selectedWorkout, setSelectedWorkout] =
+    useState<SelectedWorkoutType | null>(null);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<'' | IWorkoutType>('');
   const { loading, err, getOneRepMax, getFastestTime } = useUserWorkouts();
@@ -81,16 +93,15 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
             }
           })
           .map(workout => {
-            let oneRepMax;
+            let oneRepMax: string | null | number;
 
             if (
               workout.logging_type === 'weight' ||
               workout.logging_type === 'reps'
             ) {
               oneRepMax = getOneRepMax(workout.id);
-            }
-
-            if (workout.logging_type === 'duration') {
+            } else {
+              // duration
               oneRepMax = getFastestTime(workout.id);
             }
             return (
@@ -111,7 +122,12 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                 </div>
                 <div className="flex gap-2 h-full">
                   <div
-                    onClick={() => setSelectedWorkout(workout)}
+                    onClick={() =>
+                      setSelectedWorkout({
+                        workout,
+                        existingPb: oneRepMax as string,
+                      })
+                    }
                     className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
                   >
                     <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
@@ -130,7 +146,8 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
 
       {selectedWorkout && (
         <LogWorkoutForm
-          workout={selectedWorkout}
+          currentPb={selectedWorkout.existingPb}
+          workout={selectedWorkout.workout}
           close={() => setSelectedWorkout(null)}
         />
       )}

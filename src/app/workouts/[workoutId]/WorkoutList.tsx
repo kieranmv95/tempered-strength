@@ -13,8 +13,14 @@ import useUserWorkouts from '@/hooks/useUserWorkouts';
 import LogWorkoutModal from '@/components/LogWorkoutModal';
 import WorkoutListItem from './WorkoutListItem';
 
+type SelectedWorkoutType = {
+  workout: IWorkout;
+  existingPb?: string;
+};
+
 const WorkoutList = ({ workout }: { workout: IWorkout }) => {
-  const [selectedWorkout, setSelectedWorkout] = useState<IWorkout | null>(null);
+  const [selectedWorkout, setSelectedWorkout] =
+    useState<SelectedWorkoutType | null>(null);
 
   const { data, loading, err, getFastestTime, getWorkoutById, getOneRepMax } =
     useUserWorkouts();
@@ -50,7 +56,12 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
             <>
               <Button
                 type="button"
-                onClick={() => setSelectedWorkout(workout)}
+                onClick={() =>
+                  setSelectedWorkout({
+                    workout,
+                    existingPb: getBest() as string,
+                  })
+                }
                 className="mb-4"
               >
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
@@ -85,7 +96,12 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
             <div>
               <button
                 className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"
-                onClick={() => setSelectedWorkout(workout)}
+                onClick={() =>
+                  setSelectedWorkout({
+                    workout,
+                    existingPb: getBest() as string,
+                  })
+                }
               >
                 Log your first {workout.workout_type} {workout.name}{' '}
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
@@ -96,7 +112,8 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
       )}
       {selectedWorkout && (
         <LogWorkoutModal
-          workout={selectedWorkout}
+          currentPb={selectedWorkout.existingPb}
+          workout={selectedWorkout.workout}
           close={() => setSelectedWorkout(null)}
         />
       )}

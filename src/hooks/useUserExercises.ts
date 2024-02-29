@@ -12,7 +12,7 @@ const useUserExercises = () => {
     }
   }, [data, err, loading, dispatch]);
 
-  const getOneRepMax = (exerciseId: number) => {
+  const getOneRepMax = (exerciseId: number): number | null => {
     const oneRepMax = data
       ?.filter(userExercise => Number(userExercise.exerciseId) === exerciseId)
       .reduce(
@@ -24,7 +24,7 @@ const useUserExercises = () => {
     return oneRepMax ? oneRepMax : null;
   };
 
-  const getFastestTime = (exerciseId: number) => {
+  const getFastestTime = (exerciseId: number): string | null => {
     const exercises = data?.filter(
       userExercise => Number(userExercise.exerciseId) === exerciseId,
     );
@@ -49,7 +49,7 @@ const useUserExercises = () => {
       exercisesWithDurationInSeconds[0],
     );
 
-    return fastestExercise.duration;
+    return fastestExercise.duration ? fastestExercise.duration : null;
   };
 
   const getExerciseById = (exerciseId: number) => {

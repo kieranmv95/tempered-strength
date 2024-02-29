@@ -6,17 +6,22 @@ import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
-import { IExercise, ILoggingType } from '@/types/IExercise';
+import { IExercise } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { getCurrentDate } from '@/helpers/getCurrentDate';
 import { getFormLabel } from '@/components/Forms/formHelpers';
 
 type LogExerciseFormProps = {
+  currentPb?: string | number;
   exercise: IExercise;
   close: () => void;
 };
 
-const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
+const LogExerciseForm = ({
+  exercise,
+  close,
+  currentPb,
+}: LogExerciseFormProps) => {
   const dispatch = useAppDispatch();
   const { userId } = useAuth();
 
@@ -103,6 +108,7 @@ const LogExerciseForm = ({ exercise, close }: LogExerciseFormProps) => {
 
         dispatch(
           celebrate({
+            existingPersonalBest: currentPb,
             exercise: exercise.name,
             loggingType: exercise.logging_type,
             score,

@@ -13,10 +13,14 @@ type ExercisesListProps = {
   exercises: IExercise[];
 };
 
+type SelectedExerciseType = {
+  exercise: IExercise;
+  existingPb?: string | number;
+};
+
 const ExercisesList = ({ exercises }: ExercisesListProps) => {
-  const [selectedExercise, setSelectedExercise] = useState<IExercise | null>(
-    null,
-  );
+  const [selectedExercise, setSelectedExercise] =
+    useState<SelectedExerciseType | null>(null);
   const [search, setSearch] = useState('');
   const { loading, err, getOneRepMax, getFastestTime } = useUserExercises();
 
@@ -49,16 +53,15 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             }
           })
           .map(exercise => {
-            let oneRepMax;
+            let oneRepMax: number | string | null;
 
             if (
               exercise.logging_type === 'weight' ||
               exercise.logging_type === 'reps'
             ) {
               oneRepMax = getOneRepMax(exercise.id);
-            }
-
-            if (exercise.logging_type === 'duration') {
+            } else {
+              //duration
               oneRepMax = getFastestTime(exercise.id);
             }
 
@@ -78,7 +81,12 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                 </div>
                 <div className="flex gap-2 h-full">
                   <div
-                    onClick={() => setSelectedExercise(exercise)}
+                    onClick={() =>
+                      setSelectedExercise({
+                        exercise,
+                        existingPb: oneRepMax ? oneRepMax : undefined,
+                      })
+                    }
                     className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
                   >
                     <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
@@ -97,7 +105,8 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
 
       {selectedExercise && (
         <LogExerciseForm
-          exercise={selectedExercise}
+          currentPb={selectedExercise.existingPb}
+          exercise={selectedExercise.exercise}
           close={() => setSelectedExercise(null)}
         />
       )}
