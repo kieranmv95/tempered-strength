@@ -98,13 +98,16 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
             } else if (workout.logging_type === 'duration') {
               oneRepMax = getFastestTime(workout.id);
             } else {
-              const parts = getWorkoutById(workout.id)[0].log.split(',');
-              oneRepMax = ` ${parts[0]}`;
+              const data = getWorkoutById(workout.id);
+              if (data.length) {
+                const parts = data[0].log.split(',');
+                oneRepMax = ` ${parts[0]}`;
 
-              if (parts[1] === 'yes') {
-                oneRepMax += ` ${parts[3]}`;
-              } else {
-                oneRepMax += ` ${parts[2]} ${parts[3]}`;
+                if (parts[1] === 'yes') {
+                  oneRepMax += ` ${parts[3]}`;
+                } else {
+                  oneRepMax += ` ${parts[2]} ${parts[3]}`;
+                }
               }
             }
             return (
