@@ -8,7 +8,6 @@ import {
   faShare,
 } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
-import { IExercise, IUserExercise } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import { IUserWorkout, IWorkout } from '@/types/IWorkout';

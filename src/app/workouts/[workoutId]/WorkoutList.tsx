@@ -23,7 +23,7 @@ export const getPrettyValue = (
   logging_type: IWorkoutLoggingType,
 ) => {
   if (logging_type === 'tiebreak_time_or_reps') {
-    let oneRepMax = '';
+    let oneRepMax;
 
     const parts = value.split(',');
     oneRepMax = ` ${parts[0]}`;
