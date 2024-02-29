@@ -100,7 +100,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
             } else {
               const data = getWorkoutById(workout.id);
               if (data.length) {
-                const parts = data[0]?.log.split(',');
+                const parts = data[0].log.split(',');
                 oneRepMax = ` ${parts[0]}`;
 
                 if (parts[1] === 'yes') {
