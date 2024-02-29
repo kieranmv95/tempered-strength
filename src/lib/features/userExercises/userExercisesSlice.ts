@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUserExercise } from '@/types/IExercise';
+import { logout } from '@/lib/store';
 
 type UserExercisesState = {
   data: null | IUserExercise[];
@@ -15,13 +16,15 @@ export const fetchUserExercises = createAsyncThunk(
   },
 );
 
+const initialState: UserExercisesState = {
+  data: null,
+  loading: null,
+  err: '',
+};
+
 export const userExercisesSlice = createSlice({
   name: 'userExercises',
-  initialState: {
-    data: null,
-    loading: null,
-    err: '',
-  } as UserExercisesState,
+  initialState,
   reducers: {
     addSuccess: (state, action: PayloadAction<IUserExercise>) => {
       if (state.data) {
@@ -50,6 +53,7 @@ export const userExercisesSlice = createSlice({
       state.loading = false;
       state.err = '';
     });
+    builder.addCase(logout, () => initialState);
   },
 });
 

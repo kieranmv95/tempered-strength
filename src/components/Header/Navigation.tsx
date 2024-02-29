@@ -1,4 +1,3 @@
-import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,6 +10,7 @@ import {
   faMedal,
   faHeartPulse,
 } from '@fortawesome/free-solid-svg-icons';
+import SignOut from '@/components/SignOut';
 
 export const AuthenticatedHeader = () => (
   <>
@@ -76,7 +76,7 @@ export const AuthenticatedHeader = () => (
       </Link>
     </div>
     <div className="lg:text-sm flex gap-3 mt-4 lg:mt-0 px-4 pb-4 lg:px-0 lg:pb-0">
-      <UserButton afterSignOutUrl="/" />
+      <SignOut />
     </div>
   </>
 );

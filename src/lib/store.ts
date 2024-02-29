@@ -5,6 +5,7 @@ import userReducer from '@/lib/features/user/userSlice';
 import teamsReducer from '@/lib/features/teams/teamsSlice';
 import userTeamsReducer from '@/lib/features/userTeams/userTeamsSlice';
 import celebrationReducer from '@/lib/features/celebration/celebrationSlice';
+import { createAction } from '@reduxjs/toolkit';
 
 export const makeStore = () => {
   return configureStore({
@@ -18,6 +19,8 @@ export const makeStore = () => {
     },
   });
 };
+
+export const logout = createAction('USER_LOGOUT');
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>;

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '@/types/IUser';
 import { UpdateUserParams } from '@/app/api/user/route';
 import { isError } from '@/helpers/isError';
+import { logout } from '@/lib/store';
 
 type UserState = {
   data: null | IUser;
@@ -38,13 +39,15 @@ export const fetchCreateUser = createAsyncThunk(
   },
 );
 
+const initialState: UserState = {
+  data: null,
+  loading: null,
+  err: '',
+};
+
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    data: null,
-    loading: null,
-    err: '',
-  } as UserState,
+  initialState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchUserName.rejected, (state, _) => {
@@ -79,6 +82,7 @@ export const userSlice = createSlice({
         }
       },
     );
+    builder.addCase(logout, () => initialState);
   },
 });
 

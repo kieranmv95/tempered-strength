@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILoggingType } from '@/types/IExercise';
+import { logout } from '@/lib/store';
 
 export type ICelebration = {
   existingPersonalBest?: string | number;
@@ -12,11 +13,13 @@ type CelebrationState = {
   data: ICelebration | null;
 };
 
+const initialState: CelebrationState = {
+  data: null,
+};
+
 export const celebrationSlice = createSlice({
   name: 'celebration',
-  initialState: {
-    data: null,
-  } as CelebrationState,
+  initialState,
   reducers: {
     celebrate(state, action: PayloadAction<ICelebration>) {
       state.data = action.payload;
@@ -24,6 +27,9 @@ export const celebrationSlice = createSlice({
     clearCelebration(state) {
       state.data = null;
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(logout, () => initialState);
   },
 });
 
