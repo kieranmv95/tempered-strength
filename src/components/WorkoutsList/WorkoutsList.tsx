@@ -23,7 +23,8 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
     useState<SelectedWorkoutType | null>(null);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<'' | IWorkoutType>('');
-  const { loading, err, getOneRepMax, getFastestTime } = useUserWorkouts();
+  const { loading, err, getOneRepMax, getFastestTime, getWorkoutById } =
+    useUserWorkouts();
 
   if (loading && !err) return <>Loading...</>;
   if (!loading && err) return <>Error</>;
@@ -94,9 +95,17 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
               workout.logging_type === 'reps'
             ) {
               oneRepMax = getOneRepMax(workout.id);
-            } else {
-              // duration
+            } else if (workout.logging_type === 'duration') {
               oneRepMax = getFastestTime(workout.id);
+            } else {
+              const parts = getWorkoutById(workout.id)[0].log.split(',');
+              oneRepMax = ` ${parts[0]}`;
+
+              if (parts[1] === 'yes') {
+                oneRepMax += ` ${parts[3]}`;
+              } else {
+                oneRepMax += ` ${parts[2]} ${parts[3]}`;
+              }
             }
             return (
               <div
@@ -109,7 +118,10 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                   </p>
                   {oneRepMax && (
                     <p className="font-bold text-sm">
-                      Best: {oneRepMax}
+                      {workout.logging_type === 'tiebreak_time_or_reps'
+                        ? 'Latest:'
+                        : 'Best:'}
+                      {oneRepMax}
                       {getUnits(workout.logging_type)}
                     </p>
                   )}

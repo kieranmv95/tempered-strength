@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { Button } from '@/components';
 import { clearCelebration } from '@/lib/features/celebration/celebrationSlice';
-import { getUnits } from '@/helpers/units';
+import { formatScore, getUnits } from '@/helpers/units';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { ILoggingType } from '@/types/IExercise';
@@ -46,21 +46,18 @@ const Celebration = () => {
               <div className="text-2xl mb-4">Congratulations</div>
             )}
 
-            {pbData?.pb ? (
-              <div className="mb-4">
-                You logged a new{' '}
-                <span className="font-bold">{data.exercise}</span> PB!
-              </div>
-            ) : (
-              <div className="mb-4">
-                You logged a new{' '}
-                <span className="font-bold">{data.exercise}</span>!
-              </div>
-            )}
-            <div className="text-4xl font-bold">
-              {data.score}
-              {getUnits(data.loggingType)}
+            <div className="mb-4">
+              You logged a new{' '}
+              <span className="font-bold">{data.exercise}</span>
+              {pbData?.pb ? 'PB!' : ''}
             </div>
+
+            <div
+              className="text-3xl font-bold"
+              dangerouslySetInnerHTML={{
+                __html: formatScore(data.loggingType, data.score),
+              }}
+            />
             {pbData?.diff && (
               <div className="text-xl font-bold mt-4">
                 {getPbSymbol(data.loggingType)}

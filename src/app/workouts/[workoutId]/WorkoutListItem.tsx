@@ -8,10 +8,10 @@ import {
   faShare,
 } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
-import { IExercise, IUserExercise } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import { IUserWorkout, IWorkout } from '@/types/IWorkout';
+import { getPrettyValue } from '@/app/workouts/[workoutId]/WorkoutList';
 
 type WorkoutListItemProps = {
   workout: IWorkout;
@@ -29,17 +29,17 @@ const WorkoutListItem = ({
 
   return (
     <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
-      <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
+      <div className="bg-zinc-700 p-3 rounded-sm">
         <p>{new Date(userWorkout.date).toLocaleDateString('en-GB')}</p>
         <p className="font-bold">
-          {userWorkout.log}
+          {getPrettyValue(userWorkout.log, workout.logging_type)}
           {getUnits(workout.logging_type)}
         </p>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 h-full">
         <div
           onClick={() => setShowOptions(!showOptions)}
-          className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm h-11 w-8 flex items-center justify-center"
+          className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm w-8 flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
         </div>
@@ -55,13 +55,13 @@ const WorkoutListItem = ({
                   }),
                 );
               }}
-              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
             >
               <FontAwesomeIcon icon={faShare} className="w-4 h-4" />
             </div>
             <div
               onClick={() => deleteWorkout(userWorkout.id)}
-              className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+              className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm w-11 flex items-center justify-center"
             >
               <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
             </div>

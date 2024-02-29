@@ -45,17 +45,17 @@ const ExerciseListItem = ({
       key={exercise.id}
       className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
     >
-      <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
+      <div className="bg-zinc-700 p-3 rounded-sm">
         <p>{new Date(userExercise.date).toLocaleDateString('en-GB')}</p>
         <p className="font-bold">
           {score}
           {getUnits(exercise.logging_type)}
         </p>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 h-full">
         <div
           onClick={() => setShowOptions(!showOptions)}
-          className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm h-11 w-8 flex items-center justify-center"
+          className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm w-8 flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
         </div>
@@ -71,13 +71,13 @@ const ExerciseListItem = ({
                   }),
                 );
               }}
-              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
             >
               <FontAwesomeIcon icon={faShare} className="w-4 h-4" />
             </div>
             <div
               onClick={() => deleteExercise(userExercise.id)}
-              className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
+              className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm w-11 flex items-center justify-center"
             >
               <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
             </div>
