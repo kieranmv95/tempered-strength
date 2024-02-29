@@ -39,7 +39,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
         <div>
           <p className="mb-1">Category</p>
           <select
-            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4"
+            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[40px]"
             onChange={e => setCategory(e.target.value as '' | IWorkoutType)}
             value={category}
           >
