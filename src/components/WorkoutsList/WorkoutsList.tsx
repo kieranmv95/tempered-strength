@@ -9,6 +9,7 @@ import LogWorkoutForm from '@/components/LogWorkoutModal';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
 import { getUnits } from '@/helpers/units';
 import MovementListItem from '@/components/MovementListItem';
+import { sortByName } from '@/helpers/arrayHelpers';
 
 type WorkoutsListProps = {
   workouts: IWorkout[];
@@ -59,9 +60,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
       </div>
       <div className="grid gap-3">
         {workouts
-          .sort((a, b) => {
-            return a.name.localeCompare(b.name);
-          })
+          .sort(sortByName)
           .filter(workout => {
             if (category === '') {
               return workout;

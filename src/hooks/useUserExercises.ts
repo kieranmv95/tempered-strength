@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchUserExercises } from '@/lib/features/userExercises/userExercisesSlice';
+import { sortByDate } from '@/helpers/arrayHelpers';
 
 const useUserExercises = () => {
   const dispatch = useAppDispatch();
@@ -55,7 +56,7 @@ const useUserExercises = () => {
   const getExerciseById = (exerciseId: number) => {
     const oneRepMax = data
       ?.filter(userExercise => Number(userExercise.exerciseId) === exerciseId)
-      .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+      .sort(sortByDate);
 
     return oneRepMax ? oneRepMax : [];
   };

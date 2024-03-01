@@ -9,6 +9,7 @@ import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
 import { IExercise } from '@/types/IExercise';
 import MovementListItem from '@/components/MovementListItem';
+import { filterByName, sortByName } from '@/helpers/arrayHelpers';
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -41,18 +42,8 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
       />
       <div className="grid gap-3">
         {exercises
-          .sort((a, b) => {
-            return a.name.localeCompare(b.name);
-          })
-          .filter(exercise => {
-            if (search === '') {
-              return exercise;
-            } else {
-              if (exercise.name.toLowerCase().includes(search.toLowerCase())) {
-                return exercise;
-              }
-            }
-          })
+          .sort(sortByName)
+          .filter(exercise => filterByName(exercise, search))
           .map(exercise => {
             let oneRepMax: number | string | null;
 
