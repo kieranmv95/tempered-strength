@@ -8,6 +8,7 @@ import { IWorkout, IWorkoutType } from '@/types/IWorkout';
 import LogWorkoutForm from '@/components/LogWorkoutModal';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
 import { getUnits } from '@/helpers/units';
+import MovementListItem from '@/components/MovementListItem';
 
 type WorkoutsListProps = {
   workouts: IWorkout[];
@@ -113,44 +114,33 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
               }
             }
             return (
-              <div
+              <MovementListItem
                 key={workout.id}
-                className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
+                movementTitle={`${workout.workout_type} - ${workout.name}`}
+                movementSubTitle={
+                  oneRepMax
+                    ? `${workout.logging_type === 'tiebreak_time_or_reps' ? 'Latest:' : 'Best:'} ${oneRepMax} ${getUnits(workout.logging_type)}`
+                    : null
+                }
               >
-                <div className="bg-zinc-700 p-3 rounded-sm">
-                  <p>
-                    {workout.workout_type} - {workout.name}
-                  </p>
-                  {oneRepMax && (
-                    <p className="font-bold text-sm">
-                      {workout.logging_type === 'tiebreak_time_or_reps'
-                        ? 'Latest:'
-                        : 'Best:'}
-                      {oneRepMax}
-                      {getUnits(workout.logging_type)}
-                    </p>
-                  )}
+                <div
+                  onClick={() =>
+                    setSelectedWorkout({
+                      workout,
+                      existingPb: oneRepMax as string,
+                    })
+                  }
+                  className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
+                >
+                  <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                 </div>
-                <div className="flex gap-2 h-full">
-                  <div
-                    onClick={() =>
-                      setSelectedWorkout({
-                        workout,
-                        existingPb: oneRepMax as string,
-                      })
-                    }
-                    className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
-                  >
-                    <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
-                  </div>
-                  <Link
-                    href={`/workouts/${workout.id}`}
-                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
+                <Link
+                  href={`/workouts/${workout.id}`}
+                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
+                >
+                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                </Link>
+              </MovementListItem>
             );
           })}
       </div>
