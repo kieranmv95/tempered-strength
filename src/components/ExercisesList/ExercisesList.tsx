@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
 import { IExercise } from '@/types/IExercise';
+import MovementListItem from '@/components/MovementListItem';
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -66,39 +67,33 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             }
 
             return (
-              <div
+              <MovementListItem
                 key={exercise.id}
-                className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
+                movementTitle={exercise.name}
+                movementSubTitle={
+                  oneRepMax
+                    ? `Best: ${oneRepMax} ${getUnits(exercise.logging_type)}`
+                    : null
+                }
               >
-                <div className="bg-zinc-700 p-3 rounded-sm">
-                  <p>{exercise.name}</p>
-                  {oneRepMax && (
-                    <p className="font-bold text-sm">
-                      Best: {oneRepMax}
-                      {getUnits(exercise.logging_type)}
-                    </p>
-                  )}
+                <div
+                  onClick={() =>
+                    setSelectedExercise({
+                      exercise,
+                      existingPb: oneRepMax ? oneRepMax : undefined,
+                    })
+                  }
+                  className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
+                >
+                  <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                 </div>
-                <div className="flex gap-2 h-full">
-                  <div
-                    onClick={() =>
-                      setSelectedExercise({
-                        exercise,
-                        existingPb: oneRepMax ? oneRepMax : undefined,
-                      })
-                    }
-                    className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
-                  >
-                    <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
-                  </div>
-                  <Link
-                    href={`/exercises/${exercise.id}`}
-                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
+                <Link
+                  href={`/exercises/${exercise.id}`}
+                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
+                >
+                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                </Link>
+              </MovementListItem>
             );
           })}
       </div>

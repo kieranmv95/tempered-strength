@@ -37,7 +37,7 @@ export const getPrettyValue = (
     return oneRepMax;
   }
 
-  return logging_type;
+  return value;
 };
 
 const WorkoutList = ({ workout }: { workout: IWorkout }) => {

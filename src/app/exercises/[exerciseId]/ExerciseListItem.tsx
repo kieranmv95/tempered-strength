@@ -11,6 +11,7 @@ import { getUnits } from '@/helpers/units';
 import { IExercise, IUserExercise } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { useAppDispatch } from '@/lib/hooks';
+import MovementListItem from '@/components/MovementListItem';
 
 type ExerciseListItemProps = {
   exercise: IExercise;
@@ -41,18 +42,12 @@ const ExerciseListItem = ({
   const score = getFigure();
 
   return (
-    <div
-      key={exercise.id}
-      className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
-    >
-      <div className="bg-zinc-700 p-3 rounded-sm">
-        <p>{new Date(userExercise.date).toLocaleDateString('en-GB')}</p>
-        <p className="font-bold">
-          {score}
-          {getUnits(exercise.logging_type)}
-        </p>
-      </div>
-      <div className="flex gap-2 h-full">
+    <>
+      <MovementListItem
+        key={exercise.id}
+        movementTitle={new Date(userExercise.date).toLocaleDateString('en-GB')}
+        movementSubTitle={`${score}${getUnits(exercise.logging_type)}`}
+      >
         <div
           onClick={() => setShowOptions(!showOptions)}
           className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm w-8 flex items-center justify-center"
@@ -83,8 +78,8 @@ const ExerciseListItem = ({
             </div>
           </div>
         )}
-      </div>
-    </div>
+      </MovementListItem>
+    </>
   );
 };
 
