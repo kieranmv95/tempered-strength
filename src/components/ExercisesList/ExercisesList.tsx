@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import LogExerciseForm from '../LogExerciseModal';
+import LogExerciseModal from '../LogExerciseModal';
 import useUserExercises from '@/hooks/useUserExercises';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -90,7 +90,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
       </div>
 
       {selectedExercise && (
-        <LogExerciseForm
+        <LogExerciseModal
           currentPb={selectedExercise.existingPb}
           exercise={selectedExercise.exercise}
           close={() => setSelectedExercise(null)}
