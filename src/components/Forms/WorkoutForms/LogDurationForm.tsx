@@ -125,7 +125,7 @@ const LogDurationForm = ({
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold mb-4">{exercise.name} - test</h2>
+          <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
           <div className="grid gap-4">
             <div>
               <label className="block mb-1">Duration (hh:mm:ss)</label>
