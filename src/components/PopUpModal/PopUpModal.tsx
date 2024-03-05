@@ -2,7 +2,7 @@
 
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 type PopUpModalProps = {
   close: () => void;
@@ -28,7 +28,7 @@ const PopUpModal = ({ close, children }: PopUpModalProps) => {
       <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
         <div className="flex min-h-full justify-center p-4 items-center sm:p-0 cursor-pointer">
           <div
-            className="bg-zinc-800 p-6 rounded relative w-[340px] cursor-auto"
+            className="bg-zinc-800 p-6 rounded relative w-[30px] cursor-auto"
             onClick={e => e.stopPropagation()}
           >
             <FontAwesomeIcon
