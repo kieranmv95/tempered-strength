@@ -22,6 +22,18 @@ const Header = () => {
     setNavOpen(false);
   }, [pathname, searchParams]);
 
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setNavOpen(false);
+      }
+    };
+
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => document.removeEventListener('keyup', handleKeyUp);
+  }, [close]);
+
   return (
     <>
       <header className="sticky top-0 left-0 z-20 bg-zinc-800">
