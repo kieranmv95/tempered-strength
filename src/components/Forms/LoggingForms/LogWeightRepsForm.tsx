@@ -9,8 +9,6 @@ import { Button } from '@/components';
 import { IExercise } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { getFormLabel } from '@/components/Forms/formHelpers';
-import { faX } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NumberField, {
   numberFieldInitialValues,
   numberFieldSchema,

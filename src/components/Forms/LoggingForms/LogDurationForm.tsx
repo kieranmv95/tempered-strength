@@ -17,8 +17,6 @@ import DateField, {
   dateFieldInitialValues,
   dateFieldSchema,
 } from '@/components/Forms/FormComponents/DateField';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX } from '@fortawesome/free-solid-svg-icons';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
 import { IWorkout } from '@/types/IWorkout';
 
