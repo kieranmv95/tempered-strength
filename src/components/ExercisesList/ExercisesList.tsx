@@ -31,6 +31,10 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
   if (loading && !err) return <>Loading...</>;
   if (!loading && err) return <>Error</>;
 
+  {
+    console.log(exercises);
+  }
+
   return (
     <>
       <div className="md:grid md:grid-cols-2 gap-4">
@@ -58,7 +62,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
             <option value="Cardio">Cardio</option>
             <option value="Lifting">Lifting</option>
             <option value="Olympic Lifting">Olympic Lifting</option>
-            <option value="Body weight">Body weight</option>
+            <option value="Bodyweight">Bodyweight</option>
             <option value="Calisthenics">Calisthenics</option>
           </select>
         </div>
