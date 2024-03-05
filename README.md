@@ -54,6 +54,7 @@ The logging type will be to tell the user how the score is going to be recorded 
   - name varchar(255) NOT NULL
   - logging_type varchar(255) NOT NULL
   - onboarded TINYINT(1) NOT NULL,
+  - exercise_type varchar(255),
 
 - userExercises
 
