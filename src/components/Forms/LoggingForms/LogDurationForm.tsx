@@ -99,11 +99,6 @@ const LogDurationForm = ({
     >
       {({ isSubmitting }) => (
         <Form>
-          <FontAwesomeIcon
-            icon={faX}
-            className="absolute top-0 right-0 p-4 cursor-pointer"
-            onClick={close}
-          />
           <h2 className="text-xl font-bold mb-4">{movement.name}</h2>
           <div className="grid gap-4">
             <FormGroup

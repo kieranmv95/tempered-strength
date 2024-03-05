@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import LogExerciseModal from '../LogExerciseModal';
+import LogExercise from '../LogExercise';
 import useUserExercises from '@/hooks/useUserExercises';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +10,7 @@ import { getUnits } from '@/helpers/units';
 import { IExercise } from '@/types/IExercise';
 import MovementListItem from '@/components/MovementListItem';
 import { filterByName, sortByName } from '@/helpers/arrayHelpers';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -90,11 +91,13 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
       </div>
 
       {selectedExercise && (
-        <LogExerciseModal
-          currentPb={selectedExercise.existingPb}
-          exercise={selectedExercise.exercise}
-          close={() => setSelectedExercise(null)}
-        />
+        <PopUpModal close={() => setSelectedExercise(null)}>
+          <LogExercise
+            currentPb={selectedExercise.existingPb}
+            exercise={selectedExercise.exercise}
+            close={() => setSelectedExercise(null)}
+          />
+        </PopUpModal>
       )}
     </>
   );
