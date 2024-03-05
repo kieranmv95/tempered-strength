@@ -21,7 +21,13 @@ const LogExerciseModal = ({
       <div className="fixed inset-0 z-40 bg-gray-500 bg-opacity-75 transition-opacity pointer" />
       <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
         <div className="flex min-h-full justify-center p-4 items-center sm:p-0">
-          <Component currentPb={currentPb} exercise={exercise} close={close} />
+          <div className="bg-zinc-800 p-6 rounded relative w-[300px]">
+            <Component
+              currentPb={currentPb}
+              exercise={exercise}
+              close={close}
+            />
+          </div>
         </div>
       </div>
     </>
