@@ -9,8 +9,9 @@ import { useAppDispatch } from '@/lib/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
-import { PercentagesBreakdown, LogExerciseModal, Button } from '@/components';
+import { PercentagesBreakdown, LogExercise, Button } from '@/components';
 import { IExercise } from '@/types/IExercise';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 type SelectedExerciseType = {
   exercise: IExercise;
@@ -155,11 +156,13 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
         </>
       )}
       {selectedExercise && (
-        <LogExerciseModal
-          currentPb={selectedExercise.existingPb}
-          exercise={selectedExercise.exercise}
-          close={() => setSelectedExercise(null)}
-        />
+        <PopUpModal close={() => setSelectedExercise(null)}>
+          <LogExercise
+            currentPb={selectedExercise.existingPb}
+            exercise={selectedExercise.exercise}
+            close={() => setSelectedExercise(null)}
+          />
+        </PopUpModal>
       )}
     </>
   );

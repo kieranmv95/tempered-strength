@@ -113,27 +113,7 @@ const LogWorkoutForm = ({ workout, close, currentPb }: LogWorkoutFormProps) => {
       }}
     >
       {({ isSubmitting }) => (
-        <Form className="bg-zinc-800 p-6 rounded relative w-[300px]">
-          <div
-            className="absolute top-0 right-0 p-4 cursor-pointer"
-            onClick={close}
-          >
-            <svg
-              className="w-3 h-3"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-              />
-            </svg>
-          </div>
+        <Form>
           <p className="text-sm">{workout.workout_type}</p>
           <h2 className="text-xl font-bold mb-4">{workout.name}</h2>
           <div className="grid gap-4">

@@ -5,6 +5,7 @@ import CreateTeamForm from '@/components/Forms/CreateTeamForm/CreateTeamForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 const CreateTeam = () => {
   const [creatingTeam, setCreatingTeam] = useState(false);
@@ -19,14 +20,9 @@ const CreateTeam = () => {
         </div>
       </Button>
       {creatingTeam && (
-        <>
-          <div className="fixed inset-0 z-40 bg-gray-500 bg-opacity-75 transition-opacity pointer" />
-          <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
-            <div className="flex min-h-full justify-center p-4 items-center sm:p-0">
-              <CreateTeamForm close={() => setCreatingTeam(false)} />
-            </div>
-          </div>
-        </>
+        <PopUpModal close={() => setCreatingTeam(false)}>
+          <CreateTeamForm close={() => setCreatingTeam(false)} />
+        </PopUpModal>
       )}
     </div>
   );

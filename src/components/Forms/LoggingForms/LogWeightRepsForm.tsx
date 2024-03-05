@@ -9,8 +9,6 @@ import { Button } from '@/components';
 import { IExercise } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { getFormLabel } from '@/components/Forms/formHelpers';
-import { faX } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NumberField, {
   numberFieldInitialValues,
   numberFieldSchema,
@@ -20,10 +18,11 @@ import DateField, {
   dateFieldSchema,
 } from '@/components/Forms/FormComponents/DateField';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
+import { IWorkout } from '@/types/IWorkout';
 
 type LogWeightRepsFormProps = {
   currentPb?: string | number;
-  exercise: IExercise;
+  movement: IExercise | IWorkout;
   close: () => void;
 };
 
@@ -33,7 +32,7 @@ const WeightRepsSchema = Yup.object().shape({
 });
 
 const LogWeightRepsForm = ({
-  exercise,
+  movement,
   close,
   currentPb,
 }: LogWeightRepsFormProps) => {
@@ -50,10 +49,10 @@ const LogWeightRepsForm = ({
       validationSchema={WeightRepsSchema}
       onSubmit={async (values, { setSubmitting }) => {
         const data = {
-          exerciseId: exercise.id,
+          exerciseId: movement.id,
           log: values.log,
           date: values.date,
-          loggingType: exercise.logging_type,
+          loggingType: movement.logging_type,
         };
 
         const res = await fetch('/api/user/exercises', {
@@ -66,7 +65,7 @@ const LogWeightRepsForm = ({
         dispatch(
           addSuccess({
             id: json.insertId,
-            exerciseId: exercise.id,
+            exerciseId: movement.id,
             userId: userId || '',
             log: Number(values.log),
             date: values.date,
@@ -76,8 +75,8 @@ const LogWeightRepsForm = ({
         dispatch(
           celebrate({
             existingPersonalBest: currentPb,
-            exercise: exercise.name,
-            loggingType: exercise.logging_type,
+            exercise: movement.name,
+            loggingType: movement.logging_type,
             score: Number(values.log),
           }),
         );
@@ -88,15 +87,10 @@ const LogWeightRepsForm = ({
     >
       {({ isSubmitting }) => (
         <Form>
-          <FontAwesomeIcon
-            icon={faX}
-            className="absolute top-0 right-0 p-4 cursor-pointer"
-            onClick={close}
-          />
-          <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
+          <h2 className="text-xl font-bold mb-4">{movement.name}</h2>
           <div className="grid gap-4">
             <FormGroup
-              label={getFormLabel(exercise.logging_type)}
+              label={getFormLabel(movement.logging_type)}
               id="weightReps"
               groupName="log"
             >

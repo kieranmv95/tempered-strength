@@ -1,6 +1,6 @@
 import Button from './Button';
 import PercentagesBreakdown from './PercentagesBreakdown';
-import LogExerciseModal from './LogExerciseModal';
+import LogExercise from './LogExercise';
 import Celebration from './Celebration';
 
-export { Button, LogExerciseModal, PercentagesBreakdown, Celebration };
+export { Button, LogExercise, PercentagesBreakdown, Celebration };

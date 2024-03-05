@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import LogExerciseModal from '../LogExerciseModal';
+import LogExercise from '../LogExercise';
 import useUserExercises from '@/hooks/useUserExercises';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
-import { IExercise } from '@/types/IExercise';
+import { IExercise, IExerciseType } from '@/types/IExercise';
 import MovementListItem from '@/components/MovementListItem';
 import { filterByName, sortByName } from '@/helpers/arrayHelpers';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 type ExercisesListProps = {
   exercises: IExercise[];
@@ -24,6 +25,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
   const [selectedExercise, setSelectedExercise] =
     useState<SelectedExerciseType | null>(null);
   const [search, setSearch] = useState('');
+  const [exerciseType, setExerciseType] = useState<'' | IExerciseType>('');
   const { loading, err, getOneRepMax, getFastestTime } = useUserExercises();
 
   if (loading && !err) return <>Loading...</>;
@@ -31,18 +33,52 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
 
   return (
     <>
-      <p className="mb-1">Search</p>
-      <input
-        type="text"
-        className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[44px]"
-        placeholder="Search"
-        autoComplete="off"
-        onChange={e => setSearch(e.target.value)}
-        value={search}
-      />
+      <div className="md:grid md:grid-cols-2 gap-4">
+        <div>
+          <p className="mb-1">Search</p>
+          <input
+            type="text"
+            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[40px]"
+            placeholder="Search"
+            autoComplete="off"
+            onChange={e => setSearch(e.target.value)}
+            value={search}
+          />
+        </div>
+        <div>
+          <p className="mb-1">Category</p>
+          <select
+            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[40px]"
+            onChange={e =>
+              setExerciseType(e.target.value as '' | IExerciseType)
+            }
+            value={exerciseType}
+          >
+            <option value="">All</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Lifting">Lifting</option>
+            <option value="Olympic Lifting">Olympic Lifting</option>
+            <option value="Body weight">Body weight</option>
+            <option value="Calisthenics">Calisthenics</option>
+          </select>
+        </div>
+      </div>
       <div className="grid gap-3">
         {exercises
           .sort(sortByName)
+          .filter(exercise => {
+            if (exerciseType === '') {
+              return exercise;
+            } else {
+              if (
+                exercise.exercise_type
+                  .toLowerCase()
+                  .includes(exerciseType.toLowerCase())
+              ) {
+                return exercise;
+              }
+            }
+          })
           .filter(exercise => filterByName(exercise, search))
           .map(exercise => {
             let oneRepMax: number | string | null;
@@ -90,11 +126,13 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
       </div>
 
       {selectedExercise && (
-        <LogExerciseModal
-          currentPb={selectedExercise.existingPb}
-          exercise={selectedExercise.exercise}
-          close={() => setSelectedExercise(null)}
-        />
+        <PopUpModal close={() => setSelectedExercise(null)}>
+          <LogExercise
+            currentPb={selectedExercise.existingPb}
+            exercise={selectedExercise.exercise}
+            close={() => setSelectedExercise(null)}
+          />
+        </PopUpModal>
       )}
     </>
   );
