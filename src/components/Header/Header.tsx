@@ -32,7 +32,7 @@ const Header = () => {
     document.addEventListener('keyup', handleKeyUp);
 
     return () => document.removeEventListener('keyup', handleKeyUp);
-  }, [close]);
+  }, []);
 
   return (
     <>
