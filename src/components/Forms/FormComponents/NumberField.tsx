@@ -1,6 +1,5 @@
 import { Field } from 'formik';
 import * as Yup from 'yup';
-import { getCurrentDate } from '@/helpers/getCurrentDate';
 
 export const numberFieldSchema = (groupName: string) => ({
   [groupName]: Yup.number().required('Number is required'),
