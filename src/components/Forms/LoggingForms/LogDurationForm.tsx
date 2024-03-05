@@ -20,10 +20,11 @@ import DateField, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
+import { IWorkout } from '@/types/IWorkout';
 
 type LogDurationFormProps = {
   currentPb?: string | number;
-  exercise: IExercise;
+  movement: IExercise | IWorkout;
   close: () => void;
 };
 
@@ -33,7 +34,7 @@ const DurationFormSchema = Yup.object().shape({
 });
 
 const LogDurationForm = ({
-  exercise,
+  movement,
   close,
   currentPb,
 }: LogDurationFormProps) => {
@@ -54,10 +55,10 @@ const LogDurationForm = ({
         const concatDuration = `${HH}:${MM}:${SS}`;
 
         const data = {
-          exerciseId: exercise.id,
+          exerciseId: movement.id,
           date: values.date,
           duration: concatDuration,
-          loggingType: exercise.logging_type,
+          loggingType: movement.logging_type,
         };
 
         try {
@@ -71,7 +72,7 @@ const LogDurationForm = ({
           dispatch(
             addSuccess({
               id: json.insertId,
-              exerciseId: exercise.id,
+              exerciseId: movement.id,
               userId: userId || '',
               duration: concatDuration,
               date: values.date,
@@ -81,8 +82,8 @@ const LogDurationForm = ({
           dispatch(
             celebrate({
               existingPersonalBest: currentPb,
-              exercise: exercise.name,
-              loggingType: exercise.logging_type,
+              exercise: movement.name,
+              loggingType: movement.logging_type,
               score: concatDuration,
             }),
           );
@@ -103,7 +104,7 @@ const LogDurationForm = ({
             className="absolute top-0 right-0 p-4 cursor-pointer"
             onClick={close}
           />
-          <h2 className="text-xl font-bold mb-4">{exercise.name}</h2>
+          <h2 className="text-xl font-bold mb-4">{movement.name}</h2>
           <div className="grid gap-4">
             <FormGroup
               label="Duration (hh:mm:ss)"

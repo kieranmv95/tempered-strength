@@ -24,7 +24,7 @@ const LogExerciseModal = ({
           <div className="bg-zinc-800 p-6 rounded relative w-[300px]">
             <Component
               currentPb={currentPb}
-              exercise={exercise}
+              movement={exercise}
               close={close}
             />
           </div>

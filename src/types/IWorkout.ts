@@ -3,6 +3,7 @@ export type IWorkoutLoggingType =
   | 'reps'
   | 'duration'
   | 'tiebreak_time_or_reps';
+
 export type IWorkoutType = 'CrossFit' | 'Hyrox' | 'CrossFit Open';
 
 export type IWorkout = {
