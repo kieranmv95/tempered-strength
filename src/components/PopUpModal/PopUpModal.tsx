@@ -28,7 +28,7 @@ const PopUpModal = ({ close, children }: PopUpModalProps) => {
       <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
         <div className="flex min-h-full justify-center p-4 items-center sm:p-0 cursor-pointer">
           <div
-            className="bg-zinc-800 p-6 rounded relative w-[300px] cursor-auto"
+            className="bg-zinc-800 p-6 rounded relative w-[340px] cursor-auto"
             onClick={e => e.stopPropagation()}
           >
             <FontAwesomeIcon

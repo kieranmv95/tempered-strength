@@ -10,8 +10,9 @@ import { getUnits } from '@/helpers/units';
 import { Button } from '@/components';
 import { IWorkout, IWorkoutLoggingType } from '@/types/IWorkout';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
-import LogWorkoutModal from '@/components/LogWorkoutModal';
+import LogWorkout from '@/components/LogWorkout';
 import WorkoutListItem from './WorkoutListItem';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 type SelectedWorkoutType = {
   workout: IWorkout;
@@ -138,11 +139,13 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
         </>
       )}
       {selectedWorkout && (
-        <LogWorkoutModal
-          currentPb={selectedWorkout.existingPb}
-          workout={selectedWorkout.workout}
-          close={() => setSelectedWorkout(null)}
-        />
+        <PopUpModal close={() => setSelectedWorkout(null)}>
+          <LogWorkout
+            currentPb={selectedWorkout.existingPb}
+            workout={selectedWorkout.workout}
+            close={() => setSelectedWorkout(null)}
+          />
+        </PopUpModal>
       )}
     </>
   );

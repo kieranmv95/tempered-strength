@@ -5,11 +5,12 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { IWorkout, IWorkoutType } from '@/types/IWorkout';
-import LogWorkoutForm from '@/components/LogWorkoutModal';
+import LogWorkout from '@/components/LogWorkout';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
 import { getUnits } from '@/helpers/units';
 import MovementListItem from '@/components/MovementListItem';
 import { sortByName } from '@/helpers/arrayHelpers';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 type WorkoutsListProps = {
   workouts: IWorkout[];
@@ -145,11 +146,13 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
       </div>
 
       {selectedWorkout && (
-        <LogWorkoutForm
-          currentPb={selectedWorkout.existingPb}
-          workout={selectedWorkout.workout}
-          close={() => setSelectedWorkout(null)}
-        />
+        <PopUpModal close={() => setSelectedWorkout(null)}>
+          <LogWorkout
+            currentPb={selectedWorkout.existingPb}
+            workout={selectedWorkout.workout}
+            close={() => setSelectedWorkout(null)}
+          />
+        </PopUpModal>
       )}
     </>
   );
