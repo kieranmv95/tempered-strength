@@ -61,7 +61,7 @@ The logging type will be to tell the user how the score is going to be recorded 
   - userId varchar(255) NOT NULL,
   - exerciseId varchar(255) NOT NULL,
   - log decimal(5,2),
-  - duration varchar(255), 
+  - duration varchar(255),
   - date Date NOT NULL,
 
 - users
@@ -80,6 +80,7 @@ The logging type will be to tell the user how the score is going to be recorded 
   - password varchar(255),
 
 - userTeams
+
   - id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   - userId varchar(255) NOT NULL,
   - teamId varchar(255) NOT NULL,

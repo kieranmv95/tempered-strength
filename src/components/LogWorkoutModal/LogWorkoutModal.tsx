@@ -2,7 +2,7 @@
 
 import { LogWorkoutForm } from '@/components/Forms';
 import { IWorkout } from '@/types/IWorkout';
-import CrossFitOpen241 from '@/components/Forms/WorkoutForms/CrossFitOpen241';
+import CrossFitOpen241 from '@/components/Forms/LoggingForms/CrossFitOpen241';
 
 type LogExerciseFormProps = {
   currentPb?: string;
