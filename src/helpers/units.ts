@@ -22,8 +22,6 @@ export const formatScore = (
       const parts = (score as string).split(',');
       const completedWorkout = parts[1] === 'yes';
 
-      console.log();
-
       if (completedWorkout) {
         stringBuilder = `<div>${parts[0]}<br/>${parts[3]}</div>`;
       } else {
@@ -45,8 +43,6 @@ export const formatShortScore = (
       let stringBuilder = '';
       const parts = (score as string).split(',');
       const completedWorkout = parts[1] === 'yes';
-
-      console.log();
 
       if (completedWorkout) {
         stringBuilder = `<div>${parts[0]}<br/>${parts[3]}</div>`;

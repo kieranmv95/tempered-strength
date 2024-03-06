@@ -19,8 +19,6 @@ export async function POST(request: NextRequest) {
       VALUES ('${userId}', ${workoutId}, '${log}', '${date}'); 
   `;
 
-  console.log(sql);
-
   try {
     const result = await query(sql as string);
     return NextResponse.json(result, { status: 201 });

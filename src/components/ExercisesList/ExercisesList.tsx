@@ -31,10 +31,6 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
   if (loading && !err) return <>Loading...</>;
   if (!loading && err) return <>Error</>;
 
-  {
-    console.log(exercises);
-  }
-
   return (
     <>
       <div className="md:grid md:grid-cols-2 gap-4">
