@@ -4,7 +4,6 @@ import { Form, Formik } from 'formik';
 import { postUserExercise } from '@/lib/features/userExercises/userExercisesSlice';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
 import { IExercise, ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
@@ -36,8 +35,6 @@ const LogDurationForm = ({
   currentPb,
 }: LogDurationFormProps) => {
   const dispatch = useAppDispatch();
-  const { userId } = useAuth();
-
   return (
     <Formik
       initialValues={{
