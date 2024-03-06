@@ -1,12 +1,15 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import {
+  addSuccess,
+  postUserExercise,
+} from '@/lib/features/userExercises/userExercisesSlice';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
-import { IExercise } from '@/types/IExercise';
+import { IExercise, ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import toast from 'react-hot-toast';
 import DurationField, {
@@ -19,6 +22,7 @@ import DateField, {
 } from '@/components/Forms/FormComponents/DateField';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
 import { IWorkout } from '@/types/IWorkout';
+import { unwrap } from 'idb';
 
 type LogDurationFormProps = {
   currentPb?: string | number;
@@ -52,47 +56,26 @@ const LogDurationForm = ({
         const { HH, MM, SS } = values.durationGroup;
         const concatDuration = `${HH}:${MM}:${SS}`;
 
-        const data = {
-          exerciseId: movement.id,
-          date: values.date,
-          duration: concatDuration,
-          loggingType: movement.logging_type,
-        };
+        await dispatch(
+          postUserExercise({
+            id: movement.id,
+            date: values.date,
+            duration: concatDuration,
+            loggingType: movement.logging_type as ILoggingType,
+          }),
+        ).unwrap();
 
-        try {
-          const res = await fetch('/api/user/exercises', {
-            method: 'POST',
-            body: JSON.stringify(data),
-          });
+        dispatch(
+          celebrate({
+            existingPersonalBest: currentPb,
+            exercise: movement.name,
+            loggingType: movement.logging_type,
+            score: concatDuration,
+          }),
+        );
 
-          const json = await res.json();
-
-          dispatch(
-            addSuccess({
-              id: json.insertId,
-              exerciseId: movement.id,
-              userId: userId || '',
-              duration: concatDuration,
-              date: values.date,
-            }),
-          );
-
-          dispatch(
-            celebrate({
-              existingPersonalBest: currentPb,
-              exercise: movement.name,
-              loggingType: movement.logging_type,
-              score: concatDuration,
-            }),
-          );
-
-          setSubmitting(false);
-          close();
-        } catch (e) {
-          toast.error('Failed to save exercise');
-          setSubmitting(false);
-          close();
-        }
+        setSubmitting(false);
+        close();
       }}
     >
       {({ isSubmitting }) => (

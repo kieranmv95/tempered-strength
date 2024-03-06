@@ -12,14 +12,16 @@ type UserExercisesState = {
 
 type DispatchExerciseMovement = {
   id: number;
-  log: string;
+  log?: string;
+  duration?: string;
   date: string;
   loggingType: ILoggingType;
 };
 
 type PostUserExercise = {
   exerciseId: number;
-  log: string;
+  log?: string;
+  duration?: string;
   date: string;
   loggingType: ILoggingType;
 };
@@ -38,6 +40,7 @@ export const postUserExercise = createAsyncThunk(
     const data: PostUserExercise = {
       exerciseId: movement.id,
       log: movement.log,
+      duration: movement.duration,
       date: movement.date,
       loggingType: movement.loggingType,
     };
@@ -55,6 +58,7 @@ export const postUserExercise = createAsyncThunk(
       return {
         exerciseId: movement.id,
         log: movement.log,
+        duration: movement.duration,
         date: movement.date,
       } as unknown as IUserExercise;
     }
