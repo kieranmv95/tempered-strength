@@ -10,7 +10,7 @@ import { createAction } from '@reduxjs/toolkit';
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      exercises: userExercisesReducer,
+      userExercises: userExercisesReducer,
       userWorkouts: userWorkoutsReducer,
       user: userReducer,
       userTeams: userTeamsReducer,

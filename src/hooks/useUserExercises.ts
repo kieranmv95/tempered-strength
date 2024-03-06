@@ -5,7 +5,7 @@ import { sortByDate } from '@/helpers/arrayHelpers';
 
 const useUserExercises = () => {
   const dispatch = useAppDispatch();
-  const { data, loading, err } = useAppSelector(state => state.exercises);
+  const { data, loading, err } = useAppSelector(state => state.userExercises);
 
   useEffect(() => {
     if (!data && !err && !loading) {
