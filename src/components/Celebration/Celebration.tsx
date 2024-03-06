@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { ILoggingType } from '@/types/IExercise';
 import { IWorkoutLoggingType } from '@/types/IWorkout';
+import { useEffect } from 'react';
 
 const getPbSymbol = (logging_type: ILoggingType | IWorkoutLoggingType) => {
   switch (logging_type) {
@@ -22,12 +23,30 @@ const Celebration = () => {
   const { data, pbData } = useAppSelector(state => state.celebration);
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        dispatch(clearCelebration());
+      }
+    };
+
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => document.removeEventListener('keyup', handleKeyUp);
+  }, []);
+
   if (!data) return null;
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-full z-[100] flex items-center justify-center">
-        <div className="w-full h-full md:max-w-[400px] relative bg-gradient-to-r from-violet-600 to-fuchsia-600 p-8 text-center md:h-auto grid items-center">
+      <div
+        className="fixed top-0 left-0 w-full h-full z-[100] flex items-center justify-center cursor-pointer"
+        onClick={() => dispatch(clearCelebration())}
+      >
+        <div
+          className="w-full h-full md:max-w-[400px] relative bg-gradient-to-r from-violet-600 to-fuchsia-600 p-8 text-center md:h-auto grid items-center cursor-auto"
+          onClick={e => e.stopPropagation()}
+        >
           <div>
             <img
               src="/TemperedStrength.svg"

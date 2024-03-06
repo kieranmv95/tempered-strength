@@ -76,8 +76,8 @@ export async function DELETE(request: NextRequest) {
   const sql = `DELETE FROM userExercises WHERE id = ${Number(id)}`;
 
   try {
-    const result = await query(sql);
-    return NextResponse.json(result, { status: 200 });
+    await query(sql);
+    return NextResponse.json({ id }, { status: 200 });
   } catch (e) {
     return NextResponse.json(
       { err: 'User exercise not deleted', e },

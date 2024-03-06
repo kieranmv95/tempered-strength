@@ -1,12 +1,11 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import { addSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import { postUserExercise } from '@/lib/features/userExercises/userExercisesSlice';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
-import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
-import { IExercise } from '@/types/IExercise';
+import { IExercise, ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { getFormLabel } from '@/components/Forms/formHelpers';
 import NumberField, {
@@ -37,7 +36,6 @@ const LogWeightRepsForm = ({
   currentPb,
 }: LogWeightRepsFormProps) => {
   const dispatch = useAppDispatch();
-  const { userId } = useAuth();
 
   return (
     <Formik
@@ -48,29 +46,14 @@ const LogWeightRepsForm = ({
       enableReinitialize={true}
       validationSchema={WeightRepsSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        const data = {
-          exerciseId: movement.id,
-          log: values.log,
-          date: values.date,
-          loggingType: movement.logging_type,
-        };
-
-        const res = await fetch('/api/user/exercises', {
-          method: 'POST',
-          body: JSON.stringify(data),
-        });
-
-        const json = await res.json();
-
-        dispatch(
-          addSuccess({
-            id: json.insertId,
-            exerciseId: movement.id,
-            userId: userId || '',
-            log: Number(values.log),
+        await dispatch(
+          postUserExercise({
+            id: movement.id,
+            log: values.log,
             date: values.date,
+            loggingType: movement.logging_type as ILoggingType,
           }),
-        );
+        ).unwrap();
 
         dispatch(
           celebrate({
