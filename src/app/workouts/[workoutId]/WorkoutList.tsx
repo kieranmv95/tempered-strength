@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { removeSuccess } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
 import { useAppDispatch } from '@/lib/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +12,7 @@ import useUserWorkouts from '@/hooks/useUserWorkouts';
 import LogWorkout from '@/components/LogWorkout';
 import WorkoutListItem from './WorkoutListItem';
 import PopUpModal from '@/components/PopUpModal/PopUpModal';
+import { removeSuccess } from '@/lib/features/userWorkouts/userWorkoutsSlice';
 
 type SelectedWorkoutType = {
   workout: IWorkout;
@@ -57,7 +57,7 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
 
     dispatch(removeSuccess({ id }));
 
-    toast.success('Exercise Removed');
+    toast.success('Workout Removed');
   };
 
   const getBest = () => {
