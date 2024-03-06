@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import useUserExercises from '@/hooks/useUserExercises';
 import ExerciseListItem from '@/app/exercises/[exerciseId]/ExerciseListItem';
-import { removeSuccess } from '@/lib/features/userExercises/userExercisesSlice';
+import { deleteUserExercise } from '@/lib/features/userExercises/userExercisesSlice';
 import toast from 'react-hot-toast';
 import { useAppDispatch } from '@/lib/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,13 +28,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const dispatch = useAppDispatch();
 
   const deleteExercise = async (id: number) => {
-    await fetch('/api/user/exercises', {
-      method: 'DELETE',
-      body: JSON.stringify({ id }),
-    });
-
-    dispatch(removeSuccess({ id }));
-
+    await dispatch(deleteUserExercise(id)).unwrap();
     toast.success('Exercise Removed');
   };
 

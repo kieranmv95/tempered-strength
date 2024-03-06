@@ -1,10 +1,7 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import {
-  addSuccess,
-  postUserExercise,
-} from '@/lib/features/userExercises/userExercisesSlice';
+import { postUserExercise } from '@/lib/features/userExercises/userExercisesSlice';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { useAuth } from '@clerk/nextjs';

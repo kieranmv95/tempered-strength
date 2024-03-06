@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILoggingType, IUserExercise } from '@/types/IExercise';
 import { logout } from '@/lib/store';
 import { isError } from '@/helpers/isError';
-import { IUser } from '@/types/IUser';
 
 type UserExercisesState = {
   data: null | IUserExercise[];
@@ -56,12 +55,24 @@ export const postUserExercise = createAsyncThunk(
       return json;
     } else {
       return {
+        id: json.insertId,
         exerciseId: movement.id,
         log: movement.log,
         duration: movement.duration,
         date: movement.date,
       } as unknown as IUserExercise;
     }
+  },
+);
+
+export const deleteUserExercise = createAsyncThunk(
+  'userExercises/delete',
+  async (id: number) => {
+    const res = await fetch('/api/user/exercises', {
+      method: 'DELETE',
+      body: JSON.stringify({ id }),
+    });
+    return await res.json();
   },
 );
 
@@ -74,20 +85,7 @@ const initialState: UserExercisesState = {
 export const userExercisesSlice = createSlice({
   name: 'userExercises',
   initialState,
-  reducers: {
-    addSuccess: (state, action: PayloadAction<IUserExercise>) => {
-      if (state.data) {
-        state.data = [...state.data, action.payload];
-      } else {
-        state.data = [action.payload];
-      }
-    },
-    removeSuccess: (state, action: PayloadAction<{ id: number }>) => {
-      if (state.data) {
-        state.data = state.data.filter(item => item.id !== action.payload.id);
-      }
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchUserExercises.rejected, (state, _) => {
       state.loading = false;
@@ -115,8 +113,20 @@ export const userExercisesSlice = createSlice({
         }
       },
     );
+    builder.addCase(
+      deleteUserExercise.fulfilled,
+      (state, action: PayloadAction<{ id: number } | { err: string }>) => {
+        console.log('REMOVE', action.payload);
+        if (!isError(action.payload)) {
+          const id = action.payload.id;
+          console.log('REMOVE ID', id);
+          if (state.data) {
+            state.data = state.data.filter(item => item.id !== id);
+          }
+        }
+      },
+    );
   },
 });
 
-export const { addSuccess, removeSuccess } = userExercisesSlice.actions;
 export default userExercisesSlice.reducer;

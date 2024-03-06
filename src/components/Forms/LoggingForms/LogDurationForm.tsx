@@ -1,17 +1,13 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import {
-  addSuccess,
-  postUserExercise,
-} from '@/lib/features/userExercises/userExercisesSlice';
+import { postUserExercise } from '@/lib/features/userExercises/userExercisesSlice';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components';
 import { IExercise, ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
-import toast from 'react-hot-toast';
 import DurationField, {
   durationFieldInitialValues,
   durationFieldSchema,
@@ -22,7 +18,6 @@ import DateField, {
 } from '@/components/Forms/FormComponents/DateField';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
 import { IWorkout } from '@/types/IWorkout';
-import { unwrap } from 'idb';
 
 type LogDurationFormProps = {
   currentPb?: string | number;
