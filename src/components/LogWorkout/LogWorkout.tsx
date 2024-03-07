@@ -2,6 +2,7 @@
 
 import { IWorkout } from '@/types/IWorkout';
 import CrossFitOpen241 from '@/components/Forms/LoggingForms/CrossFitOpen241';
+import CrossFitOpen242 from '@/components/Forms/LoggingForms/CrossFitOpen242';
 import { selectForm } from '@/components/Forms/LoggingForms';
 
 type LogWorkoutProps = {
@@ -19,18 +20,28 @@ const LogWorkout = ({ workout, close, currentPb }: LogWorkoutProps) => {
         submissionType="workout"
       />
     );
-  } else {
-    const Component = selectForm(workout.logging_type);
+  }
 
+  if (workout.logging_type === '24.2') {
     return (
-      <Component
-        currentPb={currentPb}
+      <CrossFitOpen242
         movement={workout}
         close={close}
         submissionType="workout"
       />
     );
   }
+
+  const Component = selectForm(workout.logging_type);
+
+  return (
+    <Component
+      currentPb={currentPb}
+      movement={workout}
+      close={close}
+      submissionType="workout"
+    />
+  );
 };
 
 export default LogWorkout;

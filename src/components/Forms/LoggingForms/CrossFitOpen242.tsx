@@ -13,9 +13,14 @@ import DateField, {
   dateFieldSchema,
 } from '@/components/Forms/FormComponents/DateField';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
+import NumberField, {
+  numberFieldInitialValues,
+  numberFieldSchema,
+} from '@/components/Forms/FormComponents/NumberField';
 
 const CrossFitOpen242Schema = Yup.object().shape({
   ...dateFieldSchema('date'),
+  ...numberFieldSchema('log'),
 });
 
 type CrossFitOpen242Props = {
@@ -34,9 +39,10 @@ const CrossFitOpen242 = ({ movement, close }: CrossFitOpen242Props) => {
       initialValues={{
         difficulty: 'RX',
         ...dateFieldInitialValues('date'),
+        ...numberFieldInitialValues('log'),
       }}
       onSubmit={async (values, { setSubmitting }) => {
-        const log = ``;
+        const log = `${values.difficulty},${values.log}`;
 
         await dispatch(
           postUserWorkout({
@@ -78,6 +84,10 @@ const CrossFitOpen242 = ({ movement, close }: CrossFitOpen242Props) => {
                 <option value="Scaled">Scaled</option>
                 <option value="Foundation">Foundation</option>
               </Field>
+            </FormGroup>
+
+            <FormGroup label="Log" id="log" groupName="log">
+              <NumberField id="log" groupName="log" />
             </FormGroup>
 
             <Button

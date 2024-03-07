@@ -16,10 +16,11 @@ export const formatScore = (
   loggingType: ILoggingType | IWorkoutLoggingType,
   score: string | number,
 ) => {
+  let stringBuilder = '';
+  let parts;
   switch (loggingType) {
     case '24.1':
-      let stringBuilder = '';
-      const parts = (score as string).split(',');
+      parts = (score as string).split(',');
       const completedWorkout = parts[1] === 'yes';
 
       if (completedWorkout) {
@@ -27,9 +28,15 @@ export const formatScore = (
       } else {
         stringBuilder = `<div>${parts[0]}<br/>${parts[2]}reps<br/>Tiebreak Time: ${parts[3]}</div>`;
       }
-
-      return stringBuilder;
+      break;
+    case '24.2':
+      parts = (score as string).split(',');
+      stringBuilder = `<div>${parts[0]}<br/>${parts[1]}</div>`;
+      break;
     default:
-      return `${score}${getUnits(loggingType)}`;
+      stringBuilder = `${score}${getUnits(loggingType)}`;
+      break;
   }
+
+  return stringBuilder;
 };

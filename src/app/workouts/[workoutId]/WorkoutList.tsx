@@ -90,13 +90,14 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
               </Button>
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
-                {workout.logging_type !== '24.1' && (
-                  <div className="bg-zinc-700 rounded-sm py-6">
-                    <p className="text-xl font-bold mb-2">Best</p>
-                    {getBest()}
-                    {getUnits(workout.logging_type)}
-                  </div>
-                )}
+                {workout.logging_type !== '24.1' &&
+                  workout.logging_type !== '24.2' && (
+                    <div className="bg-zinc-700 rounded-sm py-6">
+                      <p className="text-xl font-bold mb-2">Best</p>
+                      {getBest()}
+                      {getUnits(workout.logging_type)}
+                    </div>
+                  )}
                 <div className="bg-zinc-700 rounded-sm py-6">
                   <p className="text-xl font-bold mb-2 text-center">Latest</p>
                   {getPrettyValue(
