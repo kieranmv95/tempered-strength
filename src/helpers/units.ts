@@ -31,7 +31,7 @@ export const formatScore = (
       break;
     case '24.2':
       parts = (score as string).split(',');
-      stringBuilder = `<div>${parts[0]}<br/>${parts[1]}</div>`;
+      stringBuilder = `<div>${parts[0]}<br/>Reps: ${parts[1]}</div>`;
       break;
     default:
       stringBuilder = `${score}${getUnits(loggingType)}`;

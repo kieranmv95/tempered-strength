@@ -86,7 +86,7 @@ const CrossFitOpen242 = ({ movement, close }: CrossFitOpen242Props) => {
               </Field>
             </FormGroup>
 
-            <FormGroup label="Log" id="log" groupName="log">
+            <FormGroup label="Reps" id="log" groupName="log">
               <NumberField id="log" groupName="log" />
             </FormGroup>
 
