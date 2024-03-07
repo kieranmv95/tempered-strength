@@ -5,7 +5,7 @@ import { postUserExercise } from '@/lib/features/userExercises/userExercisesSlic
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { Button } from '@/components';
-import { IExercise, ILoggingType } from '@/types/IExercise';
+import { ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import DurationField, {
   durationFieldInitialValues,
@@ -16,13 +16,8 @@ import DateField, {
   dateFieldSchema,
 } from '@/components/Forms/FormComponents/DateField';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
-import { IWorkout } from '@/types/IWorkout';
-
-type LogDurationFormProps = {
-  currentPb?: string | number;
-  movement: IExercise | IWorkout;
-  close: () => void;
-};
+import { LoggingFormProps } from '@/components/Forms/LoggingForms/index';
+import { postUserWorkout } from '@/lib/features/userWorkouts/userWorkoutsSlice';
 
 const DurationFormSchema = Yup.object().shape({
   ...dateFieldSchema('date'),
@@ -33,7 +28,8 @@ const LogDurationForm = ({
   movement,
   close,
   currentPb,
-}: LogDurationFormProps) => {
+  submissionType,
+}: LoggingFormProps) => {
   const dispatch = useAppDispatch();
   return (
     <Formik
@@ -48,14 +44,26 @@ const LogDurationForm = ({
         const { HH, MM, SS } = values.durationGroup;
         const concatDuration = `${HH}:${MM}:${SS}`;
 
-        await dispatch(
-          postUserExercise({
-            id: movement.id,
-            date: values.date,
-            duration: concatDuration,
-            loggingType: movement.logging_type as ILoggingType,
-          }),
-        ).unwrap();
+        if (submissionType === 'exercise') {
+          await dispatch(
+            postUserExercise({
+              id: movement.id,
+              date: values.date,
+              duration: concatDuration,
+              loggingType: movement.logging_type as ILoggingType,
+            }),
+          ).unwrap();
+        }
+
+        if (submissionType === 'workout') {
+          await dispatch(
+            postUserWorkout({
+              workoutId: movement.id,
+              log: concatDuration,
+              date: values.date,
+            }),
+          ).unwrap();
+        }
 
         dispatch(
           celebrate({

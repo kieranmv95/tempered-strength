@@ -5,7 +5,7 @@ import { postUserExercise } from '@/lib/features/userExercises/userExercisesSlic
 import * as Yup from 'yup';
 import { useAppDispatch } from '@/lib/hooks';
 import { Button } from '@/components';
-import { IExercise, ILoggingType } from '@/types/IExercise';
+import { ILoggingType } from '@/types/IExercise';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
 import { getFormLabel } from '@/components/Forms/formHelpers';
 import NumberField, {
@@ -17,13 +17,8 @@ import DateField, {
   dateFieldSchema,
 } from '@/components/Forms/FormComponents/DateField';
 import FormGroup from '@/components/Forms/FormComponents/FormGroup';
-import { IWorkout } from '@/types/IWorkout';
-
-type LogWeightRepsFormProps = {
-  currentPb?: string | number;
-  movement: IExercise | IWorkout;
-  close: () => void;
-};
+import { LoggingFormProps } from '@/components/Forms/LoggingForms/index';
+import { postUserWorkout } from '@/lib/features/userWorkouts/userWorkoutsSlice';
 
 const WeightRepsSchema = Yup.object().shape({
   ...numberFieldSchema('log'),
@@ -34,7 +29,8 @@ const LogWeightRepsForm = ({
   movement,
   close,
   currentPb,
-}: LogWeightRepsFormProps) => {
+  submissionType,
+}: LoggingFormProps) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -46,14 +42,26 @@ const LogWeightRepsForm = ({
       enableReinitialize={true}
       validationSchema={WeightRepsSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        await dispatch(
-          postUserExercise({
-            id: movement.id,
-            log: values.log,
-            date: values.date,
-            loggingType: movement.logging_type as ILoggingType,
-          }),
-        ).unwrap();
+        if (submissionType === 'exercise') {
+          await dispatch(
+            postUserExercise({
+              id: movement.id,
+              log: values.log,
+              date: values.date,
+              loggingType: movement.logging_type as ILoggingType,
+            }),
+          ).unwrap();
+        }
+
+        if (submissionType === 'workout') {
+          await dispatch(
+            postUserWorkout({
+              workoutId: movement.id,
+              log: values.log,
+              date: values.date,
+            }),
+          ).unwrap();
+        }
 
         dispatch(
           celebrate({

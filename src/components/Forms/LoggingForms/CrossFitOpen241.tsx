@@ -1,18 +1,24 @@
 'use client';
 
 import { useAppDispatch } from '@/lib/hooks';
-import { useAuth } from '@clerk/nextjs';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { IWorkout } from '@/types/IWorkout';
 import { Button } from '@/components';
-import { getCurrentDate } from '@/helpers/getCurrentDate';
-import { PostWorkoutParams } from '@/app/api/user/workouts/route';
-import { addSuccess } from '@/lib/features/userWorkouts/userWorkoutsSlice';
+import { postUserWorkout } from '@/lib/features/userWorkouts/userWorkoutsSlice';
 import { celebrate } from '@/lib/features/celebration/celebrationSlice';
+import { IFormSubmissionTypes } from '@/components/Forms/LoggingForms/index';
+import DateField, {
+  dateFieldInitialValues,
+  dateFieldSchema,
+} from '@/components/Forms/FormComponents/DateField';
+import FormGroup from '@/components/Forms/FormComponents/FormGroup';
+import NumberField, {
+  numberFieldInitialValues,
+} from '@/components/Forms/FormComponents/NumberField';
 
 const CrossFitOpen241Schema = Yup.object().shape({
-  date: Yup.date().required('Date is required'),
+  ...dateFieldSchema('date'),
   completedAllReps: Yup.string().required(),
   repsCompleted: Yup.number()
     .nullable()
@@ -44,23 +50,23 @@ const CrossFitOpen241Schema = Yup.object().shape({
 });
 
 type CrossFitOpen241Props = {
-  currentPb?: string;
-  workout: IWorkout;
+  currentPb?: string | number;
+  movement: IWorkout;
   close: () => void;
+  submissionType: IFormSubmissionTypes;
 };
 
-const CrossFitOpen241 = ({ workout, close }: CrossFitOpen241Props) => {
+const CrossFitOpen241 = ({ movement, close }: CrossFitOpen241Props) => {
   const dispatch = useAppDispatch();
-  const { userId } = useAuth();
 
   return (
     <Formik
       validationSchema={CrossFitOpen241Schema}
       initialValues={{
         difficulty: 'RX',
-        date: getCurrentDate(),
+        ...dateFieldInitialValues('date'),
         completedAllReps: 'yes',
-        repsCompleted: '',
+        ...numberFieldInitialValues('repsCompleted'),
         durationGroup: {
           MM: '00',
           SS: '00',
@@ -69,33 +75,18 @@ const CrossFitOpen241 = ({ workout, close }: CrossFitOpen241Props) => {
       onSubmit={async (values, { setSubmitting }) => {
         const log = `${values.difficulty},${values.completedAllReps},${values.repsCompleted},${values.durationGroup.MM}:${values.durationGroup.SS}`;
 
-        const data: PostWorkoutParams = {
-          workoutId: workout.id,
-          log,
-          date: values.date,
-        };
-
-        const res = await fetch('/api/user/workouts', {
-          method: 'POST',
-          body: JSON.stringify(data),
-        });
-
-        const json = await res.json();
-
-        dispatch(
-          addSuccess({
-            id: json.insertId,
-            workoutId: workout.id,
-            userId: userId || '',
+        await dispatch(
+          postUserWorkout({
+            workoutId: movement.id,
             log,
             date: values.date,
           }),
-        );
+        ).unwrap();
 
         dispatch(
           celebrate({
-            exercise: workout.name,
-            loggingType: workout.logging_type,
+            exercise: movement.name,
+            loggingType: movement.logging_type,
             score: log,
           }),
         );
@@ -106,32 +97,15 @@ const CrossFitOpen241 = ({ workout, close }: CrossFitOpen241Props) => {
     >
       {({ isSubmitting, values }) => (
         <Form>
-          <p className="text-sm">{workout.workout_type}</p>
-          <h2 className="text-xl font-bold mb-4">{workout.name}</h2>
+          <p className="text-sm">{movement.workout_type}</p>
+          <h2 className="text-xl font-bold mb-4">{movement.name}</h2>
 
           <div className="grid gap-4">
-            <div>
-              <div>
-                <label className="block mb-1" htmlFor="date">
-                  Date
-                </label>
-                <Field
-                  type="date"
-                  name="date"
-                  autoComplete="off"
-                  placeholder="dd/mm/yyyy"
-                  className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[42px]"
-                />
-                <ErrorMessage
-                  name="date"
-                  render={msg => (
-                    <div className="text-xs text-red-600 mt-2">{msg}</div>
-                  )}
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block mb-1">Scaling</label>
+            <FormGroup label="Date" id="date" groupName="date">
+              <DateField id="date" groupName="date" />
+            </FormGroup>
+
+            <FormGroup label="Scaling" id="scaling" groupName="difficulty">
               <Field
                 as="select"
                 name="difficulty"
@@ -141,7 +115,7 @@ const CrossFitOpen241 = ({ workout, close }: CrossFitOpen241Props) => {
                 <option value="Scaled">Scaled</option>
                 <option value="Foundation">Foundation</option>
               </Field>
-            </div>
+            </FormGroup>
 
             <div
               role="group"
@@ -164,23 +138,13 @@ const CrossFitOpen241 = ({ workout, close }: CrossFitOpen241Props) => {
             </div>
 
             {values.completedAllReps === 'no' && (
-              <div>
-                <label className="block mb-1">Reps Completed</label>
-                <Field
-                  type="number"
-                  name="repsCompleted"
-                  inputMode="decimal"
-                  placeholder="0"
-                  autoComplete="off"
-                  className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                />
-                <ErrorMessage
-                  name="repsCompleted"
-                  render={msg => (
-                    <div className="text-xs text-red-600 mt-2">{msg}</div>
-                  )}
-                />
-              </div>
+              <FormGroup
+                label="Reps Completed"
+                id="repsCompleted"
+                groupName="repsCompleted"
+              >
+                <NumberField id="repsCompleted" groupName="repsCompleted" />
+              </FormGroup>
             )}
 
             <div>
