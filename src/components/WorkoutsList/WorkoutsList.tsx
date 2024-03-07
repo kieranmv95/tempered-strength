@@ -55,6 +55,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
           >
             <option value="">All</option>
             <option value="CrossFit">CrossFit</option>
+            <option value="CrossFit Open">CrossFit Open</option>
             <option value="Hyrox">Hyrox</option>
           </select>
         </div>
@@ -119,7 +120,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                 movementTitle={`${workout.workout_type} - ${workout.name}`}
                 movementSubTitle={
                   oneRepMax
-                    ? `${workout.logging_type === 'tiebreak_time_or_reps' ? 'Latest:' : 'Best:'} ${oneRepMax} ${getUnits(workout.logging_type)}`
+                    ? `${workout.logging_type === '24.1' ? 'Latest:' : 'Best:'} ${oneRepMax} ${getUnits(workout.logging_type)}`
                     : null
                 }
               >

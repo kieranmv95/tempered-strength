@@ -11,7 +11,7 @@ type LogWorkoutProps = {
 };
 
 const LogWorkout = ({ workout, close, currentPb }: LogWorkoutProps) => {
-  if (workout.logging_type === 'tiebreak_time_or_reps') {
+  if (workout.logging_type === '24.1') {
     return (
       <CrossFitOpen241
         movement={workout}

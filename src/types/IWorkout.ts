@@ -1,8 +1,4 @@
-export type IWorkoutLoggingType =
-  | 'weight'
-  | 'reps'
-  | 'duration'
-  | 'tiebreak_time_or_reps';
+export type IWorkoutLoggingType = 'weight' | 'reps' | 'duration' | '24.1';
 
 export type IWorkoutType = 'CrossFit' | 'Hyrox' | 'CrossFit Open';
 
