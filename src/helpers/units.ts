@@ -16,10 +16,11 @@ export const formatScore = (
   loggingType: ILoggingType | IWorkoutLoggingType,
   score: string | number,
 ) => {
+  let stringBuilder;
+  let parts;
   switch (loggingType) {
-    case 'tiebreak_time_or_reps':
-      let stringBuilder = '';
-      const parts = (score as string).split(',');
+    case '24.1':
+      parts = (score as string).split(',');
       const completedWorkout = parts[1] === 'yes';
 
       if (completedWorkout) {
@@ -27,31 +28,15 @@ export const formatScore = (
       } else {
         stringBuilder = `<div>${parts[0]}<br/>${parts[2]}reps<br/>Tiebreak Time: ${parts[3]}</div>`;
       }
-
-      return stringBuilder;
+      break;
+    case '24.2':
+      parts = (score as string).split(',');
+      stringBuilder = `<div>${parts[0]}<br/>${parts[1]}</div>`;
+      break;
     default:
-      return `${score}${getUnits(loggingType)}`;
+      stringBuilder = `${score}${getUnits(loggingType)}`;
+      break;
   }
-};
 
-export const formatShortScore = (
-  loggingType: ILoggingType | IWorkoutLoggingType,
-  score: string | number,
-) => {
-  switch (loggingType) {
-    case 'tiebreak_time_or_reps':
-      let stringBuilder = '';
-      const parts = (score as string).split(',');
-      const completedWorkout = parts[1] === 'yes';
-
-      if (completedWorkout) {
-        stringBuilder = `<div>${parts[0]}<br/>${parts[3]}</div>`;
-      } else {
-        stringBuilder = `<div>${parts[0]}<br/>${parts[2]}reps<br/>Tiebreak Time: ${parts[3]}</div>`;
-      }
-
-      return stringBuilder;
-    default:
-      return `${score}${getUnits(loggingType)}`;
-  }
+  return stringBuilder;
 };

@@ -55,6 +55,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
           >
             <option value="">All</option>
             <option value="CrossFit">CrossFit</option>
+            <option value="CrossFit Open">CrossFit Open</option>
             <option value="Hyrox">Hyrox</option>
           </select>
         </div>
@@ -98,7 +99,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
               oneRepMax = getOneRepMax(workout.id);
             } else if (workout.logging_type === 'duration') {
               oneRepMax = getFastestTime(workout.id);
-            } else {
+            } else if (workout.logging_type === '24.1') {
               const data = getWorkoutById(workout.id);
               if (data.length) {
                 const parts = data[0].log.split(',');
@@ -112,6 +113,15 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
               } else {
                 oneRepMax = null;
               }
+            } else {
+              // '24.2'
+              const data = getWorkoutById(workout.id);
+              if (data.length) {
+                const parts = data[0].log.split(',');
+                oneRepMax = `${parts[0]} ${parts[1]}`;
+              } else {
+                oneRepMax = null;
+              }
             }
             return (
               <MovementListItem
@@ -119,7 +129,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                 movementTitle={`${workout.workout_type} - ${workout.name}`}
                 movementSubTitle={
                   oneRepMax
-                    ? `${workout.logging_type === 'tiebreak_time_or_reps' ? 'Latest:' : 'Best:'} ${oneRepMax} ${getUnits(workout.logging_type)}`
+                    ? `${workout.logging_type === '24.1' || workout.logging_type === '24.2' ? 'Latest:' : 'Best:'} ${oneRepMax} ${getUnits(workout.logging_type)}`
                     : null
                 }
               >
