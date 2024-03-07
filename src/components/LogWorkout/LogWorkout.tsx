@@ -1,8 +1,8 @@
 'use client';
 
-import { LogWorkoutForm } from '@/components/Forms';
 import { IWorkout } from '@/types/IWorkout';
 import CrossFitOpen241 from '@/components/Forms/LoggingForms/CrossFitOpen241';
+import { selectForm } from '@/components/Forms/LoggingForms';
 
 type LogWorkoutProps = {
   currentPb?: string;
@@ -12,10 +12,23 @@ type LogWorkoutProps = {
 
 const LogWorkout = ({ workout, close, currentPb }: LogWorkoutProps) => {
   if (workout.logging_type === 'tiebreak_time_or_reps') {
-    return <CrossFitOpen241 workout={workout} close={close} />;
-  } else {
     return (
-      <LogWorkoutForm currentPb={currentPb} workout={workout} close={close} />
+      <CrossFitOpen241
+        movement={workout}
+        close={close}
+        submissionType="workout"
+      />
+    );
+  } else {
+    const Component = selectForm(workout.logging_type);
+
+    return (
+      <Component
+        currentPb={currentPb}
+        movement={workout}
+        close={close}
+        submissionType="workout"
+      />
     );
   }
 };

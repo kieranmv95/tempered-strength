@@ -12,7 +12,14 @@ type LogExerciseProps = {
 const LogExercise = ({ exercise, close, currentPb }: LogExerciseProps) => {
   const Component = selectForm(exercise.logging_type);
 
-  return <Component currentPb={currentPb} movement={exercise} close={close} />;
+  return (
+    <Component
+      currentPb={currentPb}
+      movement={exercise}
+      close={close}
+      submissionType="exercise"
+    />
+  );
 };
 
 export default LogExercise;
