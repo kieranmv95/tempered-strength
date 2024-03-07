@@ -58,7 +58,7 @@ const CrossFitOpen242 = ({ movement, close }: CrossFitOpen242Props) => {
         close();
       }}
     >
-      {({ isSubmitting, values }) => (
+      {({ isSubmitting }) => (
         <Form>
           <p className="text-sm">{movement.workout_type}</p>
           <h2 className="text-xl font-bold mb-4">{movement.name}</h2>
