@@ -16,7 +16,7 @@ export const formatScore = (
   loggingType: ILoggingType | IWorkoutLoggingType,
   score: string | number,
 ) => {
-  let stringBuilder = '';
+  let stringBuilder;
   let parts;
   switch (loggingType) {
     case '24.1':
