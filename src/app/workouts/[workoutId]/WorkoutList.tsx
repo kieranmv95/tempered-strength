@@ -38,6 +38,15 @@ export const getPrettyValue = (
     return oneRepMax;
   }
 
+  if (logging_type === '24.2') {
+    let oneRepMax;
+
+    const parts = value.split(',');
+    oneRepMax = ` ${parts[0]} ${parts[1]}`;
+
+    return oneRepMax;
+  }
+
   return value;
 };
 

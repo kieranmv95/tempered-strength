@@ -123,6 +123,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                 oneRepMax = null;
               }
             }
+
             return (
               <MovementListItem
                 key={workout.id}
