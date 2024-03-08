@@ -12,6 +12,7 @@ import { getUnits } from '@/helpers/units';
 import { PercentagesBreakdown, LogExercise, Button } from '@/components';
 import { IExercise } from '@/types/IExercise';
 import PopUpModal from '@/components/PopUpModal/PopUpModal';
+import Chart from '@/components/Chart';
 
 type SelectedExerciseType = {
   exercise: IExercise;
@@ -26,6 +27,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const { data, loading, err, getFastestTime, getExerciseById, getOneRepMax } =
     useUserExercises();
   const dispatch = useAppDispatch();
+
+  const userExerciseList = getExerciseById(exercise.id);
 
   const deleteExercise = async (id: number) => {
     await dispatch(deleteUserExercise(id)).unwrap();
@@ -49,10 +52,10 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
       exercise.logging_type === 'weight' ||
       exercise.logging_type === 'reps'
     ) {
-      return getExerciseById(exercise.id)[0].log;
+      return userExerciseList[0].log;
     }
     if (exercise.logging_type === 'duration') {
-      return getExerciseById(exercise.id)[0].duration;
+      return userExerciseList[0].duration;
     }
   };
 
@@ -62,7 +65,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
       {!loading && err && <>Error</>}
       {!loading && !err && data && (
         <>
-          {getExerciseById(exercise.id).length ? (
+          {userExerciseList.length ? (
             <>
               <Button
                 type="button"
@@ -90,6 +93,31 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
               </div>
               {(exercise.logging_type === 'weight' ||
                 exercise.logging_type === 'reps') && (
+                <div className="mb-6">
+                  <p className="text-xl font-bold mb-2">Progress</p>
+                  <p className="mb-2">showing latest 7 results</p>
+                  <Chart
+                    data={userExerciseList
+                      .map(data => {
+                        return {
+                          log: data.log as number,
+                          date: new Date(data.date).toLocaleDateString(
+                            'en-GB',
+                            {
+                              year: 'numeric',
+                              month: 'numeric',
+                              day: 'numeric',
+                            },
+                          ),
+                        };
+                      })
+                      .slice(0, 7)
+                      .reverse()}
+                  />
+                </div>
+              )}
+              {(exercise.logging_type === 'weight' ||
+                exercise.logging_type === 'reps') && (
                 <>
                   <p className="text-xl font-bold mb-2">
                     Percentages Breakdown
@@ -112,10 +140,10 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                     <PercentagesBreakdown
                       value={
                         breakdownPb
-                          ? getExerciseById(exercise.id).reduce((a, b) => {
+                          ? userExerciseList.reduce((a, b) => {
                               return Math.max(a, b.log as number);
                             }, -Infinity)
-                          : (getExerciseById(exercise.id)[0].log as number)
+                          : (userExerciseList[0].log as number)
                       }
                       loggingType={exercise.logging_type}
                     />
@@ -124,7 +152,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
               )}
               <p className="text-xl font-bold mb-2">Log</p>
               <div className="grid gap-3">
-                {getExerciseById(exercise.id).map(userExercise => {
+                {userExerciseList.map(userExercise => {
                   return (
                     <ExerciseListItem
                       key={userExercise.id}
