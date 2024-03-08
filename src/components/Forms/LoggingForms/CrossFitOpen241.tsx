@@ -16,6 +16,10 @@ import FormGroup from '@/components/Forms/FormComponents/FormGroup';
 import NumberField, {
   numberFieldInitialValues,
 } from '@/components/Forms/FormComponents/NumberField';
+import SelectField, {
+  selectFieldInitialValues,
+  SelectOption,
+} from '@/components/Forms/FormComponents/SelectField';
 
 const CrossFitOpen241Schema = Yup.object().shape({
   ...dateFieldSchema('date'),
@@ -59,11 +63,17 @@ type CrossFitOpen241Props = {
 const CrossFitOpen241 = ({ movement, close }: CrossFitOpen241Props) => {
   const dispatch = useAppDispatch();
 
+  const scalingOptions: SelectOption[] = [
+    { key: 'RX', value: 'RX' },
+    { key: 'Scaled', value: 'Scaled' },
+    { key: 'Foundation', value: 'Foundation' },
+  ];
+
   return (
     <Formik
       validationSchema={CrossFitOpen241Schema}
       initialValues={{
-        difficulty: 'RX',
+        ...selectFieldInitialValues('difficulty', scalingOptions[0]),
         ...dateFieldInitialValues('date'),
         completedAllReps: 'yes',
         ...numberFieldInitialValues('repsCompleted'),
@@ -106,15 +116,11 @@ const CrossFitOpen241 = ({ movement, close }: CrossFitOpen241Props) => {
             </FormGroup>
 
             <FormGroup label="Scaling" id="scaling" groupName="difficulty">
-              <Field
-                as="select"
-                name="difficulty"
-                className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
-              >
-                <option value="RX">RX</option>
-                <option value="Scaled">Scaled</option>
-                <option value="Foundation">Foundation</option>
-              </Field>
+              <SelectField
+                id="scaling"
+                groupName="difficulty"
+                options={scalingOptions}
+              />
             </FormGroup>
 
             <div
