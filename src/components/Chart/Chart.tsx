@@ -12,7 +12,7 @@ type ChartProps = {
 };
 
 const Chart = ({ data }: ChartProps) => {
-  const [chartOptions, setChartOptions] = useState<AgChartOptions>(null);
+  const [chartOptions, setChartOptions] = useState<AgChartOptions | null>(null);
 
   useEffect(() => {
     setChartOptions({
