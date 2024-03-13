@@ -1,11 +1,16 @@
-'use client';
-
 import Image from 'next/image';
 import { SearchForUserFormLarge } from '@/components/Forms';
 import Link from 'next/link';
-import CountUp from 'react-countup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import type { Metadata } from 'next';
+import CountComponent from '@/components/CountComponent';
+
+export const metadata: Metadata = {
+  title: 'Tempered Strength - Track, Share, and Compete in Fitness',
+  description:
+    'Elevate your fitness journey with Tempered Strength. Track your workouts, share your progress, and challenge friends to discover the pound-for-pound champion. Your ultimate platform for all things lifting, running, and more.',
+};
 
 export default function Home() {
   return (
@@ -38,29 +43,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="flex gap-4 md:gap-12 md:text-center mb-20 xl:mb-0">
-            <div>
-              <p className="text-4xl mb-2 font-black md:text-7xl md:mb-3">
-                <CountUp end={100} duration={3} start={1} />
-                <span className="text-egwene-500">+</span>
-              </p>
-              <p className="text-sm">Trackable Exercises</p>
-            </div>
-            <div>
-              <p className="text-4xl mb-2 font-black md:text-7xl md:mb-3">
-                <CountUp end={25} duration={3} start={1} />
-                <span className="text-egwene-500">K+</span>
-              </p>
-              <p className="text-sm">Kilograms logged</p>
-            </div>
-            <div>
-              <p className="text-4xl mb-2 font-black md:text-7xl md:mb-3">
-                <CountUp end={900} duration={3} start={1} />
-                <span className="text-egwene-500">+</span>
-              </p>
-              <p className="text-sm">Comparisons made</p>
-            </div>
-          </div>
+          <CountComponent />
 
           <Image
             className="w-full max-w-[800px] mx-auto xl:absolute xl:top-32 xl:right-[-10rem] 2xl:right-0 2xl:max-w-[900px] 2xl:top-20"
