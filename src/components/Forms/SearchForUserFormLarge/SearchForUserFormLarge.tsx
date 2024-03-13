@@ -29,28 +29,28 @@ const SearchForUserFormLarge = () => {
       validationSchema={BestsSchema}
     >
       {({ isSubmitting }) => (
-        <Form className="mt-6">
-          <div className="flex gap-3">
+        <Form className="mt-8 md:mt-12">
+          <div className="flex relative">
             <Field
               type="text"
               name="username"
               placeholder="username"
               autoComplete="off"
-              className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+              className="py-4 px-6 bg-rand-500 rounded-full text-thom md:p-6 w-full"
             />
+
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-[44px] h-[44px] block bg-green-600 hover:bg-green-700 click:bg-green-600 rounded text-center"
+              className="bg-egwene-500 rounded-full text-rand-500 py-4 md:py-6 px-10 md:px-12 text-center absolute top-0 right-0"
             >
-              <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4" />
+              Search
             </button>
           </div>
+
           <ErrorMessage
             name="username"
-            render={msg => (
-              <div className="text-xs text-red-600 mt-2">{msg}</div>
-            )}
+            render={msg => <div className="mt-3 text-danger-500">{msg}</div>}
           />
         </Form>
       )}

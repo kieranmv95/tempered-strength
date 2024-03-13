@@ -96,7 +96,7 @@ export const UnauthenticatedHeader = () => (
     </div>
     <div className="p-4 lg:p-0 grid grid-cols-2 text-center lg:flex gap-3 mt-4 lg:mt-0 lg:text-sm">
       <Link
-        className="block bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded"
+        className="block bg-egwene-500 py-2 px-4 rounded-full text-rand-500"
         href="/sign-in"
       >
         Sign in

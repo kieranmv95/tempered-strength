@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-zinc-800 text-white;
+  @apply bg-rand-500 text-thom;
 }
 
 input[type='date'] {

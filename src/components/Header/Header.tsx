@@ -38,8 +38,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 left-0 z-20 bg-zinc-800">
-        <nav className="flex items-center justify-between flex-wrap bg-zinc-700 p-4">
+      <header className="sticky top-0 left-0 z-20 bg-rand-500">
+        <nav className="flex items-center justify-between flex-wrap bg-rand-500 p-4">
           <div className="flex items-center flex-shrink-0 text-white mr-6">
             <Link href={isSignedIn ? '/dashboard' : '/'}>
               <Image
@@ -54,7 +54,7 @@ const Header = () => {
           </div>
           <div className="block lg:hidden">
             <button
-              className="flex items-center px-3 py-2 border rounded text-amber-400 border-amber-400 hover:text-amber-100 hover:border-amber-100"
+              className="flex items-center px-3 py-2 border rounded text-egwene-500 border-egwene-500"
               onClick={() => setNavOpen(!navOpen)}
             >
               {navOpen ? (
@@ -65,7 +65,7 @@ const Header = () => {
             </button>
           </div>
           <div
-            className={`${!navOpen && 'hidden'} fixed top-[74px] left-0 bg-zinc-700 w-[80%] h-[calc(100%-74px)] max-w-sm grid grid-rows-[1fr_auto] lg:relative lg:top-0 lg:h-auto lg:flex lg:flex-grow lg:w-auto lg:max-w-none lg:items-center`}
+            className={`${!navOpen && 'hidden'} fixed top-[74px] left-0 bg-rand-500 w-[80%] h-[calc(100%-74px)] max-w-sm grid grid-rows-[1fr_auto] lg:relative lg:top-0 lg:h-auto lg:flex lg:flex-grow lg:w-auto lg:max-w-none lg:items-center`}
           >
             <SignedIn>
               <AuthenticatedHeader />
