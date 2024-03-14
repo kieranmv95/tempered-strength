@@ -111,7 +111,7 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
                     <div className="flex gap-4">
                       <Button
                         type="button"
-                        theme="red"
+                        theme="danger"
                         onClick={() => setShowUpdateForm(false)}
                         className="w-full mt-3 md:w-36"
                       >

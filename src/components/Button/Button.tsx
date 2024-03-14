@@ -11,7 +11,7 @@ type ButtonProps = {
   fullWidth?: boolean;
   className?: string;
   loadingText?: string;
-  theme?: 'green' | 'blue' | 'red' | 'text-underline' | 'egwene';
+  theme?: 'green' | 'blue' | 'danger' | 'text-underline' | 'egwene';
 };
 const Button = ({
   type,
@@ -22,16 +22,17 @@ const Button = ({
   fullWidth,
   className,
   loadingText = 'Loading...',
-  theme = 'green',
+  theme = 'egwene',
 }: ButtonProps) => {
   const getTheme = () => {
     switch (theme) {
       case 'text-underline':
         return `block underline py-2 px-4  ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
+      case 'danger':
+        return `block text-thom bg-${theme}-500 py-2 px-4 rounded-full ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
       case 'egwene':
-        return `block text-rand-500 bg-${theme}-500 py-2 px-4 rounded-full ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
       default:
-        return `block bg-${theme}-600 hover:bg-${theme}-700 click:bg-${theme}-600 py-2 px-4 rounded-full ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
+        return `block text-rand-500 bg-${theme}-500 py-2 px-4 rounded-full ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
     }
   };
 

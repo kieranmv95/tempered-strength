@@ -3,6 +3,7 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components';
 
 const BestsSchema = Yup.object().shape({
   username: Yup.string()
@@ -55,13 +56,11 @@ export default function Compare() {
                   )}
                 />
               </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full block bg-green-600 hover:bg-green-700 click:bg-green-600 py-2 px-4 rounded text-center md:w-[250px]"
-              >
-                Search
-              </button>
+              <div>
+                <Button type="submit" disabled={isSubmitting}>
+                  Search
+                </Button>
+              </div>
             </div>
           </Form>
         )}
