@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import { Analytics } from '@vercel/analytics/react';
 import type { Viewport } from 'next';
 import Script from 'next/script';
+import BottomNav from '@/components/BottomNav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -44,6 +45,7 @@ export default function RootLayout({
                   <Header />
                   <Toaster position="top-center" />
                   {children}
+                  <BottomNav />
                   <Analytics />
                 </body>
               </html>

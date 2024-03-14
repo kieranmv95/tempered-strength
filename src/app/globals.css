@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-rand-500 text-thom;
+  @apply bg-rand-500 text-thom mb-28;
 }
 
 input[type='date'] {

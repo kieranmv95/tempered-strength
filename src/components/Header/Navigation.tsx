@@ -58,7 +58,7 @@ export const AuthenticatedHeader = () => (
           icon={faMagnifyingGlass}
           className="w-4 h-4 lg:hidden"
         />
-        Search for a User
+        Search Users
       </Link>
       <Link
         href="/compare"
@@ -72,7 +72,7 @@ export const AuthenticatedHeader = () => (
         className="py-3 px-4 lg:py-1 lg:px-0 lg:inline flex gap-2 items-center"
       >
         <FontAwesomeIcon icon={faShare} className="w-4 h-4 lg:hidden" />
-        Your Public Profile
+        Public Profile
       </Link>
     </div>
     <div className="lg:text-sm flex gap-3 mt-4 lg:mt-0 px-4 pb-4 lg:px-0 lg:pb-0">

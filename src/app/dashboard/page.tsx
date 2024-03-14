@@ -1,4 +1,3 @@
-import Account from '@/app/dashboard/Account';
 import Block from '@/components/Block';
 import {
   faDumbbell,
@@ -6,13 +5,16 @@ import {
   faUsers,
   faHeartPulse,
 } from '@fortawesome/free-solid-svg-icons';
+import AccountWarning from '@/app/dashboard/AccountWarning';
 
 export default function Dashboard() {
   return (
     <div className="px-4 py-12 container mx-auto">
-      <h1 className="text-2xl font-bold lg:text-4xl mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-bold lg:text-4xl mb-6">DASHBOARD</h1>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <AccountWarning />
+
+      <div className="grid mb-4 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <Block
           icon={faUser}
           title="Account"
@@ -21,9 +23,7 @@ export default function Dashboard() {
             href: '/account',
             title: 'Account',
           }}
-        >
-          <Account />
-        </Block>
+        />
         <Block
           icon={faDumbbell}
           title="Exercises"
