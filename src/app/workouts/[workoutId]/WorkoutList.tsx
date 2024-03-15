@@ -24,7 +24,7 @@ export const getPrettyValue = (
   value: string,
   logging_type: IWorkoutLoggingType,
 ) => {
-  if (logging_type === '24.1') {
+  if (logging_type === '24.1' || logging_type === '24.3') {
     let oneRepMax;
 
     const parts = value.split(',');
@@ -101,7 +101,8 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
               </Button>
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
                 {workout.logging_type !== '24.1' &&
-                  workout.logging_type !== '24.2' && (
+                  workout.logging_type !== '24.2' &&
+                  workout.logging_type !== '24.3' && (
                     <Box>
                       <p className="text-xl font-bold mb-2">Best</p>
                       {getBest()}

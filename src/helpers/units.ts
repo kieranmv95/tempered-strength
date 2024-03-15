@@ -20,6 +20,7 @@ export const formatScore = (
   let parts;
   switch (loggingType) {
     case '24.1':
+    case '24.3':
       parts = (score as string).split(',');
       const completedWorkout = parts[1] === 'yes';
 

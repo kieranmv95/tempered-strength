@@ -3,7 +3,8 @@ export type IWorkoutLoggingType =
   | 'reps'
   | 'duration'
   | '24.1'
-  | '24.2';
+  | '24.2'
+  | '24.3';
 
 export type IWorkoutType = 'CrossFit' | 'Hyrox' | 'CrossFit Open';
 

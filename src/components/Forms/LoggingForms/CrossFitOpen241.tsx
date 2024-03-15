@@ -131,14 +131,33 @@ const CrossFitOpen241 = ({ movement, close }: CrossFitOpen241Props) => {
               <label className="flex gap-2">
                 <Field type="radio" name="completedAllReps" value="yes" />
                 <div>
-                  Completed all <span className="font-bold">180 reps</span>
+                  {movement.logging_type === '24.1' && (
+                    <>
+                      Completed all <span className="font-bold">180 reps</span>
+                    </>
+                  )}
+                  {movement.logging_type === '24.3' && (
+                    <>
+                      Completed all <span className="font-bold">170 reps</span>
+                    </>
+                  )}
                 </div>
               </label>
               <label className="flex gap-2">
                 <Field type="radio" name="completedAllReps" value="no" />
                 <div>
-                  Completed fewer than{' '}
-                  <span className="font-bold">180 reps</span>
+                  {movement.logging_type === '24.1' && (
+                    <>
+                      Completed fewer than{' '}
+                      <span className="font-bold">180 reps</span>
+                    </>
+                  )}
+                  {movement.logging_type === '24.3' && (
+                    <>
+                      Completed fewer than{' '}
+                      <span className="font-bold">170 reps</span>
+                    </>
+                  )}
                 </div>
               </label>
             </div>
