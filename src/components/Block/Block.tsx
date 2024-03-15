@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-regular-svg-icons';
+import { Box } from '@/components/DesignSystemElements';
 
 type BlockProps = {
   icon: IconDefinition;
@@ -14,7 +15,7 @@ type BlockProps = {
 };
 
 const Block = ({ children, title, description, url, icon }: BlockProps) => (
-  <div className="bg-rand-400 p-4 grid grid-rows-[auto_1fr_auto] rounded-xl md:p-6">
+  <Box className="grid grid-rows-[auto_1fr_auto]">
     <div>
       <div className="flex gap-3 items-center mb-3">
         <FontAwesomeIcon icon={icon} className="w-6 h-6 text-egwene-500" />
@@ -31,7 +32,7 @@ const Block = ({ children, title, description, url, icon }: BlockProps) => (
         {url.title}
       </Link>
     </div>
-  </div>
+  </Box>
 );
 
 export default Block;

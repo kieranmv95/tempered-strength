@@ -43,7 +43,7 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
           <>
             <p className="mb-1">Username</p>
             <div
-              className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
+              className="rounded block w-full p-2.5 bg-rand-500 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
               onClick={showForm}
             >
               {user.username}
@@ -110,7 +110,7 @@ const UpdateUsername = ({ user }: UpdateUsernameProps) => {
                       type="text"
                       name="username"
                       placeholder="username"
-                      className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
+                      className="rounded block w-full p-2.5 bg-rand-500 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
                     />
                     <ErrorMessage
                       name="username"

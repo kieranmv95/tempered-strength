@@ -41,7 +41,7 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
               Your weight will never be shared publicly
             </p>
             <div
-              className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
+              className="rounded block w-full p-2.5 bg-rand-500 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
               onClick={showForm}
             >
               {user.weight || 'Click to add weight'}
@@ -100,7 +100,7 @@ const UpdateWeight = ({ user }: UpdateWeightProps) => {
                       name="weight"
                       inputMode="decimal"
                       placeholder="80kg"
-                      className="rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
+                      className="rounded block w-full p-2.5 bg-rand-500 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mt-2"
                     />
                     <ErrorMessage
                       name="weight"

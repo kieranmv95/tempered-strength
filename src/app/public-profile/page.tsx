@@ -4,6 +4,7 @@ import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
 import { auth } from '@clerk/nextjs';
 import Link from 'next/link';
 import { ILoggingType } from '@/types/IExercise';
+import { Box, Container, Title } from '@/components/DesignSystemElements';
 
 const getUserData = async (username: string) => {
   const user = (await query(`
@@ -48,28 +49,28 @@ export default async function Page() {
 
   return (
     <>
-      <div className="px-4 py-12 container mx-auto">
-        <h2 className="text-2xl font-bold lg:text-4xl mb-4">
-          Your Public Profile
-        </h2>
-        <p>
-          Below is a representation of what a user will see when they search for
-          yourself or navigate tou your public profile!
-        </p>
-        <h2 className="text-xl font-bold lg:text-2xl mb-3 mt-6">
-          Share your profile with the world!
-        </h2>
-        <p>
-          Now you have a public profile, you can start sharing it with your
-          friends! Simply click the button below, or copy the link from the text
-          box to get started
-        </p>
-        <CopyUrlToClipboard
-          url={`https://temperedstrength.com/user/${username}`}
-        >
-          Click here to copy your public user profile to the clipboard
-        </CopyUrlToClipboard>
-      </div>
+      <Container>
+        <Title className="mb-6">PUBLIC PROFILE</Title>
+        <Box>
+          <p>
+            Below is a representation of what a user will see when they search
+            for yourself or navigate tou your public profile!
+          </p>
+          <h2 className="text-xl font-bold lg:text-2xl mb-3 mt-6">
+            Share your profile with the world!
+          </h2>
+          <p>
+            Now you have a public profile, you can start sharing it with your
+            friends! Simply click the button below, or copy the link from the
+            text box to get started
+          </p>
+          <CopyUrlToClipboard
+            url={`https://temperedstrength.com/user/${username}`}
+          >
+            Click here to copy your public user profile to the clipboard
+          </CopyUrlToClipboard>
+        </Box>
+      </Container>
       <div className="relative grid justify-center">
         <div className="h-[4px] w-full bg-red-700 absolute top-[18px] left-0 z-[2]" />
         <div className="h-[2px] w-full bg-red-300 absolute top-[19px] left-0 z-[3]" />

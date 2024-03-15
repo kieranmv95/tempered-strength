@@ -97,6 +97,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
               <MovementListItem
                 key={exercise.id}
                 movementTitle={exercise.name}
+                href={`/exercises/${exercise.id}`}
                 movementSubTitle={
                   oneRepMax
                     ? `Best: ${oneRepMax} ${getUnits(exercise.logging_type)}`
@@ -110,16 +111,10 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
                       existingPb: oneRepMax ? oneRepMax : undefined,
                     })
                   }
-                  className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
+                  className="cursor-pointer bg-egwene-500 text-rand-500 w-11 flex items-center justify-center rounded-xl"
                 >
                   <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                 </div>
-                <Link
-                  href={`/exercises/${exercise.id}`}
-                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
-                >
-                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                </Link>
               </MovementListItem>
             );
           })}

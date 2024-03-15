@@ -133,6 +133,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                     ? `${workout.logging_type === '24.1' || workout.logging_type === '24.2' ? 'Latest:' : 'Best:'} ${oneRepMax} ${getUnits(workout.logging_type)}`
                     : null
                 }
+                href={`/workouts/${workout.id}`}
               >
                 <div
                   onClick={() =>
@@ -141,16 +142,10 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
                       existingPb: oneRepMax as string,
                     })
                   }
-                  className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm w-11 flex items-center justify-center"
+                  className="cursor-pointer bg-egwene-500 text-rand-500 w-11 flex items-center justify-center rounded-xl"
                 >
                   <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                 </div>
-                <Link
-                  href={`/workouts/${workout.id}`}
-                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
-                >
-                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                </Link>
               </MovementListItem>
             );
           })}

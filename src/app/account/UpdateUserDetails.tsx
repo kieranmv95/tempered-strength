@@ -11,10 +11,10 @@ const UpdateUserDetails = () => {
   if (user.err) return <div>Error</div>;
 
   return (
-    <div className="bg-zinc-600 rounded p-4 grid gap-4">
+    <>
       <UpdateUsername user={user.data} />
       <UpdateWeight user={user.data} />
-    </div>
+    </>
   );
 };
 

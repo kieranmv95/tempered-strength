@@ -50,7 +50,7 @@ const ExerciseListItem = ({
       >
         <div
           onClick={() => setShowOptions(!showOptions)}
-          className="cursor-pointer bg-zinc-700 hover:bg-zinc-600 text-white rounded-sm w-8 flex items-center justify-center"
+          className="cursor-pointer bg-egwene-500 text-rand-500 w-8 flex items-center justify-center rounded-xl"
         >
           <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
         </div>
