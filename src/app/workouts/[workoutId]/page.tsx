@@ -3,6 +3,7 @@ import BackButton from '@/components/BackButton';
 import { query } from '@/db';
 import { IWorkout } from '@/types/IWorkout';
 import WorkoutList from './WorkoutList';
+import { Container, Title } from '@/components/DesignSystemElements';
 
 async function getWorkouts(id: number) {
   const workouts = (await query(
@@ -22,12 +23,11 @@ export default async function Workout({
   if (!workout) return null;
 
   return (
-    <div className="px-4 py-12 container mx-auto">
+    <Container>
       <BackButton href="/workouts">Back to workouts</BackButton>
       <div className="text-sm">{workout.workout_type}</div>
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6">{workout.name}</h2>
-      <div dangerouslySetInnerHTML={{ __html: workout.description }} />
+      <Title className="mb-6">{workout.name.toUpperCase()}</Title>
       <WorkoutList workout={workout} />
-    </div>
+    </Container>
   );
 }

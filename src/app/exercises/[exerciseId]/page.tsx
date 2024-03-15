@@ -3,6 +3,7 @@ import React from 'react';
 import ExerciseList from './ExerciseList';
 import BackButton from '@/components/BackButton';
 import { IExercise } from '@/types/IExercise';
+import { Container, Title } from '@/components/DesignSystemElements';
 
 async function getExercise(id: number) {
   const exercises = (await query(
@@ -22,11 +23,10 @@ export default async function Exercise({
   const { exercise } = await getExercise(Number(params.exerciseId));
 
   return (
-    <div className="px-4 py-12 container mx-auto">
+    <Container>
       <BackButton href="/exercises">Back to exercises</BackButton>
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6">{exercise.name}</h2>
-
+      <Title className="mb-6">{exercise.name.toUpperCase()}</Title>
       <ExerciseList exercise={exercise} />
-    </div>
+    </Container>
   );
 }

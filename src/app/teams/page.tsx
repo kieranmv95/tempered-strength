@@ -1,17 +1,17 @@
 import TeamsDirectory from '@/components/TeamsDirectory';
 import UserTeamsDirectory from '@/components/UserTeamsDirectory';
 import CreateTeam from '@/components/CreateTeam/CreateTeam';
+import { Container, Title } from '@/components/DesignSystemElements';
 
 export default function Teams() {
   return (
-    <div className="px-4 py-12 container mx-auto">
-      <h2 className="text-2xl font-bold lg:text-4xl mb-6">Teams</h2>
-
-      <div className="grid gap-4">
+    <Container>
+      <Title className="mb-6">TEAMS</Title>
+      <div className="grid gap-4 lg:gap-6">
         <CreateTeam />
         <UserTeamsDirectory />
         <TeamsDirectory />
       </div>
-    </div>
+    </Container>
   );
 }

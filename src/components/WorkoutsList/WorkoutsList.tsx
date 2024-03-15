@@ -34,12 +34,12 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
 
   return (
     <>
-      <div className="md:grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4 mb-4 lg:gap-6 lg:mb-6">
         <div>
           <p className="mb-1">Search</p>
           <input
             type="text"
-            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4"
+            className="text-sm rounded block w-full p-2.5 bg-rand-400 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search"
             autoComplete="off"
             onChange={e => setSearch(e.target.value)}
@@ -49,7 +49,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
         <div>
           <p className="mb-1">Category</p>
           <select
-            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[40px]"
+            className="text-sm rounded block w-full p-2.5 bg-rand-400 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
             onChange={e => setCategory(e.target.value as '' | IWorkoutType)}
             value={category}
           >
@@ -60,7 +60,7 @@ const WorkoutsList = ({ workouts }: WorkoutsListProps) => {
           </select>
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="grid gap-4 lg:gap-6">
         {workouts
           .sort(sortByName)
           .filter(workout => {

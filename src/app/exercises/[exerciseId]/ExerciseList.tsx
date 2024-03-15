@@ -13,6 +13,7 @@ import { PercentagesBreakdown, LogExercise, Button } from '@/components';
 import { IExercise } from '@/types/IExercise';
 import PopUpModal from '@/components/PopUpModal/PopUpModal';
 import Chart from '@/components/Chart';
+import { Box } from '@/components/DesignSystemElements';
 
 type SelectedExerciseType = {
   exercise: IExercise;
@@ -80,16 +81,16 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                 <FontAwesomeIcon icon={faPlus} className="w-4 h-4" /> Log
               </Button>
               <div className="grid grid-cols-2 gap-4 text-center mb-6 md:inline-grid md:w-[400px]">
-                <div className="bg-zinc-700 rounded-sm py-6">
+                <Box>
                   <p className="text-xl font-bold mb-2">Best</p>
                   {getBest()}
                   {getUnits(exercise.logging_type)}
-                </div>
-                <div className="bg-zinc-700 rounded-sm py-6">
+                </Box>
+                <Box>
                   <p className="text-xl font-bold mb-2 text-center">Latest</p>
                   {getLatest()}
                   {getUnits(exercise.logging_type)}
-                </div>
+                </Box>
               </div>
               {(exercise.logging_type === 'weight' ||
                 exercise.logging_type === 'reps') && (
@@ -150,8 +151,8 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                   </div>
                 </>
               )}
-              <p className="text-xl font-bold mb-2">Log</p>
-              <div className="grid gap-3">
+              <p className="text-xl font-bold mb-2 lg:mb-4">Log</p>
+              <div className="grid gap-4 lg:gap-6">
                 {userExerciseList.map(userExercise => {
                   return (
                     <ExerciseListItem

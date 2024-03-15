@@ -51,13 +51,13 @@ const WorkoutListItem = ({
                 }),
               );
             }}
-            className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
+            className="cursor-pointer bg-blue-600 text-white rounded-xl w-11 flex items-center justify-center"
           >
             <FontAwesomeIcon icon={faShare} className="w-4 h-4" />
           </div>
           <div
             onClick={() => deleteWorkout(userWorkout.id)}
-            className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm w-11 flex items-center justify-center"
+            className="cursor-pointer bg-danger-500 text-white rounded-xl w-11 flex items-center justify-center"
           >
             <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
           </div>

@@ -164,7 +164,7 @@ const CrossFitOpen241 = ({ movement, close }: CrossFitOpen241Props) => {
                   as="select"
                   name="durationGroup.MM"
                   placeholder="MM"
-                  className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
+                  className="text-sm rounded block w-full p-2.5 bg-rand-500 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
                 >
                   {Array.from({ length: 16 }).map((_, i) => {
                     return (
@@ -182,7 +182,7 @@ const CrossFitOpen241 = ({ movement, close }: CrossFitOpen241Props) => {
                   as="select"
                   name="durationGroup.SS"
                   placeholder="MM"
-                  className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
+                  className="text-sm rounded block w-full p-2.5 bg-rand-500 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
                 >
                   {Array.from({ length: 60 }).map((_, i) => {
                     return (

@@ -50,7 +50,7 @@ const ExerciseListItem = ({
       >
         <div
           onClick={() => setShowOptions(!showOptions)}
-          className="cursor-pointer bg-egwene-500 text-rand-500 w-8 flex items-center justify-center rounded-xl"
+          className="cursor-pointer bg-egwene-500 text-rand-500 w-11 flex items-center justify-center rounded-xl"
         >
           <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
         </div>
@@ -66,13 +66,13 @@ const ExerciseListItem = ({
                   }),
                 );
               }}
-              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm w-11 flex items-center justify-center"
+              className="cursor-pointer bg-blue-600 text-white rounded-xl w-11 flex items-center justify-center"
             >
               <FontAwesomeIcon icon={faShare} className="w-4 h-4" />
             </div>
             <div
               onClick={() => deleteExercise(userExercise.id)}
-              className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm w-11 flex items-center justify-center"
+              className="cursor-pointer bg-danger-500 text-white rounded-xl w-11 flex items-center justify-center"
             >
               <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
             </div>

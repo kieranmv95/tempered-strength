@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import LogExercise from '../LogExercise';
 import useUserExercises from '@/hooks/useUserExercises';
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getUnits } from '@/helpers/units';
 import { IExercise, IExerciseType } from '@/types/IExercise';
 import MovementListItem from '@/components/MovementListItem';
@@ -33,12 +32,12 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
 
   return (
     <>
-      <div className="md:grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4 mb-4 lg:gap-6 lg:mb-6">
         <div>
           <p className="mb-1">Search</p>
           <input
             type="text"
-            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[40px]"
+            className="text-sm rounded block w-full p-2.5 bg-rand-400 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
             placeholder="Search"
             autoComplete="off"
             onChange={e => setSearch(e.target.value)}
@@ -48,7 +47,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
         <div>
           <p className="mb-1">Category</p>
           <select
-            className="text-sm rounded block w-full p-2.5 bg-zinc-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mb-4 h-[40px]"
+            className="text-sm rounded block w-full p-2.5 bg-rand-400 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 h-[40px]"
             onChange={e =>
               setExerciseType(e.target.value as '' | IExerciseType)
             }
@@ -63,7 +62,7 @@ const ExercisesList = ({ exercises }: ExercisesListProps) => {
           </select>
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="grid gap-4 lg:gap-6">
         {exercises
           .sort(sortByName)
           .filter(exercise => {
