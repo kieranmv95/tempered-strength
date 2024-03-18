@@ -1,19 +1,26 @@
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faEllipsis,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import useUserTeams from '@/hooks/useUserTeams';
 import Link from 'next/link';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { IUserTeam } from '@/types/ITeam';
 import { useAppDispatch } from '@/lib/hooks';
 import toast from 'react-hot-toast';
 import { deleteTeam as deleteteamSlice } from '@/lib/features/userTeams/userTeamsSlice';
+import { Box } from '@/components/DesignSystemElements';
+import { Button } from '@/components';
 
 const UserTeamsDirectory = () => {
   const { data, loading, err } = useUserTeams();
   const [deleteTeam, setDeleteTeam] = useState<IUserTeam | null>(null);
   const dispatch = useAppDispatch();
+  const [showOptions, setShowOptions] = useState<null | string>(null);
 
   const confirmDelete = async () => {
     if (deleteTeam) {
@@ -59,32 +66,51 @@ const UserTeamsDirectory = () => {
         </div>
       ) : (
         <>
-          <div className="grid gap-3">
+          <div className="grid gap-4 lg:gap-6">
             {data.map(team => (
               <div
                 key={team.name}
-                className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
+                className="grid grid-cols-[1fr_auto] justify-between items-center"
               >
-                <div className="bg-zinc-700 px-3 rounded-sm flex justify-between h-11 items-center">
-                  <div>{team.name}</div>
-                  {team.owner ? 'Owner' : 'Member'}
-                </div>
-                <div className="flex gap-2">
-                  {team.owner && (
+                <Link
+                  href={`/teams/${team.id}`}
+                  className="grid relative items-center"
+                >
+                  <Box small>
+                    <div>{team.name}</div>
+                    <p className="font-bold text-sm opacity-60">
+                      {team.owner ? 'Owner' : 'Member'}
+                    </p>
+                  </Box>
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    className="absolute right-2 w-4 h-4"
+                  />
+                </Link>
+                {team.owner && (
+                  <div className="flex gap-2 h-full ml-2">
                     <div
-                      className="cursor-pointer bg-red-600 hover:bg-red-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
-                      onClick={() => setDeleteTeam(team)}
+                      onClick={() =>
+                        setShowOptions(
+                          showOptions === team.name ? null : team.name,
+                        )
+                      }
+                      className="cursor-pointer bg-egwene-500 text-rand-500 w-11 flex items-center justify-center rounded-xl"
                     >
-                      <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
+                      <FontAwesomeIcon icon={faEllipsis} className="w-4 h-4" />
                     </div>
-                  )}
-                  <Link
-                    href={`/teams/${team.id}`}
-                    className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 w-11 flex items-center justify-center"
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-                  </Link>
-                </div>
+                    {showOptions === team.name && (
+                      <Button
+                        type="button"
+                        onClick={() => setDeleteTeam(team)}
+                        rounded={false}
+                        theme="danger"
+                      >
+                        <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
+                      </Button>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

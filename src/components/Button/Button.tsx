@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { twMerge } from 'tailwind-merge';
 
 type ButtonProps = {
   type: 'submit' | 'button';
@@ -12,6 +13,7 @@ type ButtonProps = {
   className?: string;
   loadingText?: string;
   theme?: 'green' | 'blue' | 'danger' | 'text-underline' | 'egwene';
+  rounded?: boolean;
 };
 const Button = ({
   type,
@@ -23,16 +25,17 @@ const Button = ({
   className,
   loadingText = 'Loading...',
   theme = 'egwene',
+  rounded = true,
 }: ButtonProps) => {
   const getTheme = () => {
     switch (theme) {
       case 'text-underline':
         return `block underline py-2 px-4  ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
       case 'danger':
-        return `block text-thom bg-${theme}-500 py-2 px-4 rounded-full ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
+        return `block text-thom bg-${theme}-500 py-2 px-4 ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
       case 'egwene':
       default:
-        return `block text-rand-500 bg-${theme}-500 py-2 px-4 rounded-full ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
+        return `block text-rand-500 bg-${theme}-500 py-2 px-4 ${fullWidth ? 'w-full' : ''} ${className ? className : ''}`;
     }
   };
 
@@ -40,7 +43,7 @@ const Button = ({
     <button
       type={type}
       disabled={disabled}
-      className={getTheme()}
+      className={twMerge(getTheme(), rounded ? 'rounded-full' : 'rounded-lg')}
       onClick={onClick && onClick}
     >
       {loading ? (
