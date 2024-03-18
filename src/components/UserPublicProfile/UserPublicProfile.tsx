@@ -57,7 +57,9 @@ const UserPublicProfile = ({
       <h1 className="text-2xl md:text-4xl font-bold mt-120">{username}</h1>
 
       {copyToClipboard && (
-        <CopyUrlToClipboard>Copy profile url</CopyUrlToClipboard>
+        <div className="flex justify-center mt-4">
+          <CopyUrlToClipboard>Copy profile URL</CopyUrlToClipboard>
+        </div>
       )}
       {powerLiftingMoves.length === 3 && (
         <>

@@ -5,6 +5,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import toast from 'react-hot-toast';
 import React from 'react';
 import copy from 'copy-to-clipboard';
+import { Button } from '@/components';
 
 const CopyUrlToClipboard = ({
   children,
@@ -21,12 +22,13 @@ const CopyUrlToClipboard = ({
   };
 
   return (
-    <div
-      className="cursor-pointer hover:underline p-4 inline-flex gap-2 items-center"
+    <Button
+      type="button"
       onClick={copyToClipboard}
+      className="flex gap-2 items-center"
     >
       <FontAwesomeIcon icon={faLink} className="w-4 h-4" /> {children}
-    </div>
+    </Button>
   );
 };
 

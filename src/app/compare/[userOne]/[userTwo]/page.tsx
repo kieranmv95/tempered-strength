@@ -152,7 +152,9 @@ export default async function Page({ params }: PageProps) {
           <BackButton>Back</BackButton>
         </div>
         <h1 className="text-2xl font-bold mt-12 mb-4">Comparison</h1>
-        <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
+        <div className="flex justify-center mb-4">
+          <CopyUrlToClipboard>Copy Comparison URL</CopyUrlToClipboard>
+        </div>
         <PoundForPoundResults data={poundforPoundData} />
         <div className="grid grid-cols-2 gap-4 mt-4">
           {Object.values(comparisonData).map(item => (

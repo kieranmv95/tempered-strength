@@ -59,7 +59,7 @@ export default async function Page() {
           <h2 className="text-xl font-bold lg:text-2xl mb-3 mt-6">
             Share your profile with the world!
           </h2>
-          <p>
+          <p className="mb-4">
             Now you have a public profile, you can start sharing it with your
             friends! Simply click the button below, or copy the link from the
             text box to get started
@@ -67,7 +67,7 @@ export default async function Page() {
           <CopyUrlToClipboard
             url={`https://temperedstrength.com/user/${username}`}
           >
-            Click here to copy your public user profile to the clipboard
+            Copy profile URL
           </CopyUrlToClipboard>
         </Box>
       </Container>
