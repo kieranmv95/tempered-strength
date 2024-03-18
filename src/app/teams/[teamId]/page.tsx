@@ -5,6 +5,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs';
 import BackButton from '@/components/BackButton';
+import { Box } from '@/components/DesignSystemElements';
 
 async function getTeam(id: string) {
   try {
@@ -98,24 +99,24 @@ export default async function Team({ params }: { params: { teamId: string } }) {
             key={user.id}
             className="grid grid-cols-[1fr_auto] justify-between items-center gap-2"
           >
-            <div className="grid bg-zinc-700 px-3 rounded-sm h-11 items-center">
+            <Box small>
               <p>
                 {user.username}
                 {user.id === team.ownerUserId && ' - Admin'}
                 {user.username === myUsername?.username && ' - You'}
               </p>
-            </div>
-            <div className="flex gap-2">
+            </Box>
+            <div className="flex gap-2 h-full">
               <Link
                 href={`/user/${user.username}`}
-                className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white rounded-sm h-11 px-3 flex items-center justify-center"
+                className="cursor-pointer bg-blue-600 text-white rounded-xl w-11 flex items-center justify-center"
               >
                 <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
               </Link>
               {user.username !== myUsername?.username && (
                 <Link
                   href={`/compare/${myUsername?.username}/${user.username}`}
-                  className="cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-sm h-11 px-3 flex items-center justify-center"
+                  className="cursor-pointer bg-egwene-500 text-rand-500 rounded-xl flex items-center justify-center px-2"
                 >
                   Compare
                 </Link>
