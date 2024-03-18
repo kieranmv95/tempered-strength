@@ -47,7 +47,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
       <div className="px-4 py-12 container mx-auto">
         <h2 className="text-2xl font-bold lg:text-4xl mb-6">Team not found!</h2>
         <Link
-          className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
           href={'/teams'}
         >
           Back to teams
@@ -65,7 +65,7 @@ export default async function Team({ params }: { params: { teamId: string } }) {
         <p className="mb-3">You are not a member of {team.name}</p>
         <p className="mb-3">You can join teams from the teams screen</p>
         <Link
-          className="inline-block bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-700 click:bg-red-600 py-2 px-4 rounded inline-flex gap-2 items-center cursor-pointer"
           href={'/teams'}
         >
           Back to teams
