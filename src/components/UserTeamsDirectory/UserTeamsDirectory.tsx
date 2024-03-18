@@ -15,6 +15,7 @@ import toast from 'react-hot-toast';
 import { deleteTeam as deleteteamSlice } from '@/lib/features/userTeams/userTeamsSlice';
 import { Box } from '@/components/DesignSystemElements';
 import { Button } from '@/components';
+import PopUpModal from '@/components/PopUpModal/PopUpModal';
 
 const UserTeamsDirectory = () => {
   const { data, loading, err } = useUserTeams();
@@ -117,45 +118,16 @@ const UserTeamsDirectory = () => {
         </>
       )}
       {deleteTeam && (
-        <>
-          <div className="fixed inset-0 z-40 bg-gray-500 bg-opacity-75 transition-opacity pointer" />
-          <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
-            <div className="flex min-h-full justify-center p-4 items-center sm:p-0">
-              <div className="bg-zinc-800 p-6 rounded relative w-[300px]">
-                <div
-                  className="absolute top-0 right-0 p-4 cursor-pointer"
-                  onClick={() => setDeleteTeam(null)}
-                >
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                    />
-                  </svg>
-                </div>
-                <h2 className="text-xl font-bold mb-4">Delete team!</h2>
-                <p className="mb-3">
-                  Are you sure you want to {deleteTeam.name}?
-                </p>
-                <div
-                  className="inline-block bg-red-600 hover:bg-red-700 click:bg-red-600 py-2 px-4 rounded"
-                  onClick={() => confirmDelete()}
-                >
-                  Yes, Delete Team
-                </div>
-              </div>
-            </div>
+        <PopUpModal close={() => setDeleteTeam(null)}>
+          <h2 className="text-xl font-bold mb-4">Delete team!</h2>
+          <p className="mb-3">Are you sure you want to {deleteTeam.name}?</p>
+          <div
+            className="inline-block bg-red-600 hover:bg-red-700 click:bg-red-600 py-2 px-4 rounded"
+            onClick={() => confirmDelete()}
+          >
+            Yes, Delete Team
           </div>
-        </>
+        </PopUpModal>
       )}
     </div>
   );
