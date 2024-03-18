@@ -24,6 +24,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
   const [selectedExercise, setSelectedExercise] =
     useState<SelectedExerciseType | null>(null);
   const [breakdownPb, setBreakdownPb] = useState(true);
+  const [exerciseToDelete, setExerciseToDelete] = useState<null | number>(null);
 
   const { data, loading, err, getFastestTime, getExerciseById, getOneRepMax } =
     useUserExercises();
@@ -33,6 +34,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
 
   const deleteExercise = async (id: number) => {
     await dispatch(deleteUserExercise(id)).unwrap();
+    setExerciseToDelete(null);
     toast.success('Exercise Removed');
   };
 
@@ -159,7 +161,7 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                       key={userExercise.id}
                       exercise={exercise}
                       userExercise={userExercise}
-                      deleteExercise={id => deleteExercise(id)}
+                      deleteExercise={id => setExerciseToDelete(id)}
                     />
                   );
                 })}
@@ -185,6 +187,26 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
             exercise={selectedExercise.exercise}
             close={() => setSelectedExercise(null)}
           />
+        </PopUpModal>
+      )}
+      {exerciseToDelete && (
+        <PopUpModal close={() => setExerciseToDelete(null)}>
+          <h2 className="text-xl font-bold mb-4">Delete exercise!</h2>
+          <p className="mb-3">
+            Are you sure you want to delete this exercise log?
+          </p>
+          <div className="grid gap-2 grid-cols-2">
+            <Button
+              type="button"
+              theme="danger"
+              onClick={() => deleteExercise(exerciseToDelete)}
+            >
+              Yes, Delete
+            </Button>
+            <Button type="button" onClick={() => setExerciseToDelete(null)}>
+              No, Cancel
+            </Button>
+          </div>
         </PopUpModal>
       )}
     </>
