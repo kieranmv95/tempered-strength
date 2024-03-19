@@ -168,15 +168,14 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
               </div>
             </>
           ) : (
-            <div>
-              <button
-                className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"
-                onClick={() => setSelectedExercise({ exercise })}
-              >
-                Log your first {exercise.name}{' '}
-                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
-              </button>
-            </div>
+            <Button
+              type="button"
+              className="flex gap-3 items-center"
+              onClick={() => setSelectedExercise({ exercise })}
+            >
+              Log your first {exercise.name}
+              <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
+            </Button>
           )}
         </>
       )}

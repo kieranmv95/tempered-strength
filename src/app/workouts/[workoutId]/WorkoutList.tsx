@@ -54,18 +54,20 @@ export const getPrettyValue = (
 const WorkoutList = ({ workout }: { workout: IWorkout }) => {
   const [selectedWorkout, setSelectedWorkout] =
     useState<SelectedWorkoutType | null>(null);
+  const [deleteWorkoutId, setDeleteWorkoutId] = useState<number | null>(null);
 
   const { data, loading, err, getFastestTime, getWorkoutById, getOneRepMax } =
     useUserWorkouts();
   const dispatch = useAppDispatch();
 
-  const deleteWorkout = async (id: number) => {
+  const deleteWorkout = async () => {
     await fetch('/api/user/workouts', {
       method: 'DELETE',
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id: deleteWorkoutId }),
     });
 
-    dispatch(removeSuccess({ id }));
+    dispatch(removeSuccess({ id: deleteWorkoutId as number }));
+    setDeleteWorkoutId(null);
 
     toast.success('Workout Removed');
   };
@@ -126,27 +128,26 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
                       key={userWorkout.id}
                       workout={workout}
                       userWorkout={userWorkout}
-                      deleteWorkout={id => deleteWorkout(id)}
+                      deleteWorkout={id => setDeleteWorkoutId(id)}
                     />
                   );
                 })}
               </div>
             </>
           ) : (
-            <div>
-              <button
-                className="block bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-2"
-                onClick={() =>
-                  setSelectedWorkout({
-                    workout,
-                    existingPb: getBest() as string,
-                  })
-                }
-              >
-                Log your first {workout.workout_type} {workout.name}{' '}
-                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
-              </button>
-            </div>
+            <Button
+              type="button"
+              className="flex gap-3 items-center"
+              onClick={() =>
+                setSelectedWorkout({
+                  workout,
+                  existingPb: getBest() as string,
+                })
+              }
+            >
+              Log your first {workout.workout_type} {workout.name}
+              <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
+            </Button>
           )}
         </>
       )}
@@ -157,6 +158,29 @@ const WorkoutList = ({ workout }: { workout: IWorkout }) => {
             workout={selectedWorkout.workout}
             close={() => setSelectedWorkout(null)}
           />
+        </PopUpModal>
+      )}
+
+      {deleteWorkoutId && (
+        <PopUpModal close={() => setDeleteWorkoutId(null)}>
+          <h2 className="text-xl font-bold mb-4">
+            Delete workout {deleteWorkoutId}!
+          </h2>
+          <p className="mb-3">
+            Are you sure you want to delete this workout log?
+          </p>
+          <div className="grid gap-2 grid-cols-2">
+            <Button
+              type="button"
+              theme="danger"
+              onClick={() => deleteWorkout()}
+            >
+              Yes, Delete
+            </Button>
+            <Button type="button" onClick={() => setDeleteWorkoutId(null)}>
+              No, Cancel
+            </Button>
+          </div>
         </PopUpModal>
       )}
     </>

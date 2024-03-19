@@ -121,11 +121,17 @@ const UserTeamsDirectory = () => {
         <PopUpModal close={() => setDeleteTeam(null)}>
           <h2 className="text-xl font-bold mb-4">Delete team!</h2>
           <p className="mb-3">Are you sure you want to {deleteTeam.name}?</p>
-          <div
-            className="inline-block bg-red-600 hover:bg-red-700 click:bg-red-600 py-2 px-4 rounded"
-            onClick={() => confirmDelete()}
-          >
-            Yes, Delete Team
+          <div className="grid gap-2 grid-cols-2">
+            <Button
+              type="button"
+              theme="danger"
+              onClick={() => confirmDelete()}
+            >
+              Yes, Delete
+            </Button>
+            <Button type="button" onClick={() => setDeleteTeam(null)}>
+              No, Cancel
+            </Button>
           </div>
         </PopUpModal>
       )}
