@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { IWorkout, IWorkoutType } from '@/types/IWorkout';
 import LogWorkout from '@/components/LogWorkout';
 import useUserWorkouts from '@/hooks/useUserWorkouts';
