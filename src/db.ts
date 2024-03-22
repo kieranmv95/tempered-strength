@@ -4,6 +4,11 @@ export async function query(query: string) {
   const connection = await mysql.createConnection(
     process.env.DATABASE_URL as string,
   );
-  const [rows] = await connection.query(query);
-  return rows;
+
+  try {
+    const [rows] = await connection.query(query);
+    return rows;
+  } finally {
+    await connection.end();
+  }
 }
