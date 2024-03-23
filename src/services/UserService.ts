@@ -1,5 +1,6 @@
 import { query } from '@/db';
 import { ILoggingType } from '@/types/IExercise';
+import { IUser } from '@/types/IUser';
 
 export interface IUserClient {
   getUserPublicProfile: (username: string) => Promise<
@@ -11,6 +12,7 @@ export interface IUserClient {
     }[]
   >;
   getUsernameByUserId: (userId: string) => Promise<string | null>;
+  getUsersByUsername: (username: string) => Promise<IUser[]>;
 }
 
 class UserClientClass implements IUserClient {
@@ -41,6 +43,7 @@ class UserClientClass implements IUserClient {
       return userprofileData;
     }
   }
+
   async getUsernameByUserId(userId: string) {
     const user = await query<
       {
@@ -53,6 +56,12 @@ class UserClientClass implements IUserClient {
     } else {
       return user[0].username;
     }
+  }
+
+  async getUsersByUsername(username: string) {
+    return await query<IUser[]>(
+      `SELECT * FROM users WHERE username = '${username}'`,
+    );
   }
 }
 
