@@ -6,9 +6,9 @@ import { IExercise } from '@/types/IExercise';
 import { Container, Title } from '@/components/DesignSystemElements';
 
 async function getExercise(id: number) {
-  const exercises = (await query(
+  const exercises = await query<IExercise[]>(
     `SELECT * FROM exercises WHERE id = ${id}`,
-  )) as IExercise[];
+  );
 
   return {
     exercise: exercises[0],

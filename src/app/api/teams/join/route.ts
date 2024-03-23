@@ -14,9 +14,9 @@ export async function POST(request: NextRequest) {
   let team: ITeamResponse | null = null;
 
   try {
-    const teamQuery = (await query(
+    const teamQuery = await query<ITeamResponse[]>(
       `SELECT * FROM teams WHERE id = ${data.team}`,
-    )) as ITeamResponse[];
+    );
 
     team = teamQuery[0];
 

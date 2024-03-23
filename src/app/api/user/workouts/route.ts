@@ -36,7 +36,7 @@ export async function GET() {
   const sql = `SELECT * FROM userWorkouts WHERE userId = '${userId}'`;
 
   try {
-    const result = (await query(sql)) as IUserWorkout[];
+    const result = await query<IUserWorkout[]>(sql);
 
     return NextResponse.json(result, { status: 200 });
   } catch (e) {

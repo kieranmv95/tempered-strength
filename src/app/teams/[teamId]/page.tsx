@@ -9,11 +9,11 @@ import { Box } from '@/components/DesignSystemElements';
 
 async function getTeam(id: string) {
   try {
-    const teams = (await query(
+    const teams = await query<ITeamResponse[]>(
       `SELECT * FROM teams WHERE id = ${id}`,
-    )) as ITeamResponse[];
+    );
 
-    const users = (await query(`
+    const users = await query<{ username: string; id: string }[]>(`
     SELECT u.username, u.id
     FROM users u
     JOIN teams t ON u.id = t.ownerUserId
@@ -24,7 +24,7 @@ async function getTeam(id: string) {
     SELECT u.username, u.id
     FROM users u
     JOIN userTeams ut ON u.id = ut.userId
-    WHERE ut.teamId = '${id}';`)) as { username: string; id: string }[];
+    WHERE ut.teamId = '${id}';`);
 
     return {
       team: teams[0],

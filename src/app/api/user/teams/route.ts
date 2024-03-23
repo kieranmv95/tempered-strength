@@ -20,7 +20,7 @@ export async function GET() {
   `;
 
   try {
-    const result = (await query(sql)) as IUserTeam[];
+    const result = await query<IUserTeam[]>(sql);
     const sanitisedPasswordsResult = result.map(team => ({
       ...team,
       password: !!(team.password as unknown as string).length,

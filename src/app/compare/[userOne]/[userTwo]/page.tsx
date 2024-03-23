@@ -30,7 +30,7 @@ interface UserDiffExercises {
 }
 
 const getUserData = async (userOne: string, userTwo: string) => {
-  const user = (await query(`
+  const user = await query<IUserStats[]>(`
     SELECT ue.log, ue.date, e.name, e.logging_type, u.username, u.weight
     FROM (
         SELECT userId, exerciseId, MAX(log) as MaxLog
@@ -41,7 +41,7 @@ const getUserData = async (userOne: string, userTwo: string) => {
     JOIN users u ON ue.userId = u.id
     JOIN exercises e ON ue.exerciseId = e.id
     WHERE u.username = '${userOne}' OR u.username = '${userTwo}' AND e.public = 1;
-  `)) as IUserStats[];
+  `);
 
   if (!user.length) {
     return Promise.resolve(null);

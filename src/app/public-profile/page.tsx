@@ -7,7 +7,14 @@ import { ILoggingType } from '@/types/IExercise';
 import { Box, Container, Title } from '@/components/DesignSystemElements';
 
 const getUserData = async (username: string) => {
-  const user = (await query(`
+  const user = await query<
+    {
+      log: string;
+      date: Date;
+      name: string;
+      logging_type: ILoggingType;
+    }[]
+  >(`
     SELECT ue.log, ue.date, e.name, e.logging_type
     FROM (
         SELECT userId, exerciseId, MAX(log) as MaxLog
@@ -18,12 +25,7 @@ const getUserData = async (username: string) => {
     JOIN users u ON ue.userId = u.id
     JOIN exercises e ON ue.exerciseId = e.id
     WHERE u.username = '${username}' AND e.public = 1;
-  `)) as {
-    log: string;
-    date: Date;
-    name: string;
-    logging_type: ILoggingType;
-  }[];
+  `);
 
   if (!user.length) {
     return Promise.resolve([]);
@@ -33,11 +35,11 @@ const getUserData = async (username: string) => {
 };
 
 const getUsername = async (userId: string) => {
-  const user = (await query(
-    `SELECT username FROM users WHERE id = '${userId}';`,
-  )) as {
-    username: string;
-  }[];
+  const user = await query<
+    {
+      username: string;
+    }[]
+  >(`SELECT username FROM users WHERE id = '${userId}';`);
 
   return user[0].username;
 };

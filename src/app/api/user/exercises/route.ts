@@ -49,7 +49,7 @@ export async function GET() {
   const sql = `SELECT * FROM userExercises WHERE userId = '${userId}'`;
 
   try {
-    const result = (await query(sql)) as IUserExercise[];
+    const result = await query<IUserExercise[]>(sql);
 
     const mappedResult = result.map(userExercise => ({
       ...userExercise,

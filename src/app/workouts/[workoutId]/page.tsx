@@ -6,9 +6,9 @@ import WorkoutList from './WorkoutList';
 import { Container, Title } from '@/components/DesignSystemElements';
 
 async function getWorkouts(id: number) {
-  const workouts = (await query(
+  const workouts = await query<IWorkout[]>(
     `SELECT * FROM workouts WHERE id = ${id}`,
-  )) as IWorkout[];
+  );
 
   return workouts[0];
 }

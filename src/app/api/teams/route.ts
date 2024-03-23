@@ -17,7 +17,7 @@ export async function GET() {
   const sql = `SELECT * FROM teams`;
 
   try {
-    const result = (await query(sql)) as ITeam[];
+    const result = await query<ITeam[]>(sql);
     const sanitisedPasswordsResult = result.map(team => ({
       ...team,
       password: !!(team.password as unknown as string).length,
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 
   try {
     await query(insertSql);
-    const res = (await query(selectSql)) as { id: number }[];
+    const res = await query<{ id: number }[]>(selectSql);
     const createdId = res[0].id;
 
     return NextResponse.json(

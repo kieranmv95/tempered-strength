@@ -4,7 +4,14 @@ import { ILoggingType } from '@/types/IExercise';
 import UserPublicProfile from '@/components/UserPublicProfile';
 
 const getUserData = async (username: string) => {
-  const user = (await query(`
+  const user = await query<
+    {
+      log: string;
+      date: Date;
+      name: string;
+      logging_type: ILoggingType;
+    }[]
+  >(`
     SELECT ue.log, ue.date, e.name, e.logging_type
     FROM (
         SELECT userId, exerciseId, MAX(log) as MaxLog
@@ -15,12 +22,7 @@ const getUserData = async (username: string) => {
     JOIN users u ON ue.userId = u.id
     JOIN exercises e ON ue.exerciseId = e.id
     WHERE u.username = '${username}' AND e.public = 1;
-  `)) as {
-    log: string;
-    date: Date;
-    name: string;
-    logging_type: ILoggingType;
-  }[];
+  `);
 
   if (!user.length) {
     return Promise.resolve(null);
