@@ -14,6 +14,11 @@ export interface IUserClient {
   getUsernameByUserId: (userId: string) => Promise<string | null>;
   getUsersByUsername: (username: string) => Promise<IUser[]>;
   getUserById: (userId: string) => Promise<IUser>;
+  updateFieldByUserId: (
+    field: string,
+    value: string | number,
+    userId: string,
+  ) => Promise<void>;
 }
 
 class UserClientClass implements IUserClient {
@@ -70,6 +75,16 @@ class UserClientClass implements IUserClient {
       `SELECT * FROM users WHERE id = '${userId}'`,
     );
     return users[0];
+  }
+
+  async updateFieldByUserId(
+    field: string,
+    value: string | number,
+    userId: string,
+  ) {
+    await query(
+      `UPDATE users SET ${field} = '${value}' WHERE id = '${userId}';`,
+    );
   }
 }
 
