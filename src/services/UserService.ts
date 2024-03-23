@@ -13,6 +13,7 @@ export interface IUserClient {
   >;
   getUsernameByUserId: (userId: string) => Promise<string | null>;
   getUsersByUsername: (username: string) => Promise<IUser[]>;
+  getUserById: (userId: string) => Promise<IUser>;
 }
 
 class UserClientClass implements IUserClient {
@@ -62,6 +63,13 @@ class UserClientClass implements IUserClient {
     return await query<IUser[]>(
       `SELECT * FROM users WHERE username = '${username}'`,
     );
+  }
+
+  async getUserById(userId: string) {
+    const users = await query<IUser[]>(
+      `SELECT * FROM users WHERE id = '${userId}'`,
+    );
+    return users[0];
   }
 }
 

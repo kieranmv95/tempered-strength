@@ -10,7 +10,7 @@ type UserState = {
   err: string;
 };
 
-export const fetchUserName = createAsyncThunk('user/fetch', async () => {
+export const fetchUser = createAsyncThunk('user/fetch', async () => {
   const res = await fetch('/api/user', { cache: 'no-cache' });
   return await res.json();
 });
@@ -50,18 +50,18 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchUserName.rejected, (state, _) => {
+    builder.addCase(fetchUser.rejected, (state, _) => {
       state.loading = false;
       state.data = null;
       state.err = 'Error loading user';
     });
-    builder.addCase(fetchUserName.pending, (state, _) => {
+    builder.addCase(fetchUser.pending, (state, _) => {
       state.loading = true;
     });
     builder.addCase(
-      fetchUserName.fulfilled,
-      (state, action: PayloadAction<IUser[]>) => {
-        state.data = action.payload[0];
+      fetchUser.fulfilled,
+      (state, action: PayloadAction<IUser>) => {
+        state.data = action.payload;
         state.loading = false;
         state.err = '';
       },
