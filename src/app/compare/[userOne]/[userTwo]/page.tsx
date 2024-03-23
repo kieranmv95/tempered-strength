@@ -1,4 +1,3 @@
-import { query } from '@/db';
 import { getUnits } from '@/helpers/units';
 import PoweredBy from '@/components/PoweredBy';
 import CopyUrlToClipboard from '@/components/CopyUrlToClipboard';
@@ -6,16 +5,9 @@ import UsersNotFound from '@/app/compare/[userOne]/[userTwo]/UsersNotFound';
 import NotEnoughDataToCompare from '@/app/compare/[userOne]/[userTwo]/NotEnoughDataToCompare';
 import PoundForPoundResults from '@/app/compare/[userOne]/[userTwo]/PoundForPoundResults';
 import BackButton from '@/components/BackButton';
-import { ILoggingType } from '@/types/IExercise';
-
-type IUserStats = {
-  log: string;
-  date: Date;
-  name: string;
-  logging_type: ILoggingType;
-  username: string;
-  weight: number;
-};
+import UserComparisonClient, {
+  IUserStats,
+} from '@/services/UserComparisonService';
 
 interface ExerciseWithDiff extends IUserStats {
   diff: number;
@@ -30,18 +22,7 @@ interface UserDiffExercises {
 }
 
 const getUserData = async (userOne: string, userTwo: string) => {
-  const user = await query<IUserStats[]>(`
-    SELECT ue.log, ue.date, e.name, e.logging_type, u.username, u.weight
-    FROM (
-        SELECT userId, exerciseId, MAX(log) as MaxLog
-        FROM userExercises
-        GROUP BY userId, exerciseId
-    ) as max_ue
-    JOIN userExercises ue ON max_ue.userId = ue.userId AND max_ue.exerciseId = ue.exerciseId AND max_ue.MaxLog = ue.log
-    JOIN users u ON ue.userId = u.id
-    JOIN exercises e ON ue.exerciseId = e.id
-    WHERE u.username = '${userOne}' OR u.username = '${userTwo}' AND e.public = 1;
-  `);
+  const user = await UserComparisonClient.compare(userOne, userTwo);
 
   if (!user.length) {
     return Promise.resolve(null);

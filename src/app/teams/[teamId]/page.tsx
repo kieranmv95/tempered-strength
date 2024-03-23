@@ -1,34 +1,19 @@
-import { query } from '@/db';
-import { ITeamResponse } from '@/types/ITeam';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs';
 import BackButton from '@/components/BackButton';
 import { Box } from '@/components/DesignSystemElements';
+import TeamsClient from '@/services/TeamsService';
 
 async function getTeam(id: string) {
   try {
-    const teams = await query<ITeamResponse[]>(
-      `SELECT * FROM teams WHERE id = ${id}`,
-    );
-
-    const users = await query<{ username: string; id: string }[]>(`
-    SELECT u.username, u.id
-    FROM users u
-    JOIN teams t ON u.id = t.ownerUserId
-    WHERE t.id = '${id}'
-  
-    UNION
-  
-    SELECT u.username, u.id
-    FROM users u
-    JOIN userTeams ut ON u.id = ut.userId
-    WHERE ut.teamId = '${id}';`);
+    const team = await TeamsClient.getById(id);
+    const users = await TeamsClient.getUsersById(id);
 
     return {
-      team: teams[0],
-      users: users,
+      team,
+      users,
     };
   } catch {
     return {

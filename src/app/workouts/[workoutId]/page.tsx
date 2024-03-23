@@ -4,13 +4,10 @@ import { query } from '@/db';
 import { IWorkout } from '@/types/IWorkout';
 import WorkoutList from './WorkoutList';
 import { Container, Title } from '@/components/DesignSystemElements';
+import WorkoutClient from '@/services/WorkoutsService';
 
 async function getWorkouts(id: number) {
-  const workouts = await query<IWorkout[]>(
-    `SELECT * FROM workouts WHERE id = ${id}`,
-  );
-
-  return workouts[0];
+  return await WorkoutClient.getById(id);
 }
 
 export default async function Workout({
@@ -20,7 +17,14 @@ export default async function Workout({
 }) {
   const workout = await getWorkouts(Number(params.workoutId));
 
-  if (!workout) return null;
+  if (!workout) {
+    return (
+      <Container>
+        <BackButton href="/workouts">Back to workouts</BackButton>
+        <Title className="mb-6">WORKOUT NOT FOUND</Title>
+      </Container>
+    );
+  }
 
   return (
     <Container>

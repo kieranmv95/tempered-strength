@@ -1,33 +1,15 @@
-import { query } from '@/db';
 import BackButton from '@/components/BackButton';
-import { ILoggingType } from '@/types/IExercise';
 import UserPublicProfile from '@/components/UserPublicProfile';
+import UserClient from '@/services/UserService';
+import { Container, Title } from '@/components/DesignSystemElements';
 
 const getUserData = async (username: string) => {
-  const user = await query<
-    {
-      log: string;
-      date: Date;
-      name: string;
-      logging_type: ILoggingType;
-    }[]
-  >(`
-    SELECT ue.log, ue.date, e.name, e.logging_type
-    FROM (
-        SELECT userId, exerciseId, MAX(log) as MaxLog
-        FROM userExercises
-        GROUP BY userId, exerciseId
-    ) as max_ue
-    JOIN userExercises ue ON max_ue.userId = ue.userId AND max_ue.exerciseId = ue.exerciseId AND max_ue.MaxLog = ue.log
-    JOIN users u ON ue.userId = u.id
-    JOIN exercises e ON ue.exerciseId = e.id
-    WHERE u.username = '${username}' AND e.public = 1;
-  `);
+  const user = await UserClient.getUserPublicProfile(username);
 
   if (!user.length) {
-    return Promise.resolve(null);
+    return null;
   } else {
-    return Promise.resolve(user);
+    return user;
   }
 };
 
@@ -42,12 +24,11 @@ export default async function Page({ params }: PageProps) {
 
   if (!user) {
     return (
-      <div className="text-center px-4">
-        <div className="inline-block mx-auto mt-12">
-          <BackButton>Back</BackButton>
-        </div>
-        <h1>user not found or user has not logged any lifts yet!</h1>
-      </div>
+      <Container>
+        <BackButton>Back</BackButton>
+        <Title className="mb-6">NOT FOUND</Title>
+        <p>user not found or user has not logged any lifts yet!</p>
+      </Container>
     );
   }
 
