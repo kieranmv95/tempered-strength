@@ -1,7 +1,5 @@
 import React from 'react';
 import BackButton from '@/components/BackButton';
-import { query } from '@/db';
-import { IWorkout } from '@/types/IWorkout';
 import WorkoutList from './WorkoutList';
 import { Container, Title } from '@/components/DesignSystemElements';
 import WorkoutClient from '@/services/WorkoutsService';
