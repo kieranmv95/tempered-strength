@@ -126,18 +126,20 @@ const ExerciseList = ({ exercise }: { exercise: IExercise }) => {
                     Percentages Breakdown
                   </p>
                   <div className="flex gap-3 mb-2">
-                    <button
-                      className={`block py-2 px-4 rounded ${breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
+                    <Button
+                      type="button"
                       onClick={() => setBreakdownPb(true)}
+                      className={breakdownPb ? '' : 'opacity-50'}
                     >
                       Best
-                    </button>
-                    <button
-                      className={`block py-2 px-4 rounded ${!breakdownPb ? 'bg-blue-600 hover:bg-blue-600' : 'bg-blue-400 hover:bg-blue-500'}`}
+                    </Button>
+                    <Button
+                      type="button"
                       onClick={() => setBreakdownPb(false)}
+                      className={breakdownPb ? 'opacity-50' : ''}
                     >
                       Latest
-                    </button>
+                    </Button>
                   </div>
                   <div className="mb-6">
                     <PercentagesBreakdown
