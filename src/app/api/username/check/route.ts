@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '@/db';
 import UserClient from '@/services/UserService';
 
 type GetParams = {

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   const payload = await request.text();
   const signature = request.headers.get(STRIPE_SIGNATURE);
 
-  const { type, data } = stripe.webhooks.constructEvent(
+  const { type } = stripe.webhooks.constructEvent(
     payload,
     signature!,
     process.env.STRIPE_CUSTOMER_WEBHOOK_SECRET!,
