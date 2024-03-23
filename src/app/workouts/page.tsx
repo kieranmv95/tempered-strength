@@ -1,10 +1,9 @@
 import WorkoutsList from '@/components/WorkoutsList';
-import { query } from '@/db';
-import { IWorkout } from '@/types/IWorkout';
 import { Container, Title } from '@/components/DesignSystemElements';
+import WorkoutClient from '@/services/WorkoutsService';
 
 async function getWorkouts() {
-  return (await query('SELECT * FROM workouts')) as IWorkout[];
+  return await WorkoutClient.getAll();
 }
 
 export default async function Workouts() {

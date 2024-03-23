@@ -23,7 +23,6 @@ export default authMiddleware({
       const data = await fetch(`${url}/api/user/${auth.userId}`);
 
       const users = await data.json();
-      console.log('data', users);
       const attemptingToOnboard = req.url.includes('onboarding');
 
       // list of APIs a user can access when onboarding
@@ -47,8 +46,6 @@ export default authMiddleware({
           return NextResponse.next();
         } else {
           // User has not yet onboarded
-          console.log(auth.userId);
-          console.log('HIT');
           return NextResponse.redirect(new URL(url + '/onboarding'));
         }
       }

@@ -116,10 +116,8 @@ export const userExercisesSlice = createSlice({
     builder.addCase(
       deleteUserExercise.fulfilled,
       (state, action: PayloadAction<{ id: number } | { err: string }>) => {
-        console.log('REMOVE', action.payload);
         if (!isError(action.payload)) {
           const id = action.payload.id;
-          console.log('REMOVE ID', id);
           if (state.data) {
             state.data = state.data.filter(item => item.id !== id);
           }

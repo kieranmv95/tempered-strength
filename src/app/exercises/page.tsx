@@ -1,10 +1,9 @@
-import { query } from '@/db';
 import ExercisesList from '@/components/ExercisesList';
-import { IExercise } from '@/types/IExercise';
 import { Container, Title } from '@/components/DesignSystemElements';
+import ExerciseClient from '@/services/ExerciseService';
 
 async function getExercises() {
-  return (await query('SELECT * FROM exercises')) as IExercise[];
+  return await ExerciseClient.getAll();
 }
 
 export default async function Exercises() {
