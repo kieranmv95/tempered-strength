@@ -12,6 +12,7 @@ export interface ITeamsClient {
   getById: (id: string) => Promise<ITeamResponse>;
   getIdByName: (name: string) => Promise<number>;
   getUsersById: (id: string) => Promise<{ username: string; id: string }[]>;
+  deleteById: (id: string) => Promise<void>;
 }
 
 class TeamsClientClass implements ITeamsClient {
@@ -61,6 +62,11 @@ class TeamsClientClass implements ITeamsClient {
       JOIN userTeams ut ON u.id = ut.userId
       WHERE ut.teamId = '${id}';
     `);
+  }
+
+  async deleteById(id: string) {
+    await query(`DELETE FROM teams WHERE id = '${id}'`);
+    await query(`DELETE FROM userTeams WHERE teamId = '${id}'`);
   }
 }
 
