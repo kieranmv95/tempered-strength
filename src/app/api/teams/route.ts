@@ -2,6 +2,7 @@ import { query } from '@/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { ITeam } from '@/types/ITeam';
 import { auth } from '@clerk/nextjs';
+import TeamsService from '@/services/TeamsService';
 
 type PostParams = {
   name: string;
@@ -14,10 +15,8 @@ type DeleteParams = {
 };
 
 export async function GET() {
-  const sql = `SELECT * FROM teams`;
-
   try {
-    const result = await query<ITeam[]>(sql);
+    const result = await TeamsService.get();
     const sanitisedPasswordsResult = result.map(team => ({
       ...team,
       password: !!(team.password as unknown as string).length,
@@ -33,17 +32,13 @@ export async function POST(request: NextRequest) {
   const { userId } = auth();
   const { name, description, password } = (await request.json()) as PostParams;
 
-  const insertSql = `
-    INSERT INTO teams (name, description, ownerUserId, password)
-    VALUES ('${name}', '${description}', '${userId}', '${password}');
-  `;
-
-  const selectSql = `SELECT id FROM teams WHERE name = '${name}' ;`;
+  if (!userId) {
+    return NextResponse.json({ err: 'user not found' }, { status: 404 });
+  }
 
   try {
-    await query(insertSql);
-    const res = await query<{ id: number }[]>(selectSql);
-    const createdId = res[0].id;
+    await TeamsService.post(name, description, userId, password);
+    const createdId = await TeamsService.getIdByTeamName(name);
 
     return NextResponse.json(
       {
