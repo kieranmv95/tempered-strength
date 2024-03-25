@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '@/db';
 import { auth } from '@clerk/nextjs';
 import { IUser } from '@/types/IUser';
 import UserClient from '@/services/UserService';
+import UserService from '@/services/UserService';
 
 export type UpdateUserParams = {
   user: IUser;
@@ -65,10 +65,13 @@ export async function PATCH(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const { userId } = auth();
   const data = (await request.json()) as PostParams;
-  const sql = `INSERT INTO users (id, username, onboarding) VALUES ('${userId}', '${data.username.toLowerCase()}', 1);`;
+
+  if (!userId) {
+    return NextResponse.json({ err: 'user not found' }, { status: 404 });
+  }
 
   try {
-    await query(sql);
+    await UserService.post(userId, data.username, 1);
     return NextResponse.json(
       { id: userId, username: data.username, onboarding: 1, weight: null },
       { status: 200 },

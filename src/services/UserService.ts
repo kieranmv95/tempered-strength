@@ -3,6 +3,7 @@ import { ILoggingType } from '@/types/IExercise';
 import { IUser } from '@/types/IUser';
 
 export interface IUserClient {
+  post: (id: string, username: string, onboarding: number) => Promise<void>;
   getUserPublicProfile: (username: string) => Promise<
     {
       log: string;
@@ -22,6 +23,12 @@ export interface IUserClient {
 }
 
 class UserClientClass implements IUserClient {
+  async post(id: string, username: string, onboarding: number) {
+    await query(
+      `INSERT INTO users (id, username, onboarding) VALUES ('${id}', '${username}', ${onboarding})`,
+    );
+  }
+
   async getUserPublicProfile(username: string) {
     const userprofileData = await query<
       {
