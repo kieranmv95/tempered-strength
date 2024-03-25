@@ -10,7 +10,7 @@ export interface ITeamsClient {
     password: string,
   ) => Promise<void>;
   getById: (id: string) => Promise<ITeamResponse>;
-  getIdByTeamName: (name: string) => Promise<number>;
+  getIdByName: (name: string) => Promise<number>;
   getUsersById: (id: string) => Promise<{ username: string; id: string }[]>;
 }
 
@@ -39,7 +39,7 @@ class TeamsClientClass implements ITeamsClient {
     return teams[0];
   }
 
-  async getIdByTeamName(name: string) {
+  async getIdByName(name: string) {
     const res = await query<{ id: number }[]>(
       `SELECT id FROM teams WHERE name = '${name}'`,
     );

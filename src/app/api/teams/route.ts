@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
   try {
     await TeamsService.post(name, description, userId, password);
-    const createdId = await TeamsService.getIdByTeamName(name);
+    const createdId = await TeamsService.getIdByName(name);
 
     return NextResponse.json(
       {
