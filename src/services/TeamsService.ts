@@ -66,7 +66,6 @@ class TeamsClientClass implements ITeamsClient {
 
   async deleteById(id: string) {
     await query(`DELETE FROM teams WHERE id = '${id}'`);
-    await query(`DELETE FROM userTeams WHERE teamId = '${id}'`);
   }
 }
 

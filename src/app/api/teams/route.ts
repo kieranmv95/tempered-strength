@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import TeamsService from '@/services/TeamsService';
+import UserTeamsService from '@/services/UserTeamsService';
 
 type PostParams = {
   name: string;
@@ -66,6 +67,7 @@ export async function DELETE(request: NextRequest) {
 
   try {
     await TeamsService.deleteById(id);
+    await UserTeamsService.deleteAllByTeamId(id);
 
     return NextResponse.json({ id: id }, { status: 200 });
   } catch (e: any) {
