@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
-import { query } from '@/db';
 import { ITeamResponse, IUserTeam } from '@/types/ITeam';
+import TeamsService from '@/services/TeamsService';
+import UserTeamsService from '@/services/UserTeamsService';
 
 type PostParams = {
   password: string;
@@ -13,12 +14,12 @@ export async function POST(request: NextRequest) {
   const data = (await request.json()) as PostParams;
   let team: ITeamResponse | null = null;
 
-  try {
-    const teamQuery = await query<ITeamResponse[]>(
-      `SELECT * FROM teams WHERE id = ${data.team}`,
-    );
+  if (!userId) {
+    return NextResponse.json({ err: 'user not found' }, { status: 404 });
+  }
 
-    team = teamQuery[0];
+  try {
+    team = await TeamsService.getById(data.team);
 
     const teamPassword = team.password;
 
@@ -32,10 +33,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const sql = `INSERT INTO userTeams (userId, teamId) VALUES ('${userId}', '${data.team}');`;
-
   try {
-    await query(sql);
+    await UserTeamsService.post(userId, data.team);
+
     return NextResponse.json(
       {
         ...team,
