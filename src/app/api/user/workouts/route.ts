@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
-import { query } from '@/db';
-import { IUserWorkout } from '@/types/IWorkout';
+import UserWorkoutsService from '@/services/UserWorkoutsService';
 
 export type PostWorkoutParams = {
   workoutId: number;
@@ -14,14 +13,13 @@ export async function POST(request: NextRequest) {
   const data = (await request.json()) as PostWorkoutParams;
   const { workoutId, log, date } = data;
 
-  let sql = `
-      INSERT INTO userWorkouts (userId, workoutId, log, date)
-      VALUES ('${userId}', ${workoutId}, '${log}', '${date}'); 
-  `;
+  if (!userId) {
+    return NextResponse.json({ err: 'No User' }, { status: 422 });
+  }
 
   try {
-    const result = await query(sql as string);
-    return NextResponse.json(result, { status: 201 });
+    const res = await UserWorkoutsService.post(userId, workoutId, log, date);
+    return NextResponse.json(res, { status: 201 });
   } catch (e) {
     return NextResponse.json(
       { err: 'Not created invalid data', e },
@@ -33,10 +31,12 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   const { userId } = auth();
 
-  const sql = `SELECT * FROM userWorkouts WHERE userId = '${userId}'`;
+  if (!userId) {
+    return NextResponse.json({ err: 'No User' }, { status: 422 });
+  }
 
   try {
-    const result = await query<IUserWorkout[]>(sql);
+    const result = await UserWorkoutsService.getByUserId(userId);
 
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
@@ -55,11 +55,9 @@ export async function DELETE(request: NextRequest) {
   const data = (await request.json()) as DeleteParams;
   const { id } = data;
 
-  const sql = `DELETE FROM userWorkouts WHERE id = ${Number(id)}`;
-
   try {
-    const result = await query(sql);
-    return NextResponse.json(result, { status: 200 });
+    await UserWorkoutsService.deleteById(id);
+    return NextResponse.json({ status: 200 });
   } catch (e) {
     return NextResponse.json(
       { err: 'User workout not deleted', e },
