@@ -1,5 +1,5 @@
 import { query } from '@/db';
-import { IUserWorkout, IWorkout } from '@/types/IWorkout';
+import { IUserWorkout } from '@/types/IWorkout';
 
 export interface IUserWorkoutClient {
   post: (
