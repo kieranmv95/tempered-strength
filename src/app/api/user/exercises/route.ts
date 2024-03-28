@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
-import { query } from '@/db';
-import { ILoggingType, IUserExercise } from '@/types/IExercise';
+import { ILoggingType } from '@/types/IExercise';
+import ExerciseService from '@/services/ExerciseService';
+import UserExercisesService from '@/services/UserExercisesService';
 
 type PostParams = {
   exerciseId: number;
@@ -16,25 +17,24 @@ export async function POST(request: NextRequest) {
   const data = (await request.json()) as PostParams;
   const { exerciseId, log, date, duration, loggingType } = data;
 
-  let sql;
-
-  if (loggingType === 'weight' || loggingType == 'reps') {
-    sql = `
-        INSERT INTO userExercises (userId, exerciseid, log, date)
-        VALUES ('${userId}', ${exerciseId}, '${log}', '${date}'); 
-    `;
-  }
-
-  if (loggingType === 'duration') {
-    sql = `
-        INSERT INTO userExercises (userId, exerciseid, date, duration)
-        VALUES ('${userId}', ${exerciseId}, '${date}', '${duration}'); 
-    `;
+  if (!userId) {
+    return NextResponse.json({ err: 'No User' }, { status: 401 });
   }
 
   try {
-    const result = await query(sql as string);
-    return NextResponse.json(result, { status: 201 });
+    if (loggingType === 'weight' || loggingType == 'reps') {
+      const result = await UserExercisesService.post(userId, exerciseId, date, {
+        log,
+      });
+      return NextResponse.json(result, { status: 201 });
+    }
+
+    if (loggingType === 'duration') {
+      const result = await UserExercisesService.post(userId, exerciseId, date, {
+        duration,
+      });
+      return NextResponse.json(result, { status: 201 });
+    }
   } catch (e) {
     return NextResponse.json(
       { err: 'Not created invalid data', e },
@@ -46,10 +46,12 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   const { userId } = auth();
 
-  const sql = `SELECT * FROM userExercises WHERE userId = '${userId}'`;
+  if (!userId) {
+    return NextResponse.json({ err: 'No User' }, { status: 401 });
+  }
 
   try {
-    const result = await query<IUserExercise[]>(sql);
+    const result = await UserExercisesService.getById(userId);
 
     const mappedResult = result.map(userExercise => ({
       ...userExercise,
@@ -70,14 +72,17 @@ type DeleteParams = {
 };
 
 export async function DELETE(request: NextRequest) {
+  const { userId } = auth();
   const data = (await request.json()) as DeleteParams;
   const { id } = data;
 
-  const sql = `DELETE FROM userExercises WHERE id = ${Number(id)}`;
+  if (!userId) {
+    return NextResponse.json({ err: 'No User' }, { status: 401 });
+  }
 
   try {
-    await query(sql);
-    return NextResponse.json({ id }, { status: 200 });
+    const deletedId = await ExerciseService.deleteById(id);
+    return NextResponse.json({ id: deletedId }, { status: 200 });
   } catch (e) {
     return NextResponse.json(
       { err: 'User exercise not deleted', e },

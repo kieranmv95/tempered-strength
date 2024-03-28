@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { IUser } from '@/types/IUser';
-import UserClient from '@/services/UserService';
 import UserService from '@/services/UserService';
 
 export type UpdateUserParams = {
@@ -21,7 +20,7 @@ export async function GET() {
   }
 
   try {
-    const user = await UserClient.getUserById(userId);
+    const user = await UserService.getUserById(userId);
 
     if (!user) {
       NextResponse.json({ err: 'user not found' }, { status: 404 });
@@ -42,7 +41,7 @@ export async function PATCH(request: NextRequest) {
 
   try {
     if (data.field === 'username') {
-      await UserClient.updateFieldByUserId(
+      await UserService.updateFieldByUserId(
         data.field,
         data.user.username.toLowerCase(),
         userId,
@@ -50,7 +49,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     if (data.field === 'weight') {
-      await UserClient.updateFieldByUserId(
+      await UserService.updateFieldByUserId(
         data.field,
         data.user.weight as number,
         userId,

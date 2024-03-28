@@ -4,6 +4,7 @@ import { IExercise } from '@/types/IExercise';
 export interface IExerciseClient {
   getAll: () => Promise<IExercise[]>;
   getById: (id: number) => Promise<IExercise>;
+  deleteById: (id: number) => Promise<number>;
 }
 
 class ExerciseClientClass implements IExerciseClient {
@@ -16,6 +17,11 @@ class ExerciseClientClass implements IExerciseClient {
     );
 
     return exercises[0];
+  }
+
+  async deleteById(id: number) {
+    await query(`DELETE FROM userExercises WHERE id = ${Number(id)}`);
+    return id;
   }
 }
 

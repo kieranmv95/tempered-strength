@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '@/db';
+import UserService from '@/services/UserService';
 
 export async function GET(
   _: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const sql = `SELECT * FROM users WHERE id = '${params.id}'`;
-
   try {
-    const result = await query(sql);
+    const result = await UserService.getUserById(params.id);
+
+    if (!result) {
+      return NextResponse.json(null, { status: 404 });
+    }
+
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
     return NextResponse.json({ err: 'users not found', e }, { status: 404 });

@@ -1,5 +1,6 @@
 import { authMiddleware, redirectToSignIn } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+import { IUser } from '@/types/IUser';
 
 export default authMiddleware({
   publicRoutes: [
@@ -21,8 +22,8 @@ export default authMiddleware({
       const url = req.nextUrl.origin;
 
       const data = await fetch(`${url}/api/user/${auth.userId}`);
+      const user = (await data.json()) as IUser;
 
-      const users = await data.json();
       const attemptingToOnboard = req.url.includes('onboarding');
 
       // list of APIs a user can access when onboarding
@@ -33,7 +34,7 @@ export default authMiddleware({
       })?.length;
 
       // User has already onboarded and is trying to hit onboarding again
-      if (attemptingToOnboard && users.length) {
+      if (attemptingToOnboard && user) {
         return NextResponse.redirect(new URL(url + '/dashboard'));
       }
 
@@ -41,7 +42,7 @@ export default authMiddleware({
         // User is trying to access onboarding, allow it
         return NextResponse.next();
       } else {
-        if (users.length) {
+        if (user) {
           // User has onboarded
           return NextResponse.next();
         } else {
